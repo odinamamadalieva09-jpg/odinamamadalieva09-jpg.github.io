@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Своя Игра - Математика 5 класс</title>
+    <title>Своя Игра - Математика 6 класс</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -38,6 +38,102 @@
             margin-bottom: 30px;
         }
         
+        /* Стартовый экран */
+        #start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+        
+        .team-setup {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .team-setup h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .team-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .team-input-group input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #4facfe;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        
+        .team-input-group button {
+            padding: 12px 20px;
+            background: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+        
+        .team-input-group button:hover {
+            background: #3a8fd9;
+        }
+        
+        .teams-list {
+            margin: 15px 0;
+        }
+        
+        .team-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .team-item button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .start-btn {
+            width: 100%;
+            padding: 15px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .start-btn:hover {
+            background: #219a52;
+        }
+        
+        /* Игровое поле */
+        #game-screen {
+            display: none;
+        }
+        
         .game-board {
             display: grid;
             grid-template-columns: 250px repeat(5, 1fr);
@@ -49,7 +145,7 @@
         }
         
         .category {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
             color: white;
             padding: 15px 10px;
             text-align: center;
@@ -64,7 +160,7 @@
         }
         
         .question {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
             color: white;
             padding: 20px;
             text-align: center;
@@ -91,6 +187,37 @@
             opacity: 0.6;
         }
         
+        /* Панель команд */
+        .teams-panel {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .team-card {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .team-card-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .team-card-score {
+            font-size: 2em;
+            color: #fa709a;
+            font-weight: bold;
+        }
+        
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -102,15 +229,16 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
         
         .modal-content {
             background: white;
             padding: 40px;
             border-radius: 20px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 80vh;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
             overflow-y: auto;
             position: relative;
         }
@@ -122,382 +250,645 @@
             font-size: 2em;
             cursor: pointer;
             color: #666;
+            background: none;
+            border: none;
         }
         
         .close-modal:hover {
             color: #000;
         }
         
-        .question-text {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            color: #333;
-            line-height: 1.6;
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
         }
         
-        .answer {
-            display: none;
+        .modal-category {
+            color: #fa709a;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        
+        .modal-points {
+            color: #330867;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .question-text {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #4facfe;
+        }
+        
+        .answer-section {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2196F3;
+        }
+        
+        .answer-label {
+            font-weight: bold;
+            color: #1565c0;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .answer-text {
+            font-size: 1.3em;
+            color: #1565c0;
+        }
+        
+        .explanation-section {
             background: #e8f5e9;
             padding: 20px;
             border-radius: 10px;
-            margin-top: 20px;
-            font-size: 1.3em;
+            margin-bottom: 20px;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .explanation-label {
+            font-weight: bold;
             color: #2e7d32;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .explanation-text {
+            font-size: 1.1em;
+            color: #2e7d32;
+            line-height: 1.6;
+        }
+        
+        .fun-fact {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ff9800;
+        }
+        
+        .fun-fact-title {
+            font-weight: bold;
+            color: #e65100;
+            margin-bottom: 10px;
         }
         
         .show-answer-btn {
-            background: #4CAF50;
+            background: #2196F3;
             color: white;
             padding: 15px 30px;
             border: none;
             border-radius: 10px;
             font-size: 1.2em;
             cursor: pointer;
-            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 100%;
         }
         
         .show-answer-btn:hover {
-            background: #45a049;
+            background: #1976D2;
         }
         
-        .fun-fact {
-            background: #fff3cd;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border-left: 5px solid #ffc107;
+        /* Панель управления очками */
+        .score-controls {
+            border-top: 2px solid #eee;
+            padding-top: 20px;
         }
         
-        .fun-fact-title {
-            font-weight: bold;
-            color: #856404;
+        .score-controls h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .team-score-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
             margin-bottom: 10px;
         }
         
-        .teams {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .team-score {
-            background: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 1.2em;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-        
-        .team-name {
+        .team-score-name {
             font-weight: bold;
-            color: #667eea;
+            color: #333;
+            flex: 1;
         }
         
-        .score {
-            font-size: 1.5em;
-            color: #f5576c;
+        .team-score-current {
+            font-size: 1.3em;
+            color: #fa709a;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+        
+        .score-btns {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .score-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        
+        .score-btn.plus {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .score-btn.plus:hover {
+            background: #219a52;
+        }
+        
+        .score-btn.minus {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .score-btn.minus:hover {
+            background: #c0392b;
+        }
+        
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎮 СВОЯ ИГРА 🎮</h1>
-        <div class="subtitle">Математика, 5 класс • Учебник Виленкина</div>
-        
-        <div class="teams">
-            <div class="team-score">
-                <div class="team-name"> Команда "Львы"</div>
-                <div class="score" id="team1-score">0</div>
-            </div>
-            <div class="team-score">
-                <div class="team-name"> Команда "Орлы"</div>
-                <div class="score" id="team2-score">0</div>
-            </div>
-            <div class="team-score">
-                <div class="team-name">🐯 Команда "Тигры"</div>
-                <div class="score" id="team3-score">0</div>
+        <!-- Стартовый экран -->
+        <div id="start-screen">
+            <h1>🎮 СВОЯ ИГРА 🎮</h1>
+            <div class="subtitle">Математика, 6 класс • Учебник Виленкина</div>
+            
+            <div class="team-setup">
+                <h2>👥 Создайте команды</h2>
+                <div class="team-input-group">
+                    <input type="text" id="teamNameInput" placeholder="Введите название команды" maxlength="30">
+                    <button onclick="addTeam()">Добавить</button>
+                </div>
+                <div class="teams-list" id="teamsList"></div>
+                <button class="start-btn" onclick="startGame()"> Начать игру</button>
             </div>
         </div>
         
-        <div class="game-board">
-            <!-- Categories -->
-            <div class="category">🔢 Натуральные числа и детективы</div>
-            <div class="category">➕ Сложение-вычитание с юмором</div>
-            <div class="category">✖️ Умножение-деление: истории</div>
-            <div class="category">📐 Площади и объёмы: загадки</div>
-            <div class="category"> Обыкновенные дроби</div>
-            <div class="category">💯 Десятичные дроби: факты</div>
+        <!-- Игровой экран -->
+        <div id="game-screen">
+            <h1> СВОЯ ИГРА 🎮</h1>
+            <div class="subtitle">Математика, 6 класс</div>
             
-            <!-- Row 1 (10 points) -->
-            <div class="question" data-points="10" data-category="1">10</div>
-            <div class="question" data-points="10" data-category="2">10</div>
-            <div class="question" data-points="10" data-category="3">10</div>
-            <div class="question" data-points="10" data-category="4">10</div>
-            <div class="question" data-points="10" data-category="5">10</div>
-            <div class="question" data-points="10" data-category="6">10</div>
+            <div class="teams-panel" id="teamsPanel"></div>
             
-            <!-- Row 2 (20 points) -->
-            <div class="question" data-points="20" data-category="1">20</div>
-            <div class="question" data-points="20" data-category="2">20</div>
-            <div class="question" data-points="20" data-category="3">20</div>
-            <div class="question" data-points="20" data-category="4">20</div>
-            <div class="question" data-points="20" data-category="5">20</div>
-            <div class="question" data-points="20" data-category="6">20</div>
-            
-            <!-- Row 3 (30 points) -->
-            <div class="question" data-points="30" data-category="1">30</div>
-            <div class="question" data-points="30" data-category="2">30</div>
-            <div class="question" data-points="30" data-category="3">30</div>
-            <div class="question" data-points="30" data-category="4">30</div>
-            <div class="question" data-points="30" data-category="5">30</div>
-            <div class="question" data-points="30" data-category="6">30</div>
-            
-            <!-- Row 4 (40 points) -->
-            <div class="question" data-points="40" data-category="1">40</div>
-            <div class="question" data-points="40" data-category="2">40</div>
-            <div class="question" data-points="40" data-category="3">40</div>
-            <div class="question" data-points="40" data-category="4">40</div>
-            <div class="question" data-points="40" data-category="5">40</div>
-            <div class="question" data-points="40" data-category="6">40</div>
-            
-            <!-- Row 5 (50 points) -->
-            <div class="question" data-points="50" data-category="1">50</div>
-            <div class="question" data-points="50" data-category="2">50</div>
-            <div class="question" data-points="50" data-category="3">50</div>
-            <div class="question" data-points="50" data-category="4">50</div>
-            <div class="question" data-points="50" data-category="5">50</div>
-            <div class="question" data-points="50" data-category="6">50</div>
+            <div class="game-board">
+                <!-- Категории -->
+                <div class="category">🕵️ Делимость: детективы</div>
+                <div class="category">🍕 Дроби: приключения</div>
+                <div class="category">✖️ Умножение дробей</div>
+                <div class="category">⚖️ Пропорции: истории</div>
+                <div class="category">➖ Положительные и отрицательные</div>
+                <div class="category">🎯 Уравнения: загадки</div>
+                
+                <!-- Строки вопросов генерируются через JS -->
+            </div>
         </div>
     </div>
     
+    <!-- Модальное окно вопроса -->
     <div class="modal" id="questionModal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-header">
+                <div class="modal-category" id="modalCategory"></div>
+                <div class="modal-points" id="modalPoints"></div>
+            </div>
+            
             <div class="question-text" id="modalQuestionText"></div>
-            <button class="show-answer-btn" onclick="showAnswer()">Показать ответ</button>
-            <div class="answer" id="modalAnswer"></div>
-            <div class="fun-fact" id="modalFact" style="display:none;">
+            
+            <button class="show-answer-btn" id="showAnswerBtn" onclick="showAnswer()">👁️ Показать ответ</button>
+            
+            <div class="answer-section hidden" id="answerSection">
+                <div class="answer-label">✅ Ответ:</div>
+                <div class="answer-text" id="modalAnswer"></div>
+            </div>
+            
+            <div class="explanation-section hidden" id="explanationSection">
+                <div class="explanation-label">📖 Пояснение:</div>
+                <div class="explanation-text" id="modalExplanation"></div>
+            </div>
+            
+            <div class="fun-fact hidden" id="funFactSection">
                 <div class="fun-fact-title">💡 Интересный факт:</div>
                 <div id="factText"></div>
+            </div>
+            
+            <!-- Управление очками -->
+            <div class="score-controls" id="scoreControls">
+                <h3>🎯 Начислить очки команде:</h3>
+                <div id="teamScoreControls"></div>
             </div>
         </div>
     </div>
 
     <script>
+        // Данные вопросов
         const questions = {
             1: {
                 10: {
-                    q: "Детектив Шерлок Холмс нашёл записку с числом 57 321. Помогите ему прочитать это число!",
-                    a: "Пятьдесят семь тысяч триста двадцать один",
-                    fact: "В Древнем Риме числа записывали буквами! Например, X = 10, L = 50, C = 100."
+                    q: "Детектив Коломбо ищет число, которое делится на 2 и на 5 одновременно. Какое это число?",
+                    a: "Любое число, оканчивающееся на 0 (10, 20, 30...)",
+                    explanation: "Число делится на 2, если оно чётное (оканчивается на 0, 2, 4, 6, 8). Число делится на 5, если оно оканчивается на 0 или 5. Чтобы число делилось и на 2, и на 5 одновременно, оно должно оканчиваться на 0.",
+                    fact: "Признак делимости на 10: число должно оканчиваться на 0!"
                 },
                 20: {
-                    q: "Профессор Чудаков потерялся в числовом лабиринте. Какое число следует за 999?",
-                    a: "1000 (одна тысяча)",
-                    fact: "Число 1000 называют 'тысяча', а в древности на Руси говорили 'тьма'!"
+                    q: "Шерлок Холмс нашёл число 123. Делится ли оно на 3?",
+                    a: "Да! 123 делится на 3",
+                    explanation: "Признак делимости на 3: если сумма цифр числа делится на 3, то и само число делится на 3. Считаем: 1 + 2 + 3 = 6. Число 6 делится на 3 (6 ÷ 3 = 2), значит и 123 делится на 3. Проверка: 123 ÷ 3 = 41.",
+                    fact: "Признак делимости на 3: сумма цифр должна делиться на 3!"
                 },
                 30: {
-                    q: "Кот Матроскин нарисовал координатный луч. Где находится точка с координатой 7?",
-                    a: "На седьмом делении от начала луча (нуля)",
-                    fact: "Координаты придумал французский математик Рене Декарт в XVII веке!"
+                    q: "Найдите НОД(24, 36). Помогите доктору Ватсону!",
+                    a: "НОД(24, 36) = 12",
+                    explanation: "Разложим числа на простые множители: 24 = 2³ × 3, 36 = 2² × 3². НОД — это произведение общих простых множителей с наименьшими степенями: 2² × 3 = 4 × 3 = 12. Проверка: 24 ÷ 12 = 2, 36 ÷ 12 = 3.",
+                    fact: "НОД — наибольшее число, на которое делятся оба числа без остатка!"
                 },
                 40: {
-                    q: "Винни-Пух сравнил числа: 4567 и 4657. Какое больше и почему?",
-                    a: "4657 больше, так как в разряде сотен 6 > 5",
-                    fact: "Чтобы сравнить многозначные числа, сравнивают цифры слева направо!"
+                    q: "Найдите НОК(6, 8). Мисс Марпл запуталась!",
+                    a: "НОК(6, 8) = 24",
+                    explanation: "Разложим числа: 6 = 2 × 3, 8 = 2³. НОК — произведение всех простых множителей с наибольшими степенями: 2³ × 3 = 8 × 3 = 24. Проверка: 24 ÷ 6 = 4, 24 ÷ 8 = 3.",
+                    fact: "НОК — наименьшее число, которое делится на оба данных числа!"
                 },
                 50: {
-                    q: "Загадка от Старика Хоттабыча: запишите число, в котором 5 десятков тысяч, 3 тысячи, 0 сотен, 8 десятков и 2 единицы",
-                    a: "53 082",
-                    fact: "В числе 53 082 ноль в разряде сотен показывает, что сотен нет!"
+                    q: "Простое или составное число 91? Докажите!",
+                    a: "91 — составное число, так как 91 = 7 × 13",
+                    explanation: "Простое число имеет только два делителя: 1 и само себя. Проверим 91: оно не делится на 2 (нечётное), на 3 (9+1=10, не делится на 3), на 5 (не оканчивается на 0 или 5). Но 91 ÷ 7 = 13, значит 91 = 7 × 13. У числа 91 есть делители 1, 7, 13, 91 — это составное число.",
+                    fact: "Чтобы проверить, простое ли число, нужно делить его на простые числа: 2, 3, 5, 7, 11... пока квадрат делителя не превысит проверяемое число."
                 }
             },
             2: {
                 10: {
-                    q: "Незнайка сложил 234 + 567, но запутался. Помогите ему!",
-                    a: "801",
-                    fact: "При сложении складывают единицы с единицами, десятки с десятками и т.д."
+                    q: "Кот в сапогах разделил пиццу на 12 частей и съел 5. Какую часть он съел?",
+                    a: "5/12 (пять двенадцатых)",
+                    explanation: "Пицца разделена на 12 равных частей — это знаменатель дроби. Кот съел 5 частей — это числитель. Значит, он съел 5/12 пиццы. Знаменатель показывает, на сколько частей разделили целое, числитель — сколько частей взяли.",
+                    fact: "Дробь показывает часть от целого!"
                 },
                 20: {
-                    q: "Буратино вычитал из 1000 число 345. Что получилось?",
-                    a: "655",
-                    fact: "Вычитание — действие, обратное сложению! Проверка: 655 + 345 = 1000"
+                    q: "Сократите дробь 15/25",
+                    a: "15/25 = 3/5",
+                    explanation: "Найдём НОД(15, 25). 15 = 3 × 5, 25 = 5². НОД = 5. Разделим числитель и знаменатель на 5: 15 ÷ 5 = 3, 25 ÷ 5 = 5. Получаем 3/5. Дробь 3/5 несократима, так как НОД(3, 5) = 1.",
+                    fact: "Сокращение дроби — деление числителя и знаменателя на их общий делитель!"
                 },
                 30: {
-                    q: "Карлсон съел 156 плюшек утром и 234 вечером. Сколько всего? А если бы съел на 50 меньше?",
-                    a: "Всего 390 плюшек. На 50 меньше = 340 плюшек",
-                    fact: "Карлсон — самый прожорливый математик в Стокгольме!"
+                    q: "Приведите дроби 2/3 и 3/4 к общему знаменателю",
+                    a: "2/3 = 8/12 и 3/4 = 9/12",
+                    explanation: "Найдём НОК(3, 4) = 12. Для дроби 2/3: дополнительный множитель 12 ÷ 3 = 4, умножаем: 2 × 4 = 8, получаем 8/12. Для дроби 3/4: дополнительный множитель 12  4 = 3, умножаем: 3 × 3 = 9, получаем 9/12.",
+                    fact: "Общий знаменатель нужен для сложения и вычитания дробей!"
                 },
                 40: {
-                    q: "Найдите значение выражения: (500 - 250) + (175 - 125)",
-                    a: "300 (250 + 50)",
-                    fact: "Скобки показывают, какие действия выполнять первыми!"
+                    q: "Вычислите: 3/5 + 2/7",
+                    a: "3/5 + 2/7 = 31/35",
+                    explanation: "НОК(5, 7) = 35. Приводим: 3/5 = (3×7)/(5×7) = 21/35, 2/7 = (2×5)/(7×5) = 10/35. Складываем: 21/35 + 10/35 = 31/35. Дробь 31/35 несократима.",
+                    fact: "Сначала приводим к общему знаменателю, потом складываем числители!"
                 },
                 50: {
-                    q: "Доктор Айболит лечил зверей: 234 + x = 567. Найдите x!",
-                    a: "x = 333 (567 - 234)",
-                    fact: "Чтобы найти неизвестное слагаемое, нужно из суммы вычесть известное слагаемое!"
+                    q: "Вычислите: 5/6 - 3/8",
+                    a: "5/6 - 3/8 = 11/24",
+                    explanation: "НОК(6, 8) = 24. Приводим: 5/6 = (5×4)/(6×4) = 20/24, 3/8 = (3×3)/(8×3) = 9/24. Вычитаем: 20/24 - 9/24 = 11/24. Дробь 11/24 несократима.",
+                    fact: "При вычитании дробей тоже нужен общий знаменатель!"
                 }
             },
             3: {
                 10: {
-                    q: "Почтальон Печкин разнёс 25 писем в каждый из 4 домов. Сколько всего писем?",
-                    a: "100 писем (25 × 4)",
-                    fact: "Умножение — это сложение одинаковых слагаемых: 25 + 25 + 25 + 25"
+                    q: "Умножьте 2/3 на 4/5",
+                    a: "2/3 × 4/5 = 8/15",
+                    explanation: "При умножении дробей числитель умножаем на числитель, знаменатель на знаменатель: (2×4)/(3×5) = 8/15. Дробь 8/15 несократима, так как НОД(8, 15) = 1.",
+                    fact: "При умножении дробей числитель умножаем на числитель, знаменатель на знаменатель!"
                 },
                 20: {
-                    q: "Дядя Фёдор разделил 144 яблока поровну между 12 друзьями. Сколько каждому?",
-                    a: "12 яблок (144 : 12)",
-                    fact: "Деление — действие, обратное умножению! Проверка: 12 × 12 = 144"
+                    q: "Разделите 3/4 на 2/5",
+                    a: "3/4 ÷ 2/5 = 15/8 = 1 7/8",
+                    explanation: "При делении дробей первую дробь умножаем на перевёрнутую вторую: 3/4 ÷ 2/5 = 3/4 × 5/2 = (3×5)/(4×2) = 15/8. Выделим целую часть: 15 ÷ 8 = 1 (остаток 7), получаем 1 7/8.",
+                    fact: "При делении дробей первую дробь умножаем на перевёрнутую вторую!"
                 },
                 30: {
-                    q: "Крокодил Гена решил пример: 25 × 4 × 5. Помогите найти ответ удобным способом!",
-                    a: "500 (удобнее: 25 × 4 = 100, затем 100 × 5 = 500)",
-                    fact: "От перестановки множителей произведение не меняется!"
+                    q: "Найдите 2/5 от 75",
+                    a: "2/5 от 75 = 30",
+                    explanation: "Чтобы найти дробь от числа, нужно число разделить на знаменатель и умножить на числитель: 75 ÷ 5 × 2 = 15 × 2 = 30. Или: 75 × 2/5 = 150/5 = 30.",
+                    fact: "Чтобы найти дробь от числа, делим на знаменатель и умножаем на числитель!"
                 },
                 40: {
-                    q: "Волк разделил 100 на 0. Что сказал ему Заяц?",
-                    a: "На ноль делить нельзя! Это невозможно!",
-                    fact: "Деление на ноль запрещено в математике — это как делить пирог на ноль человек!"
+                    q: "Вычислите: 1 1/2 × 2 2/3",
+                    a: "1 1/2 × 2 2/3 = 4",
+                    explanation: "Переводим смешанные числа в неправильные дроби: 1 1/2 = 3/2, 2 2/3 = 8/3. Умножаем: 3/2 × 8/3 = (3×8)/(2×3) = 24/6 = 4. Можно сократить до умножения: 3/2 × 8/3 = 1/1 × 4/1 = 4.",
+                    fact: "Смешанные числа сначала превращаем в неправильные дроби!"
                 },
                 50: {
-                    q: "Найдите корень уравнения: x × 15 = 225",
-                    a: "x = 15 (225 : 15)",
-                    fact: "Чтобы найти неизвестный множитель, нужно произведение разделить на известный множитель!"
+                    q: "Число 40 увеличили на 3/8 этого числа. Сколько получилось?",
+                    a: "40 + 40×3/8 = 55",
+                    explanation: "Сначала найдём 3/8 от 40: 40 ÷ 8 × 3 = 5 × 3 = 15. Затем прибавим к исходному числу: 40 + 15 = 55. Или: 40 × (1 + 3/8) = 40 × 11/8 = 440/8 = 55.",
+                    fact: "Увеличить на дробь — значит прибавить эту дробь от числа!"
                 }
             },
             4: {
                 10: {
-                    q: "Прямоугольник имеет длину 8 см и ширину 5 см. Найдите площадь!",
-                    a: "40 см² (8 × 5)",
-                    fact: "Площадь измеряется в квадратных единицах: см², м², км²"
+                    q: "Проверьте пропорцию: 2:3 = 4:6",
+                    a: "Пропорция верна: 2×6 = 3×4 = 12",
+                    explanation: "Основное свойство пропорции: произведение крайних членов равно произведению средних. Крайние члены: 2 и 6, их произведение 2×6 = 12. Средние члены: 3 и 4, их произведение 3×4 = 12. 12 = 12, пропорция верна.",
+                    fact: "Основное свойство пропорции: произведение крайних членов равно произведению средних!"
                 },
                 20: {
-                    q: "Кубик Рубика имеет ребро 3 см. Найдите его объём!",
-                    a: "27 см³ (3 × 3 × 3)",
-                    fact: "Объём куба = ребро × ребро × ребро = ребро³"
+                    q: "Найдите неизвестный член пропорции: x:5 = 6:10",
+                    a: "x = 3",
+                    explanation: "Используем основное свойство пропорции: x × 10 = 5 × 6, откуда 10x = 30, x = 30 ÷ 10 = 3. Проверка: 3:5 = 6:10, 3×10 = 30, 5×6 = 30. Верно!",
+                    fact: "Неизвестный крайний член = произведение средних : известный крайний!"
                 },
                 30: {
-                    q: "Формула пути: s = v × t. Если скорость 60 км/ч, а время 3 часа, какой путь?",
-                    a: "180 км (60 × 3)",
-                    fact: "Эту формулу используют все водители, чтобы рассчитать время в пути!"
+                    q: "Прямая пропорциональность: за 3 часа прошли 15 км. Сколько за 5 часов?",
+                    a: "25 км",
+                    explanation: "Найдём скорость: 15 ÷ 3 = 5 км/ч. За 5 часов пройдём: 5 × 5 = 25 км. Или через пропорцию: 15/3 = x/5, откуда x = 15×5/3 = 25.",
+                    fact: "При прямой пропорциональности увеличение одной величины ведёт к увеличению другой!"
                 },
                 40: {
-                    q: "Площадь прямоугольника 48 м², длина 8 м. Найдите ширину!",
-                    a: "6 м (48 : 8)",
-                    fact: "Площадь = длина × ширина, значит ширина = площадь : длина"
+                    q: "Обратная пропорциональность: 6 рабочих делают работу за 4 дня. За сколько сделают 8 рабочих?",
+                    a: "3 дня",
+                    explanation: "При обратной пропорциональности произведение величин постоянно. 6 × 4 = 24 (человеко-дней). Для 8 рабочих: 24 ÷ 8 = 3 дня. Чем больше рабочих, тем меньше дней нужно.",
+                    fact: "При обратной пропорциональности увеличение одной величины ведёт к уменьшению другой!"
                 },
                 50: {
-                    q: "Аквариум имеет размеры: длина 50 см, ширина 30 см, высота 40 см. Сколько литров воды влезет?",
-                    a: "60 литров (50×30×40=60000 см³ = 60 дм³ = 60 л)",
-                    fact: "1 литр = 1 дм³ (кубический дециметр)!"
+                    q: "Масштаб карты 1:100000. Расстояние на карте 5 см. Сколько в реальности?",
+                    a: "5 км",
+                    explanation: "Масштаб 1:100000 означает, что 1 см на карте = 100000 см в реальности. 5 см × 100000 = 500000 см. Переводим: 500000 см = 5000 м = 5 км.",
+                    fact: "Масштаб показывает, во сколько раз расстояние на карте меньше, чем на местности!"
                 }
             },
             5: {
                 10: {
-                    q: "Мама разрезала торт на 8 частей. Кот съел 3 части. Какую часть торта он съел?",
-                    a: "3/8 (три восьмых)",
-                    fact: "Дробь показывает, сколько частей взяли от целого!"
+                    q: "Какие числа называются противоположными? Приведите пример",
+                    a: "Противоположные числа — числа, отличающиеся только знаком. Например: 5 и -5, -3 и 3",
+                    explanation: "Два числа называются противоположными, если их сумма равна нулю. На координатной прямой они расположены по разные стороны от нуля на одинаковом расстоянии. Примеры: 7 и -7 (7 + (-7) = 0), -2.5 и 2.5.",
+                    fact: "Сумма противоположных чисел равна 0!"
                 },
                 20: {
-                    q: "Сравните дроби: 2/5 и 3/5. Какая больше?",
-                    a: "3/5 больше (при одинаковых знаменателях больше та, у которой числитель больше)",
-                    fact: "Знаменатель показывает, на сколько частей разделили, числитель — сколько взяли"
+                    q: "Сравните: -7 и -3. Какое больше?",
+                    a: "-3 > -7 (минус три больше минус семи)",
+                    explanation: "На координатной прямой число -3 расположено правее числа -7. Чем правее число на координатной прямой, тем оно больше. Из двух отрицательных чисел больше то, модуль которого меньше: |-3| = 3 < |-7| = 7, поэтому -3 > -7.",
+                    fact: "Из двух отрицательных чисел больше то, модуль которого меньше!"
                 },
                 30: {
-                    q: "Вычислите: 2/7 + 3/7",
-                    a: "5/7 (складываем числители, знаменатель оставляем)",
-                    fact: "При сложении дробей с одинаковыми знаменателями складываются только числители!"
+                    q: "Вычислите: -15 + 8",
+                    a: "-15 + 8 = -7",
+                    explanation: "Складываем числа с разными знаками. Находим модули: |-15| = 15, |8| = 8. Из большего модуля вычитаем меньший: 15 - 8 = 7. Ставим знак числа с большим модулем (отрицательный): -7.",
+                    fact: "При сложении чисел с разными знаками из большего модуля вычитаем меньший и ставим знак числа с большим модулем!"
                 },
                 40: {
-                    q: "Незнайка нашёл 1/3 от 60 рублей. Сколько это?",
-                    a: "20 рублей (60 : 3)",
-                    fact: "Чтобы найти дробь от числа, нужно число разделить на знаменатель и умножить на числитель!"
+                    q: "Вычислите: -6 × (-4)",
+                    a: "-6 × (-4) = 24",
+                    explanation: "При умножении двух отрицательных чисел результат положительный. Правило знаков: (-) × (-) = (+). Вычисляем: 6 × 4 = 24, знак положительный, получаем 24.",
+                    fact: "Правило знаков: одинаковые знаки дают плюс, разные — минус!"
                 },
                 50: {
-                    q: "Правильная дробь или неправильная: 7/4? Почему?",
-                    a: "Неправильная, так как числитель (7) больше знаменателя (4)",
-                    fact: "Правильная дробь < 1, неправильная дробь ≥ 1!"
+                    q: "Вычислите: -24 : 3 + (-5) × (-2)",
+                    a: "-24 : 3 + (-5) × (-2) = 2",
+                    explanation: "Сначала выполняем умножение и деление (по порядку слева направо): -24 : 3 = -8, (-5) × (-2) = 10. Затем сложение: -8 + 10 = 2. Порядок действий: сначала умножение/деление, потом сложение/вычитание.",
+                    fact: "Сначала выполняем умножение и деление, потом сложение и вычитание!"
                 }
             },
             6: {
                 10: {
-                    q: "Запишите десятичную дробь: три целых двадцать пять сотых",
-                    a: "3,25",
-                    fact: "Запятая отделяет целую часть от дробной!"
+                    q: "Решите уравнение: x + 7 = 15",
+                    a: "x = 8",
+                    explanation: "Чтобы найти неизвестное слагаемое, нужно из суммы вычесть известное слагаемое: x = 15 - 7 = 8. Проверка: 8 + 7 = 15. Верно!",
+                    fact: "Чтобы найти неизвестное слагаемое, из суммы вычитаем известное!"
                 },
                 20: {
-                    q: "Сравните: 4,56 и 4,65. Какое число больше?",
-                    a: "4,65 больше (сравниваем поразрядно: 5 < 6 в разряде десятых)",
-                    fact: "Сначала сравниваем целые части, потом десятые, сотые и т.д."
+                    q: "Решите уравнение: x - 12 = 8",
+                    a: "x = 20",
+                    explanation: "Чтобы найти неизвестное уменьшаемое, нужно к разности прибавить вычитаемое: x = 8 + 12 = 20. Проверка: 20 - 12 = 8. Верно!",
+                    fact: "Чтобы найти уменьшаемое, к разности прибавляем вычитаемое!"
                 },
                 30: {
-                    q: "Вычислите: 2,5 + 3,75",
-                    a: "6,25",
-                    fact: "При сложении десятичных дробей запятые должны быть друг под другом!"
+                    q: "Решите уравнение: 5x = 35",
+                    a: "x = 7",
+                    explanation: "Чтобы найти неизвестный множитель, нужно произведение разделить на известный множитель: x = 35 ÷ 5 = 7. Проверка: 5 × 7 = 35. Верно!",
+                    fact: "Чтобы найти неизвестный множитель, произведение делим на известный множитель!"
                 },
                 40: {
-                    q: "Умножьте 2,5 на 0,4",
-                    a: "1 (или 1,0)",
-                    fact: "При умножении считаем общее количество знаков после запятой в множителях!"
+                    q: "Решите уравнение: 3x + 7 = 22",
+                    a: "x = 5",
+                    explanation: "Переносим известное слагаемое в правую часть с противоположным знаком: 3x = 22 - 7, 3x = 15. Делим обе части на 3: x = 15  3 = 5. Проверка: 3×5 + 7 = 15 + 7 = 22. Верно!",
+                    fact: "Сначала переносим известные слагаемые, потом делим!"
                 },
                 50: {
-                    q: "Разделите 7,2 на 0,9",
-                    a: "8",
-                    fact: "При делении на десятичную дробь переносим запятую вправо в делимом и делителе на одинаковое число знаков!"
+                    q: "Решите уравнение: 2(x - 3) = 10",
+                    a: "x = 8",
+                    explanation: "Способ 1: Делим обе части на 2: x - 3 = 5, x = 5 + 3 = 8. Способ 2: Раскрываем скобки: 2x - 6 = 10, 2x = 16, x = 8. Проверка: 2(8-3) = 2×5 = 10. Верно!",
+                    fact: "Сначала раскрываем скобки или делим обе части на коэффициент!"
                 }
             }
         };
 
+        // Состояние игры
+        let teams = [];
         let currentQuestion = null;
-        let teamScores = {1: 0, 2: 0, 3: 0};
+        let questionCells = [];
 
-        document.querySelectorAll('.question').forEach(cell => {
-            cell.addEventListener('click', function() {
-                if (this.classList.contains('answered')) return;
-                
-                const category = this.getAttribute('data-category');
-                const points = this.getAttribute('data-points');
-                currentQuestion = {category, points};
-                
-                const q = questions[category][points];
-                document.getElementById('modalQuestionText').textContent = 
-                    `Вопрос за ${points} очков:\n\n${q.q}`;
-                document.getElementById('modalAnswer').textContent = `Ответ: ${q.a}`;
-                document.getElementById('factText').textContent = q.fact;
-                document.getElementById('modalFact').style.display = 'block';
-                document.getElementById('modalAnswer').style.display = 'none';
-                
-                document.getElementById('questionModal').style.display = 'flex';
-            });
-        });
-
-        function showAnswer() {
-            document.getElementById('modalAnswer').style.display = 'block';
+        // Добавление команды
+        function addTeam() {
+            const input = document.getElementById('teamNameInput');
+            const name = input.value.trim();
+            if (name && teams.length < 6) {
+                teams.push({ name: name, score: 0 });
+                input.value = '';
+                renderTeamsList();
+            } else if (teams.length >= 6) {
+                alert('Максимум 6 команд!');
+            }
         }
 
-        document.querySelector('.close-modal').addEventListener('click', function() {
+        // Удаление команды
+        function removeTeam(index) {
+            teams.splice(index, 1);
+            renderTeamsList();
+        }
+
+        // Отображение списка команд
+        function renderTeamsList() {
+            const list = document.getElementById('teamsList');
+            list.innerHTML = '';
+            teams.forEach((team, index) => {
+                const item = document.createElement('div');
+                item.className = 'team-item';
+                item.innerHTML = `
+                    <span>${team.name}</span>
+                    <button onclick="removeTeam(${index})">Удалить</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // Начало игры
+        function startGame() {
+            if (teams.length < 2) {
+                alert('Добавьте хотя бы 2 команды!');
+                return;
+            }
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+            renderTeamsPanel();
+            renderGameBoard();
+        }
+
+        // Отображение панели команд
+        function renderTeamsPanel() {
+            const panel = document.getElementById('teamsPanel');
+            panel.innerHTML = '';
+            teams.forEach((team, index) => {
+                const card = document.createElement('div');
+                card.className = 'team-card';
+                card.innerHTML = `
+                    <div class="team-card-name">${team.name}</div>
+                    <div class="team-card-score" id="team-score-${index}">${team.score}</div>
+                `;
+                panel.appendChild(card);
+            });
+        }
+
+        // Обновление счёта команды
+        function updateTeamScore(teamIndex, points) {
+            teams[teamIndex].score += points;
+            document.getElementById(`team-score-${teamIndex}`).textContent = teams[teamIndex].score;
+        }
+
+        // Отрисовка игрового поля
+        function renderGameBoard() {
+            const board = document.querySelector('.game-board');
+            // Удаляем старые вопросы (если есть)
+            questionCells.forEach(cell => cell.remove());
+            questionCells = [];
+            
+            const points = [10, 20, 30, 40, 50];
+            const categories = [1, 2, 3, 4, 5, 6];
+            
+            points.forEach(point => {
+                categories.forEach(cat => {
+                    const cell = document.createElement('div');
+                    cell.className = 'question';
+                    cell.textContent = point;
+                    cell.dataset.points = point;
+                    cell.dataset.category = cat;
+                    cell.onclick = () => openQuestion(cat, point, cell);
+                    board.appendChild(cell);
+                    questionCells.push(cell);
+                });
+            });
+        }
+
+        // Открытие вопроса
+        function openQuestion(category, points, cell) {
+            if (cell.classList.contains('answered')) return;
+            
+            currentQuestion = { category, points, cell };
+            const q = questions[category][points];
+            
+            document.getElementById('modalCategory').textContent = getCategoryName(category);
+            document.getElementById('modalPoints').textContent = `${points} очков`;
+            document.getElementById('modalQuestionText').textContent = q.q;
+            document.getElementById('modalAnswer').textContent = q.a;
+            document.getElementById('modalExplanation').textContent = q.explanation;
+            document.getElementById('factText').textContent = q.fact;
+            
+            // Скрываем ответ и пояснение
+            document.getElementById('answerSection').classList.add('hidden');
+            document.getElementById('explanationSection').classList.add('hidden');
+            document.getElementById('funFactSection').classList.add('hidden');
+            document.getElementById('showAnswerBtn').classList.remove('hidden');
+            
+            // Генерируем кнопки управления очками
+            renderScoreControls();
+            
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        // Получение названия категории
+        function getCategoryName(cat) {
+            const names = {
+                1: '🕵️ Делимость: детективы',
+                2: '🍕 Дроби: приключения',
+                3: '✖️ Умножение дробей',
+                4: '⚖️ Пропорции: истории',
+                5: '➖ Положительные и отрицательные',
+                6: '🎯 Уравнения: загадки'
+            };
+            return names[cat];
+        }
+
+        // Отрисовка кнопок управления очками
+        function renderScoreControls() {
+            const container = document.getElementById('teamScoreControls');
+            container.innerHTML = '';
+            teams.forEach((team, index) => {
+                const div = document.createElement('div');
+                div.className = 'team-score-control';
+                div.innerHTML = `
+                    <div class="team-score-name">${team.name}</div>
+                    <div class="team-score-current">${team.score}</div>
+                    <div class="score-btns">
+                        <button class="score-btn plus" onclick="addPoints(${index})">+${currentQuestion.points}</button>
+                        <button class="score-btn minus" onclick="subtractPoints(${index})">-${currentQuestion.points}</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Начисление очков
+        function addPoints(teamIndex) {
+            updateTeamScore(teamIndex, currentQuestion.points);
+            renderScoreControls();
+        }
+
+        // Вычитание очков
+        function subtractPoints(teamIndex) {
+            updateTeamScore(teamIndex, -currentQuestion.points);
+            renderScoreControls();
+        }
+
+        // Показать ответ
+        function showAnswer() {
+            document.getElementById('answerSection').classList.remove('hidden');
+            document.getElementById('explanationSection').classList.remove('hidden');
+            document.getElementById('funFactSection').classList.remove('hidden');
+            document.getElementById('showAnswerBtn').classList.add('hidden');
+        }
+
+        // Закрытие модального окна
+        function closeModal() {
             if (currentQuestion) {
-                const cell = document.querySelector(`.question[data-category="${currentQuestion.category}"][data-points="${currentQuestion.points}"]`);
-                cell.classList.add('answered');
-                cell.textContent = '✓';
+                currentQuestion.cell.classList.add('answered');
+                currentQuestion.cell.textContent = '✓';
             }
             document.getElementById('questionModal').style.display = 'none';
-        });
+            currentQuestion = null;
+        }
 
-        // Закрытие по клику вне модального окна
-        window.addEventListener('click', function(e) {
-            const modal = document.getElementById('questionModal');
-            if (e.target === modal) {
-                if (currentQuestion) {
-                    const cell = document.querySelector(`.question[data-category="${currentQuestion.category}"][data-points="${currentQuestion.points}"]`);
-                    cell.classList.add('answered');
-                    cell.textContent = '✓';
-                }
-                modal.style.display = 'none';
-            }
+        // Обработка Enter в поле ввода
+        document.getElementById('teamNameInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addTeam();
         });
     </script>
 </body>
