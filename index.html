@@ -3,278 +3,976 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Абонементы | Репетитор по математике</title>
+    <title>Математический детектив - 5 класс</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         }
-
+        
         body {
-            background: #f4f6fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-
-        .card {
-            max-width: 420px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 32px;
-            padding: 28px 22px 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.2s;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-
-        .badge {
-            background: #f0f3ff;
-            color: #2a4bdb;
-            font-weight: 600;
-            font-size: 13px;
-            padding: 4px 14px;
-            border-radius: 30px;
-            display: inline-block;
-            margin-bottom: 12px;
-            letter-spacing: 0.3px;
-        }
-
+        
         h1 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0b1b3a;
-            line-height: 1.2;
-            margin-bottom: 6px;
+            text-align: center;
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-
+        
         .subtitle {
-            font-size: 16px;
-            color: #5b6f8c;
-            margin-bottom: 24px;
-            font-weight: 400;
+            text-align: center;
+            color: #764ba2;
+            font-size: 1.2em;
+            margin-bottom: 30px;
         }
-
-        .tariff {
-            background: #f9faff;
-            border-radius: 18px;
-            padding: 18px 18px 16px;
-            margin-bottom: 14px;
-            border: 2px solid transparent;
-            transition: 0.2s;
+        
+        .game-info {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .category {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .category h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .category .points {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .question-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .question-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
         }
-
-        .tariff.highlight {
-            background: #f0f5ff;
-            border-color: #2a4bdb;
-            box-shadow: 0 4px 12px rgba(42, 75, 219, 0.12);
-        }
-
-        .tariff.highlight .recommend {
-            display: inline-block;
-        }
-
-        .recommend {
-            display: none;
-            background: #2a4bdb;
-            color: #fff;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 2px 12px;
-            border-radius: 30px;
+        
+        .close-btn {
             position: absolute;
-            top: -8px;
-            right: 16px;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #764ba2;
         }
-
-        .tariff-header {
+        
+        .close-btn:hover {
+            color: #667eea;
+        }
+        
+        .question-text {
+            font-size: 1.3em;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .fun-fact {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+            font-style: italic;
+        }
+        
+        .answer-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .answer-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .score-board {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .team-score {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
         }
-
-        .tariff-name {
-            font-weight: 700;
-            font-size: 18px;
-            color: #0b1b3a;
+        
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
-        .tariff-price {
-            font-weight: 700;
-            font-size: 20px;
-            color: #0b1b3a;
+        
+        .character {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #4ecdc4;
         }
-
-        .tariff-price small {
-            font-weight: 400;
-            font-size: 14px;
-            color: #6b7f9c;
-            margin-left: 2px;
-        }
-
-        .tariff-desc {
-            font-size: 14px;
-            color: #3d506c;
-            line-height: 1.4;
-            margin: 4px 0 6px;
-        }
-
-        .tariff-desc strong {
-            color: #0b1b3a;
-        }
-
-        .divider {
-            height: 1px;
-            background: #e6edf5;
-            margin: 20px 0 18px;
-        }
-
-        .conditions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 16px;
-            margin-bottom: 22px;
-        }
-
-        .conditions span {
-            font-size: 14px;
-            color: #1f334f;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .conditions span::before {
-            content: "✓";
-            color: #2a4bdb;
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .cta-button {
-            display: block;
-            width: 100%;
-            background: #2a4bdb;
-            color: #ffffff;
-            border: none;
-            border-radius: 60px;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.15s;
-            box-shadow: 0 6px 14px rgba(42, 75, 219, 0.25);
-        }
-
-        .cta-button:hover {
-            background: #1d3bb0;
-            transform: scale(1.01);
-        }
-
-        .cta-button:active {
-            transform: scale(0.97);
-        }
-
-        .footnote {
-            font-size: 13px;
-            color: #7b8ba3;
-            text-align: center;
-            margin-top: 16px;
-            line-height: 1.5;
-        }
-
-        .footnote a {
-            color: #2a4bdb;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* визуальный якорь "рекомендую" */
-        .chip {
-            background: #e6edf5;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #1f334f;
-            display: inline-block;
-        }
-
-        @media (max-width: 400px) {
-            .card { padding: 20px 16px; }
-            h1 { font-size: 22px; }
-            .tariff { padding: 14px 14px 12px; }
+        
+        @media print {
+            .category, .answer-btn, .close-btn {
+                display: none;
+            }
+            .question-modal {
+                display: block !important;
+                position: relative;
+                background: white;
+            }
+            .question-content {
+                box-shadow: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-
-        <!-- Шапка -->
-        <div class="badge">📐 Репетитор по математике</div>
-        <h1>Выбери свой ритм</h1>
-        <div class="subtitle">3 формата подготовки. Один подходит именно вашему ребёнку</div>
-
-        <!-- ТАРИФ А: ЭКСПРЕСС -->
-        <div class="tariff">
-            <div class="tariff-header">
-                <span class="tariff-name">⚡ Экспресс</span>
-                <span class="tariff-price">9 600 <small>₽</small></span>
+    <div class="timer" id="timer">90:00</div>
+    
+    <div class="container">
+        <h1>🔍 Математический детектив</h1>
+        <p class="subtitle">5 класс • Командная игра • 90 минут</p>
+        
+        <div class="game-info">
+            <h2>📋 Правила игры:</h2>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li>Разделитесь на команды (3-4 команды)</li>
+                <li>Выбирайте категорию и уровень сложности</li>
+                <li>За правильные ответы начисляются баллы</li>
+                <li>Время на обсуждение: 2-3 минуты на вопрос</li>
+                <li>Побеждает команда с наибольшим количеством баллов!</li>
+            </ul>
+        </div>
+        
+        <div class="categories">
+            <div class="category" onclick="showQuestion(1, 1)">
+                <h3>🎯 Натуральные числа и шкалы</h3>
+                <p class="points">10-50 баллов • От простого к сложному</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Координатный луч, сравнение чисел, округление</p>
             </div>
-            <div class="tariff-desc">
-                8 занятий по <strong>60 мин</strong>. Только суть, без воды.
+            
+            <div class="category" onclick="showQuestion(2, 1)">
+                <h3>➕ Сложение и вычитание</h3>
+                <p class="points">10-50 баллов • От простого к сложному</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Свойства действий, буквенные выражения</p>
+            </div>
+            
+            <div class="category" onclick="showQuestion(3, 1)">
+                <h3>✖️ Умножение и деление</h3>
+                <p class="points">10-50 баллов • От простого к сложному</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Свойства, упрощение выражений, степени</p>
+            </div>
+            
+            <div class="category" onclick="showQuestion(4, 1)">
+                <h3>📐 Площади и объёмы</h3>
+                <p class="points">10-50 баллов • От простого к сложному</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Формулы, единицы измерения, задачи</p>
+            </div>
+            
+            <div class="category" onclick="showQuestion(5, 1)">
+                <h3>🍰 Обыкновенные дроби</h3>
+                <p class="points">10-50 баллов • От простого к сложному</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Сравнение, сложение, вычитание дробей</p>
+            </div>
+            
+            <div class="category" onclick="showQuestion(6, 1)">
+                <h3>🔢 Десятичные дроби</h3>
+                <p class="points">10-50 баллов • От простого к сложному</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Сравнение, округление, действия</p>
             </div>
         </div>
-
-        <!-- ТАРИФ В: ГИБРИД (РЕКОМЕНДУЕМЫЙ) -->
-        <div class="tariff highlight">
-            <span class="recommend">⭐ Рекомендую</span>
-            <div class="tariff-header">
-                <span class="tariff-name">🔁 Гибрид</span>
-                <span class="tariff-price">11 400 <small>₽</small></span>
-            </div>
-            <div class="tariff-desc">
-                6 занятий по <strong>90 мин</strong> + 2 по <strong>60 мин</strong>.<br>
-                Сам выбираешь глубину под каждую неделю.
-            </div>
-        </div>
-
-        <!-- ТАРИФ Б: ПРЕМИУМ -->
-        <div class="tariff">
-            <div class="tariff-header">
-                <span class="tariff-name">🏆 Премиум</span>
-                <span class="tariff-price">12 000 <small>₽</small></span>
-            </div>
-            <div class="tariff-desc">
-                8 занятий по <strong>90 мин</strong>. Максимум практики за раз.
+        
+        <div class="score-board">
+            <h2>📊 Таблица счёта</h2>
+            <div id="scores">
+                <div class="team-score">
+                    <span>Команда 1:</span>
+                    <input type="number" value="0" style="width: 80px; padding: 5px; font-size: 1.1em;">
+                </div>
+                <div class="team-score">
+                    <span>Команда 2:</span>
+                    <input type="number" value="0" style="width: 80px; padding: 5px; font-size: 1.1em;">
+                </div>
+                <div class="team-score">
+                    <span>Команда 3:</span>
+                    <input type="number" value="0" style="width: 80px; padding: 5px; font-size: 1.1em;">
+                </div>
+                <div class="team-score">
+                    <span>Команда 4:</span>
+                    <input type="number" value="0" style="width: 80px; padding: 5px; font-size: 1.1em;">
+                </div>
             </div>
         </div>
-
-        <!-- УСЛОВИЯ (галочки) -->
-        <div class="conditions">
-            <span>Оплата 1 раз в месяц</span>
-            <span>1 перенос за 24 ч</span>
-            <span>Заморозка по справке</span>
-        </div>
-
-        <!-- КНОПКА -->
-        <a href="#" class="cta-button">➕ Напиши «+» — подберу формат</a>
-
-        <!-- Подвал -->
-        <div class="footnote">
-            🔹 Первое занятие — <a href="#">ознакомительное за 50%</a><br>
-            До <strong>31 марта</strong> — бесплатный разбор пробной работы в подарок 🎁
-        </div>
-
     </div>
+    
+    <div class="question-modal" id="modal">
+        <div class="question-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="question-text"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            1: {
+                1: {
+                    points: 10,
+                    text: `
+                        <h2>🎯 Натуральные числа и шкалы (10 баллов)</h2>
+                        <div class="character">
+                            <strong>🕵️ Детектив Числов:</strong><br>
+                            "Кто-то перепутал все числа на координатном луче! Помогите найти пропавшую точку!"
+                        </div>
+                        <div class="question-text">
+                            На координатном луче с единичным отрезком 2 см отмечена точка A(5). 
+                            На каком расстоянии от начала луча она находится?
+                        </div>
+                        <div class="fun-fact">
+                            <strong>📚 Интересный факт:</strong><br>
+                            Координатный луч придумал французский математик Рене Декарт в XVII веке. 
+                            До него числа и геометрия жили раздельно, а Декарт их "познакомил"!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(1, 1)">Показать ответ</button>
+                        <div id="answer-1-1" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong> 10 см (5 × 2 см = 10 см)
+                        </div>
+                    `
+                },
+                2: {
+                    points: 20,
+                    text: `
+                        <h2>🎯 Натуральные числа и шкалы (20 баллов)</h2>
+                        <div class="character">
+                            <strong>👨‍🍳 Повар Округлов:</strong><br>
+                            "Мне нужно округлить количество ингредиентов, но я всё время ошибаюсь!"
+                        </div>
+                        <div class="question-text">
+                            Округлите число 48 573:<br>
+                            а) до десятков<br>
+                            б) до сотен<br>
+                            в) до тысяч
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(1, 2)">Показать ответ</button>
+                        <div id="answer-1-2" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 48 570<br>
+                            б) 48 600<br>
+                            в) 49 000
+                        </div>
+                    `
+                },
+                3: {
+                    points: 30,
+                    text: `
+                        <h2>🎯 Натуральные числа и шкалы (30 баллов)</h2>
+                        <div class="question-text">
+                            Сравните числа:<br>
+                            а) 123 456 и 123 465<br>
+                            б) 9 876 543 и 9 876 534<br>
+                            в) 1 000 001 и 999 999
+                        </div>
+                        <div class="fun-fact">
+                            <strong>🔢 Забавный факт:</strong><br>
+                            Самое большое число, которое можно записать тремя цифрами — это 999. 
+                            А самое маленькое трёхзначное число — 100. Между ними целых 899 чисел!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(1, 3)">Показать ответ</button>
+                        <div id="answer-1-3" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 123 456 < 123 465<br>
+                            б) 9 876 543 > 9 876 534<br>
+                            в) 1 000 001 > 999 999
+                        </div>
+                    `
+                },
+                4: {
+                    points: 40,
+                    text: `
+                        <h2>🎯 Натуральные числа и шкалы (40 баллов)</h2>
+                        <div class="character">
+                            <strong> Спортсмен Быстров:</strong><br>
+                            "Я пробежал марафон, но запутался в километрах и метрах!"
+                        </div>
+                        <div class="question-text">
+                            Выразите в метрах:<br>
+                            а) 5 км 230 м<br>
+                            б) 12 км 7 м<br>
+                            в) 100 км 100 м
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(1, 4)">Показать ответ</button>
+                        <div id="answer-1-4" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 5 230 м<br>
+                            б) 12 007 м<br>
+                            в) 100 100 м
+                        </div>
+                    `
+                },
+                5: {
+                    points: 50,
+                    text: `
+                        <h2>🎯 Натуральные числа и шкалы (50 баллов)</h2>
+                        <div class="question-text">
+                            <strong>Задача-головоломка:</strong><br>
+                            На координатном луче отмечены точки A(3), B(7), C(10). 
+                            Найдите длину отрезка AC. 
+                            Точка B делит отрезок AC на два отрезка. 
+                            Найдите их длины.
+                        </div>
+                        <div class="fun-fact">
+                            <strong>📐 Историческая справка:</strong><br>
+                            Древние египтяне уже 4000 лет назад умели измерять расстояния! 
+                            Они использовали верёвки с узлами для построения прямых углов.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(1, 5)">Показать ответ</button>
+                        <div id="answer-1-5" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            AC = 10 - 3 = 7 единиц<br>
+                            AB = 7 - 3 = 4 единицы<br>
+                            BC = 10 - 7 = 3 единицы
+                        </div>
+                    `
+                }
+            },
+            2: {
+                1: {
+                    points: 10,
+                    text: `
+                        <h2>➕ Сложение и вычитание (10 баллов)</h2>
+                        <div class="character">
+                            <strong>🛒 Продавец Считалов:</strong><br>
+                            "Покупатель купил товар за 450 рублей и дал 500 рублей. Сколько сдачи?"
+                        </div>
+                        <div class="question-text">
+                            Вычислите:<br>
+                            500 - 450 = ?
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(2, 1)">Показать ответ</button>
+                        <div id="answer-2-1" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong> 50 рублей
+                        </div>
+                    `
+                },
+                2: {
+                    points: 20,
+                    text: `
+                        <h2>➕ Сложение и вычитание (20 баллов)</h2>
+                        <div class="question-text">
+                            Упростите выражение и найдите его значение:<br>
+                            (345 + x) - 145, если x = 278
+                        </div>
+                        <div class="fun-fact">
+                            <strong>🧮 Любопытный факт:</strong><br>
+                            Знак "+" придумал итальянский математик Лука Пачоли в 1494 году. 
+                            А знак "-" появился чуть позже в Германии.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(2, 2)">Показать ответ</button>
+                        <div id="answer-2-2" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            (345 + 278) - 145 = 623 - 145 = 478<br>
+                            Или проще: 345 - 145 + 278 = 200 + 278 = 478
+                        </div>
+                    `
+                },
+                3: {
+                    points: 30,
+                    text: `
+                        <h2>➕ Сложение и вычитание (30 баллов)</h2>
+                        <div class="character">
+                            <strong>🎪 Циркач Силач:</strong><br>
+                            "Я поднимаю гири! Первая весит 25 кг, вторая на 15 кг больше, 
+                            а третья столько, сколько первые две вместе. Сколько весят все гири?"
+                        </div>
+                        <div class="question-text">
+                            Решите задачу.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(2, 3)">Показать ответ</button>
+                        <div id="answer-2-3" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            1) 25 + 15 = 40 (кг) - вторая гиря<br>
+                            2) 25 + 40 = 65 (кг) - третья гиря<br>
+                            3) 25 + 40 + 65 = 130 (кг) - все гири
+                        </div>
+                    `
+                },
+                4: {
+                    points: 40,
+                    text: `
+                        <h2>➕ Сложение и вычитание (40 баллов)</h2>
+                        <div class="question-text">
+                            Найдите значение выражения наиболее удобным способом:<br>
+                            1234 + 567 + 8766 + 433
+                        </div>
+                        <div class="fun-fact">
+                            <strong> Совет Карла Гаусса:</strong><br>
+                            Великий математик Карл Гаусс в 7 лет быстро сложил числа от 1 до 100, 
+                            заметив, что 1+100=101, 2+99=101 и т.д. Всего 50 пар по 101 = 5050!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(2, 4)">Показать ответ</button>
+                        <div id="answer-2-4" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            (1234 + 8766) + (567 + 433) = 10000 + 1000 = 11 000
+                        </div>
+                    `
+                },
+                5: {
+                    points: 50,
+                    text: `
+                        <h2>➕ Сложение и вычитание (50 баллов)</h2>
+                        <div class="question-text">
+                            <strong>Задача-детектив:</strong><br>
+                            В магазине было несколько килограммов яблок. 
+                            После того как продали 125 кг, привезли ещё 230 кг, 
+                            и стало 450 кг яблок. Сколько килограммов яблок было первоначально?
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(2, 5)">Показать ответ</button>
+                        <div id="answer-2-5" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            Пусть было x кг.<br>
+                            x - 125 + 230 = 450<br>
+                            x + 105 = 450<br>
+                            x = 450 - 105 = 345 кг
+                        </div>
+                    `
+                }
+            },
+            3: {
+                1: {
+                    points: 10,
+                    text: `
+                        <h2>✖️ Умножение и деление (10 баллов)</h2>
+                        <div class="character">
+                            <strong>🍕 Пиццайоло Кусков:</strong><br>
+                            "Я режу пиццу на 8 кусков. Сколько кусков будет в 5 таких пиццах?"
+                        </div>
+                        <div class="question-text">
+                            8 × 5 = ?
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(3, 1)">Показать ответ</button>
+                        <div id="answer-3-1" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong> 40 кусков
+                        </div>
+                    `
+                },
+                2: {
+                    points: 20,
+                    text: `
+                        <h2>✖️ Умножение и деление (20 баллов)</h2>
+                        <div class="question-text">
+                            Упростите выражение:<br>
+                            5x + 3x, если x = 12
+                        </div>
+                        <div class="fun-fact">
+                            <strong>📝 Знаете ли вы?</strong><br>
+                            Буквы для обозначения чисел ввёл французский математик Франсуа Виет 
+                            в конце XVI века. До него все числа записывали словами!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(3, 2)">Показать ответ</button>
+                        <div id="answer-3-2" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            5x + 3x = 8x<br>
+                            8 × 12 = 96
+                        </div>
+                    `
+                },
+                3: {
+                    points: 30,
+                    text: `
+                        <h2>✖️ Умножение и деление (30 баллов)</h2>
+                        <div class="character">
+                            <strong>🚀 Космонавт Звёздочкин:</strong><br>
+                            "Наш корабль летит со скоростью 28 000 км/ч. 
+                            Какое расстояние он пролетит за 24 часа?"
+                        </div>
+                        <div class="question-text">
+                            Решите задачу.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(3, 3)">Показать ответ</button>
+                        <div id="answer-3-3" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            28 000 × 24 = 672 000 км
+                        </div>
+                    `
+                },
+                4: {
+                    points: 40,
+                    text: `
+                        <h2>✖️ Умножение и деление (40 баллов)</h2>
+                        <div class="question-text">
+                            Представьте в виде степени:<br>
+                            а) 5 × 5 × 5 × 5<br>
+                            б) a × a × a × a × a<br>
+                            в) Найдите значение 2⁵
+                        </div>
+                        <div class="fun-fact">
+                            <strong>🔢 Степенная история:</strong><br>
+                            Знак степени (маленькая цифра сверху) предложил французский 
+                            математик Рене Декарт в 1637 году. До этого степени записывали словами!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(3, 4)">Показать ответ</button>
+                        <div id="answer-3-4" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 5⁴<br>
+                            б) a⁵<br>
+                            в) 2 = 32
+                        </div>
+                    `
+                },
+                5: {
+                    points: 50,
+                    text: `
+                        <h2>✖️ Умножение и деление (50 баллов)</h2>
+                        <div class="question-text">
+                            <strong>Задача на смекалку:</strong><br>
+                            Упростите выражение:<br>
+                            25 × 17 × 4 × 2
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(3, 5)">Показать ответ</button>
+                        <div id="answer-3-5" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            (25 × 4) × (17 × 2) = 100 × 34 = 3400
+                        </div>
+                    `
+                }
+            },
+            4: {
+                1: {
+                    points: 10,
+                    text: `
+                        <h2> Площади и объёмы (10 баллов)</h2>
+                        <div class="character">
+                            <strong>🏠 Строитель Домостроев:</strong><br>
+                            "Комната имеет длину 5 м и ширину 4 м. Какая у неё площадь?"
+                        </div>
+                        <div class="question-text">
+                            Найдите площадь прямоугольника.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(4, 1)">Показать ответ</button>
+                        <div id="answer-4-1" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            S = 5 × 4 = 20 м²
+                        </div>
+                    `
+                },
+                2: {
+                    points: 20,
+                    text: `
+                        <h2>📐 Площади и объёмы (20 баллов)</h2>
+                        <div class="question-text">
+                            Найдите объём прямоугольного параллелепипеда, 
+                            если его измерения: 6 см, 4 см, 5 см.
+                        </div>
+                        <div class="fun-fact">
+                            <strong>📦 Объёмные факты:</strong><br>
+                            Слово "объём" происходит от латинского "volumen" — свиток, 
+                            потому что объём свитка зависел от его длины!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(4, 2)">Показать ответ</button>
+                        <div id="answer-4-2" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            V = 6 × 4 × 5 = 120 см³
+                        </div>
+                    `
+                },
+                3: {
+                    points: 30,
+                    text: `
+                        <h2>📐 Площади и объёмы (30 баллов)</h2>
+                        <div class="character">
+                            <strong>🎨 Художник Краскин:</strong><br>
+                            "Мне нужно покрасить стену длиной 6 м и высотой 3 м. 
+                            Сколько краски мне нужно, если на 1 м² идёт 200 г краски?"
+                        </div>
+                        <div class="question-text">
+                            Решите задачу.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(4, 3)">Показать ответ</button>
+                        <div id="answer-4-3" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            1) S = 6 × 3 = 18 м²<br>
+                            2) 18 × 200 = 3600 г = 3 кг 600 г
+                        </div>
+                    `
+                },
+                4: {
+                    points: 40,
+                    text: `
+                        <h2>📐 Площади и объёмы (40 баллов)</h2>
+                        <div class="question-text">
+                            Выразите:<br>
+                            а) 5 га в м²<br>
+                            б) 3 км² в га<br>
+                            в) 250 000 м² в га
+                        </div>
+                        <div class="fun-fact">
+                            <strong> Гектарная история:</strong><br>
+                            Слово "гектар" состоит из двух частей: "гекто" (сто) и "ар" 
+                            (единица площади). 1 га = 10 000 м² — это квадрат 100×100 метров!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(4, 4)">Показать ответ</button>
+                        <div id="answer-4-4" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 5 га = 50 000 м²<br>
+                            б) 3 км² = 300 га<br>
+                            в) 250 000 м² = 25 га
+                        </div>
+                    `
+                },
+                5: {
+                    points: 50,
+                    text: `
+                        <h2>📐 Площади и объёмы (50 баллов)</h2>
+                        <div class="question-text">
+                            <strong>Задача-головоломка:</strong><br>
+                            Куб и прямоугольный параллелепипед имеют равные объёмы. 
+                            Измерения параллелепипеда: 8 см, 4 см, 2 см. 
+                            Найдите ребро куба.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(4, 5)">Показать ответ</button>
+                        <div id="answer-4-5" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            1) V = 8 × 4 × 2 = 64 см³<br>
+                            2) Ребро куба: 64 = 4³, значит ребро = 4 см
+                        </div>
+                    `
+                }
+            },
+            5: {
+                1: {
+                    points: 10,
+                    text: `
+                        <h2>🍰 Обыкновенные дроби (10 баллов)</h2>
+                        <div class="character">
+                            <strong>🍪 Кондитер Дробин:</strong><br>
+                            "Я разделил торт на 8 равных частей. 
+                            Сколько частей составляет половина торта?"
+                        </div>
+                        <div class="question-text">
+                            Запишите ответ в виде дроби.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(5, 1)">Показать ответ</button>
+                        <div id="answer-5-1" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong> 4/8 = 1/2
+                        </div>
+                    `
+                },
+                2: {
+                    points: 20,
+                    text: `
+                        <h2>🍰 Обыкновенные дроби (20 баллов)</h2>
+                        <div class="question-text">
+                            Сравните дроби:<br>
+                            а) 3/7 и 5/7<br>
+                            б) 2/3 и 2/5<br>
+                            в) 4/9 и 5/9
+                        </div>
+                        <div class="fun-fact">
+                            <strong>🍰 Дробная история:</strong><br>
+                            Слово "дробь" происходит от слова "дробить" — разбивать на части. 
+                            Первые дроби появились в Древнем Египте более 4000 лет назад!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(5, 2)">Показать ответ</button>
+                        <div id="answer-5-2" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 3/7 < 5/7<br>
+                            б) 2/3 > 2/5<br>
+                            в) 4/9 < 5/9
+                        </div>
+                    `
+                },
+                3: {
+                    points: 30,
+                    text: `
+                        <h2>🍰 Обыкновенные дроби (30 баллов)</h2>
+                        <div class="question-text">
+                            Выполните действия:<br>
+                            а) 2/7 + 3/7<br>
+                            б) 8/9 - 5/9<br>
+                            в) 1/4 + 2/4 + 1/4
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(5, 3)">Показать ответ</button>
+                        <div id="answer-5-3" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 5/7<br>
+                            б) 3/9 = 1/3<br>
+                            в) 4/4 = 1
+                        </div>
+                    `
+                },
+                4: {
+                    points: 40,
+                    text: `
+                        <h2>🍰 Обыкновенные дроби (40 баллов)</h2>
+                        <div class="character">
+                            <strong> Меткий Стрелок:</strong><br>
+                            "Из 15 выстрелов я попал в цель 12 раз. 
+                            Какую часть всех выстрелов составили попадания?"
+                        </div>
+                        <div class="question-text">
+                            Запишите ответ в виде несократимой дроби.
+                        </div>
+                        <div class="fun-fact">
+                            <strong> Процентный факт:</strong><br>
+                            Дроби и проценты — близкие родственники! 
+                            1/2 = 50%, 1/4 = 25%, 3/4 = 75%. 
+                            Слово "процент" означает "на сто".
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(5, 4)">Показать ответ</button>
+                        <div id="answer-5-4" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            12/15 = 4/5
+                        </div>
+                    `
+                },
+                5: {
+                    points: 50,
+                    text: `
+                        <h2>🍰 Обыкновенные дроби (50 баллов)</h2>
+                        <div class="question-text">
+                            <strong>Задача на смекалку:</strong><br>
+                            Турист прошёл в первый день 3/8 всего пути, 
+                            а во второй день — 2/8 пути. 
+                            Какую часть пути ему осталось пройти?
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(5, 5)">Показать ответ</button>
+                        <div id="answer-5-5" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            1) 3/8 + 2/8 = 5/8 - прошёл<br>
+                            2) 8/8 - 5/8 = 3/8 - осталось
+                        </div>
+                    `
+                }
+            },
+            6: {
+                1: {
+                    points: 10,
+                    text: `
+                        <h2> Десятичные дроби (10 баллов)</h2>
+                        <div class="character">
+                            <strong>💰 Кассир Копеечкин:</strong><br>
+                            "Товар стоит 12,5 рубля. Сколько это копеек?"
+                        </div>
+                        <div class="question-text">
+                            Переведите в копейки.
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(6, 1)">Показать ответ</button>
+                        <div id="answer-6-1" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong> 1250 копеек
+                        </div>
+                    `
+                },
+                2: {
+                    points: 20,
+                    text: `
+                        <h2>🔢 Десятичные дроби (20 баллов)</h2>
+                        <div class="question-text">
+                            Сравните числа:<br>
+                            а) 3,45 и 3,54<br>
+                            б) 0,123 и 0,132<br>
+                            в) 7,08 и 7,8
+                        </div>
+                        <div class="fun-fact">
+                            <strong>🔍 Запятая-помощница:</strong><br>
+                            Десятичную запятую придумал шотландский математик Джон Непер 
+                            в начале XVII века. До этого дроби записывали очень неудобно!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(6, 2)">Показать ответ</button>
+                        <div id="answer-6-2" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 3,45 < 3,54<br>
+                            б) 0,123 < 0,132<br>
+                            в) 7,08 < 7,8
+                        </div>
+                    `
+                },
+                3: {
+                    points: 30,
+                    text: `
+                        <h2>🔢 Десятичные дроби (30 баллов)</h2>
+                        <div class="question-text">
+                            Округлите числа:<br>
+                            а) 3,756 до десятых<br>
+                            б) 12,348 до сотых<br>
+                            в) 0,999 до целых
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(6, 3)">Показать ответ</button>
+                        <div id="answer-6-3" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            а) 3,8<br>
+                            б) 12,35<br>
+                            в) 1
+                        </div>
+                    `
+                },
+                4: {
+                    points: 40,
+                    text: `
+                        <h2>🔢 Десятичные дроби (40 баллов)</h2>
+                        <div class="character">
+                            <strong>‍♂️ Бегун Скоростной:</strong><br>
+                            "Я пробежал 100 метров за 12,45 секунды, 
+                            а мой друг — за 13,2 секунды. 
+                            На сколько секунд я быстрее?"
+                        </div>
+                        <div class="question-text">
+                            Решите задачу.
+                        </div>
+                        <div class="fun-fact">
+                            <strong> Рекордный факт:</strong><br>
+                            Мировой рекорд в беге на 100 метров — около 9,58 секунды 
+                            (Усэйн Болт, 2009 год). Это примерно 37,6 км/ч!
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(6, 4)">Показать ответ</button>
+                        <div id="answer-6-4" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            13,2 - 12,45 = 0,75 секунды
+                        </div>
+                    `
+                },
+                5: {
+                    points: 50,
+                    text: `
+                        <h2>🔢 Десятичные дроби (50 баллов)</h2>
+                        <div class="question-text">
+                            <strong>Задача-головоломка:</strong><br>
+                            Вычислите наиболее удобным способом:<br>
+                            2,5 × 3,6 × 4
+                        </div>
+                        <button class="answer-btn" onclick="showAnswer(6, 5)">Показать ответ</button>
+                        <div id="answer-6-5" style="display:none; margin-top:15px; padding:15px; background:#d4edda; border-radius:10px;">
+                            <strong>Ответ:</strong><br>
+                            (2,5 × 4) × 3,6 = 10 × 3,6 = 36
+                        </div>
+                    `
+                }
+            }
+        };
+
+        let timeLeft = 90 * 60; // 90 minutes in seconds
+        let timerInterval;
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Время вышло!');
+                }
+            }, 1000);
+        }
+
+        function showQuestion(category, level) {
+            const modal = document.getElementById('modal');
+            const questionText = document.getElementById('question-text');
+            questionText.innerHTML = questions[category][level].text;
+            modal.style.display = 'flex';
+        }
+
+        function showAnswer(category, level) {
+            const answerDiv = document.getElementById(`answer-${category}-${level}`);
+            answerDiv.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Start timer when page loads
+        window.onload = startTimer;
+    </script>
 </body>
 </html>
