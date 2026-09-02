@@ -3,303 +3,663 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ознакомительный урок математики</title>
+    <title>Действительные числа - 9 класс</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --highlight-color: #f1c40f;
-            --bg-color: #ecf0f1;
-            --text-color: #2c3e50;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            overflow: hidden;
         }
 
-        .presentation-container {
-            width: 90%;
-            max-width: 1000px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            overflow: hidden;
+        .presentation {
+            width: 100vw;
+            height: 100vh;
             position: relative;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
         }
 
         .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
             display: none;
-            padding: 50px;
-            flex-grow: 1;
-            animation: fadeIn 0.6s ease-in-out;
+            background: white;
+            overflow-y: auto;
         }
 
         .slide.active {
             display: flex;
             flex-direction: column;
+            animation: fadeIn 0.5s;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         h1 {
-            color: var(--primary-color);
+            color: #2c3e50;
             font-size: 2.5em;
             margin-bottom: 20px;
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 10px;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
         }
 
         h2 {
-            color: var(--accent-color);
+            color: #34495e;
             font-size: 1.8em;
-            margin-bottom: 25px;
+            margin: 20px 0 15px 0;
+            color: #2980b9;
         }
 
-        p, li {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 15px;
+        h3 {
+            color: #16a085;
+            font-size: 1.4em;
+            margin: 15px 0 10px 0;
         }
 
-        ul {
-            list-style-type: none;
-            padding-left: 0;
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
 
-        ul li::before {
-            content: "📐 ";
-            margin-right: 10px;
-        }
-
-        .notebook-box {
-            background-color: #e8f4f8;
-            border-left: 5px solid var(--accent-color);
+        .definition {
+            background: #ecf0f1;
+            border-left: 5px solid #3498db;
             padding: 20px;
-            border-radius: 8px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .definition strong {
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+
+        .example {
+            background: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .example-title {
+            color: #16a085;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .euler-circles {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+            height: 400px;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: all 0.3s;
+        }
+
+        .circle-real {
+            width: 500px;
+            height: 500px;
+            background: rgba(52, 152, 219, 0.2);
+            border: 3px solid #3498db;
+            z-index: 1;
+        }
+
+        .circle-rational {
+            width: 350px;
+            height: 350px;
+            background: rgba(46, 204, 113, 0.3);
+            border: 3px solid #2ecc71;
+            z-index: 2;
+            left: 50px;
+        }
+
+        .circle-irrational {
+            width: 200px;
+            height: 200px;
+            background: rgba(231, 76, 60, 0.3);
+            border: 3px solid #e74c3c;
+            z-index: 2;
+            right: 80px;
+            top: 100px;
+        }
+
+        .circle-natural {
+            width: 120px;
+            height: 120px;
+            background: rgba(241, 196, 15, 0.4);
+            border: 3px solid #f1c40f;
+            z-index: 3;
+            left: 80px;
+            top: 150px;
+            font-size: 0.9em;
+        }
+
+        .circle-integer {
+            width: 200px;
+            height: 200px;
+            background: rgba(155, 89, 182, 0.3);
+            border: 3px solid #9b59b6;
+            z-index: 3;
+            left: 60px;
+            top: 80px;
+            font-size: 0.9em;
+        }
+
+        .label {
+            position: absolute;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .properties {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             margin: 20px 0;
         }
 
-        .grade-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .property-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
         }
 
-        .grade-table th, .grade-table td {
-            border: 1px solid #bdc3c7;
-            padding: 12px;
-            text-align: left;
+        .property-box h4 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 1.1em;
         }
 
-        .grade-table th {
-            background-color: var(--accent-color);
-            color: white;
+        .formula {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            font-size: 1.1em;
+            text-align: center;
         }
 
-        .controls {
+        .tasks {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .task-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background-color: var(--primary-color);
-            color: white;
+            gap: 10px;
+            z-index: 1000;
         }
 
-        button {
-            background-color: var(--accent-color);
+        .nav-btn {
+            background: #3498db;
             color: white;
             border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border-radius: 8px;
+            padding: 15px 25px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background 0.3s;
+            font-size: 1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        button:hover {
-            background-color: #2980b9;
+        .nav-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
         }
 
-        .slide-counter {
-            font-size: 1.2em;
-            font-weight: bold;
+        .nav-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
         }
 
         .highlight {
-            color: #e74c3c;
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
             font-weight: bold;
         }
-        
-        .footer-note {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: auto;
-            text-align: center;
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        ul {
+            margin-left: 30px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .math-symbol {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .properties, .two-columns {
+                grid-template-columns: 1fr;
+            }
+            .euler-circles {
+                height: 500px;
+            }
+            .circle-real { width: 350px; height: 350px; }
+            .circle-rational { width: 250px; height: 250px; left: 30px; }
+            .circle-irrational { width: 150px; height: 150px; right: 30px; }
         }
     </style>
 </head>
 <body>
 
-<div class="presentation-container">
+<div class="presentation">
+
     <!-- Слайд 1: Титульный -->
-    <div class="slide active">
-        <div style="text-align: center; margin-top: 50px;">
-            <h1 style="border: none; font-size: 3.5em;">Математика</h1>
-            <h2>Ознакомительный урок</h2>
-            <p style="font-size: 1.5em; margin-top: 40px;">Учитель: <span class="highlight">[Ваше Имя Отчество]</span></p>
-            <p style="font-size: 1.2em; color: #7f8c8d;">[Название школы / Класс]</p>
-            <p style="margin-top: 60px; font-style: italic;">"Математику уже затем изучать следует, что она ум в порядок приводит" (М.В. Ломоносов)</p>
-        </div>
-    </div>
-
-    <!-- Слайд 2: Цели по ФГОС -->
-    <div class="slide">
-        <h1>Наши цели на этот год</h1>
-        <p>В соответствии с ФГОС, на уроках математики мы будем развивать:</p>
-        <ul>
-            <li><strong>Логическое и алгоритмическое мышление:</strong> умение строить цепочки рассуждений.</li>
-            <li><strong>Пространственное воображение:</strong> умение видеть геометрические формы в окружающем мире.</li>
-            <li><strong>Математическую грамотность:</strong> способность применять математические знания для решения реальных жизненных задач.</li>
-            <li><strong>Навыки самоконтроля:</strong> умение проверять себя и находить свои ошибки.</li>
-        </ul>
-    </div>
-
-    <!-- Слайд 3: Организация рабочего места (Тетради) -->
-    <div class="slide">
-        <h1>Организация работы: Тетради</h1>
-        <p>Для успешной работы на уроках математики вам понадобятся:</p>
-        <div class="notebook-box">
-            <ul>
-                <li><strong>Рабочая тетрадь (48 листов):</strong> для выполнения классной работы, закрепления материала и решения задач на уроке.</li>
-                <li><strong>Тетрадь для контрольных работ (12 или 18 листов):</strong> используется <span class="highlight">только</span> для самостоятельных и контрольных работ. Должна содержаться в идеальной чистоте.</li>
-                <li><strong>Пенал:</strong> синяя и черная ручки, простой карандаш, ластик, линейка (20-30 см).</li>
-                <li><strong>Геометрические инструменты (с 7 класса и далее, но можно привыкать):</strong> циркуль, транспортир, угольник.</li>
-            </ul>
-        </div>
-        <p><em>Правило: Каждая новая тема начинается с указания числа и "Классная работа" по центру строки.</em></p>
-    </div>
-
-    <!-- Слайд 4: Правила урока -->
-    <div class="slide">
-        <h1>Правила работы на уроке</h1>
-        <ul>
-            <li><strong>Дисциплина:</strong> Мы уважаем время друг друга. Говорим по одному, подняв руку.</li>
-            <li><strong>Активность:</strong> Математика не терпит пассивности. Пробуем решать, даже если не уверены в ответе. Ошибка – это шаг к пониманию.</li>
-            <li><strong>Домашнее задание:</strong> Задается каждый урок. Оно направлено на закрепление того, что мы делали в классе. Списывание не дает знаний и легко выявляется при проверке.</li>
-            <li><strong>Вопросы:</strong> Если что-то непонятно, спрашивайте сразу. Не копите "снежный ком" непонимания.</li>
-        </ul>
-    </div>
-
-    <!-- Слайд 5: Критерии оценивания (ФГОС) -->
-    <div class="slide">
-        <h1>Как я ставлю оценки?</h1>
-        <table class="grade-table">
-            <tr>
-                <th>Оценка</th>
-                <th>Критерии (Письменные работы)</th>
-            </tr>
-            <tr>
-                <td><strong>"5" (Отлично)</strong></td>
-                <td>Работа выполнена полностью, логические рассуждения обоснованы, нет вычислительных ошибок, запись аккуратная.</td>
-            </tr>
-            <tr>
-                <td><strong>"4" (Хорошо)</strong></td>
-                <td>Работа выполнена полностью, но допущена 1 негрубая вычислительная ошибка или 1 недочет в рассуждениях.</td>
-            </tr>
-            <tr>
-                <td><strong>"3" (Удовлетворительно)</strong></td>
-                <td>Допущено более одной ошибки или несколько недочетов, но ученик владеет базовыми навыками решения задач данной темы.</td>
-            </tr>
-            <tr>
-                <td><strong>"2" (Неудовлетворительно)</strong></td>
-                <td>Допущены существенные ошибки, показывающие непонимание основного материала, или работа не выполнена.</td>
-            </tr>
-        </table>
-        <p style="margin-top: 20px; font-size: 1em;"><em>Устные ответы оцениваются с учетом активности, правильности терминологии и умения применять правила на практике.</em></p>
-    </div>
-
-    <!-- Слайд 6: Секреты успеха -->
-    <div class="slide">
-        <h1>5 секретов успеха в математике</h1>
-        <ol style="font-size: 1.2em; line-height: 1.8;">
-            <li><strong>Регулярность:</strong> Решайте задачи каждый день, даже по 15 минут.</li>
-            <li><strong>Черновик:</strong> Всегда делайте черновые вычисления перед тем, как писать в чистовик.</li>
-            <li><strong>Проверка:</strong> Подставьте полученный ответ в условие задачи, чтобы убедиться в его правильности.</li>
-            <li><strong>Оформление:</strong> Аккуратная запись помогает не запутаться в собственных мыслях.</li>
-            <li><strong>Не бойтесь сложного:</strong> Если задача не решается сразу, разбейте её на маленькие шаги.</li>
-        </ol>
-    </div>
-
-    <!-- Слайд 7: Финал -->
-    <div class="slide">
-        <div style="text-align: center; margin-top: 60px;">
-            <h1>Спасибо за внимание!</h1>
-            <p style="font-size: 1.5em;">Вопросы?</p>
-            <div style="margin-top: 50px; background: #f9f9f9; padding: 20px; border-radius: 10px; display: inline-block;">
-                <p><strong>Мои контакты:</strong></p>
-                <p>📧 Email: [Ваш email]</p>
-                <p>📱 Консультации: [Дни и время консультаций]</p>
+    <div class="slide active" id="slide1">
+        <div class="content" style="text-align: center;">
+            <h1 style="font-size: 3em; color: #2c3e50;">Действительные числа</h1>
+            <h2 style="color: #7f8c8d; font-size: 1.5em;">Действия над действительными числами</h2>
+            <div style="margin-top: 50px; padding: 30px; background: #ecf0f1; border-radius: 15px;">
+                <p style="font-size: 1.3em; color: #34495e;"><strong>9 класс</strong></p>
+                <p style="font-size: 1.1em; color: #7f8c8d; margin-top: 10px;">Алгебра</p>
+                <p style="font-size: 0.9em; color: #95a5a6; margin-top: 20px;">ФГОС 2026</p>
             </div>
-            <p style="margin-top: 40px; font-size: 1.2em; color: var(--accent-color);">Жду вас на следующем уроке!</p>
         </div>
     </div>
 
-    <!-- Управление -->
-    <div class="controls">
-        <button onclick="prevSlide()">← Назад</button>
-        <span class="slide-counter" id="slide-counter">1 / 7</span>
-        <button onclick="nextSlide()">Вперед →</button>
+    <!-- Слайд 2: Цели урока -->
+    <div class="slide" id="slide2">
+        <div class="content">
+            <h1>Цели урока</h1>
+            <div class="two-columns">
+                <div class="definition">
+                    <strong>Предметные результаты:</strong>
+                    <ul>
+                        <li>Понимать понятие действительного числа</li>
+                        <li>Различать рациональные и иррациональные числа</li>
+                        <li>Выполнять действия над действительными числами</li>
+                        <li>Применять свойства арифметических действий</li>
+                    </ul>
+                </div>
+                <div class="definition">
+                    <strong>Метапредметные результаты:</strong>
+                    <ul>
+                        <li>Развивать логическое мышление</li>
+                        <li>Формировать умения классифицировать</li>
+                        <li>Развивать математическую речь</li>
+                        <li>Умение работать с математическими моделями</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Слайд 3: Определение действительных чисел -->
+    <div class="slide" id="slide3">
+        <div class="content">
+            <h1>Действительные числа</h1>
+            <div class="definition">
+                <strong>Определение:</strong><br>
+                <span class="math-symbol">ℝ</span> — множество всех <strong>действительных чисел</strong> (вещественных чисел) — это объединение множества рациональных чисел <span class="math-symbol">ℚ</span> и множества иррациональных чисел <span class="math-symbol">𝕀</span>.
+            </div>
+            <div class="formula">
+                ℝ =  ∪ 𝕀
+            </div>
+            <div class="example">
+                <div class="example-title">Важно помнить:</div>
+                <p>Каждое действительное число можно изобразить точкой на координатной прямой, и каждой точке координатной прямой соответствует единственное действительное число.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Слайд 4: Рациональные числа -->
+    <div class="slide" id="slide4">
+        <div class="content">
+            <h1>Рациональные числа (ℚ)</h1>
+            <div class="definition">
+                <strong>Определение:</strong><br>
+                <span class="math-symbol">ℚ</span> — множество чисел, которые можно представить в виде дроби <span class="math-symbol">m/n</span>, где <span class="math-symbol">m</span> — целое число, <span class="math-symbol">n</span> — натуральное число.
+            </div>
+            <div class="formula">
+                 = { m/n | m ∈ ℤ, n ∈ ℕ }
+            </div>
+            <div class="two-columns">
+                <div class="example">
+                    <div class="example-title">Примеры рациональных чисел:</div>
+                    <ul>
+                        <li>Целые числа: <span class="math-symbol">-3, 0, 5, 100</span></li>
+                        <li>Обыкновенные дроби: <span class="math-symbol">1/2, -3/4, 7/8</span></li>
+                        <li>Десятичные конечные: <span class="math-symbol">0,5; 2,75; -0,125</span></li>
+                        <li>Десятичные периодические: <span class="math-symbol">0,(3) = 1/3</span></li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <div class="example-title">Свойства:</div>
+                    <ul>
+                        <li>Сумма рациональных чисел — рациональное число</li>
+                        <li>Разность рациональных чисел — рациональное число</li>
+                        <li>Произведение рациональных чисел — рациональное число</li>
+                        <li>Частное рациональных чисел (кроме деления на 0) — рациональное число</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Слайд 5: Иррациональные числа -->
+    <div class="slide" id="slide5">
+        <div class="content">
+            <h1>Иррациональные числа (𝕀)</h1>
+            <div class="definition">
+                <strong>Определение:</strong><br>
+                <span class="math-symbol">𝕀</span> — множество действительных чисел, которые <strong>нельзя</strong> представить в виде дроби <span class="math-symbol">m/n</span>, где <span class="math-symbol">m</span> — целое число, <span class="math-symbol">n</span> — натуральное число.
+            </div>
+            <div class="two-columns">
+                <div class="example">
+                    <div class="example-title">Примеры иррациональных чисел:</div>
+                    <ul>
+                        <li><span class="math-symbol">√2 ≈ 1,41421356...</span> (непериодическая десятичная дробь)</li>
+                        <li><span class="math-symbol">√3, √5, √7</span> (корни из простых чисел)</li>
+                        <li><span class="math-symbol">π ≈ 3,14159265...</span> (число Пи)</li>
+                        <li><span class="math-symbol">e ≈ 2,71828182...</span> (число Эйлера)</li>
+                        <li><span class="math-symbol">0,101001000100001...</span> (непериодическая дробь)</li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <div class="example-title">Характеристики:</div>
+                    <ul>
+                        <li>Представляются бесконечными непериодическими десятичными дробями</li>
+                        <li>Не могут быть точно выражены обыкновенной дробью</li>
+                        <li>На координатной прямой занимают «промежутки» между рациональными числами</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Слайд 6: Круги Эйлера -->
+    <div class="slide" id="slide6">
+        <div class="content">
+            <h1>Множества чисел (круги Эйлера)</h1>
+            <div class="euler-circles">
+                <div class="circle circle-real">
+                    <span style="position: absolute; top: 20px; right: 20px; font-size: 1.5em;">ℝ</span>
+                    <span style="position: absolute; bottom: 30px; right: 100px; color: #3498db;">Действительные</span>
+                </div>
+                <div class="circle circle-rational">
+                    <span style="position: absolute; top: 10px; left: 10px; font-size: 1.3em;">ℚ</span>
+                    <span style="position: absolute; bottom: 20px; left: 40px; color: #2ecc71;">Рациональные</span>
+                </div>
+                <div class="circle circle-irrational">
+                    <span style="position: absolute; top: 10px; right: 10px; font-size: 1.2em;"></span>
+                    <span style="position: absolute; bottom: 20px; right: 20px; color: #e74c3c; font-size: 0.8em;">Иррациональные</span>
+                </div>
+                <div class="circle circle-integer">
+                    <span style="position: absolute; top: 5px; left: 5px; font-size: 1em;"></span>
+                    <span style="position: absolute; bottom: 15px; left: 20px; color: #9b59b6; font-size: 0.7em;">Целые</span>
+                </div>
+                <div class="circle circle-natural">
+                    <span style="position: absolute; top: 5px; left: 5px; font-size: 0.9em;">ℕ</span>
+                    <span style="position: absolute; bottom: 15px; left: 15px; color: #f1c40f; font-size: 0.65em;">Натуральные</span>
+                </div>
+            </div>
+            <div class="definition" style="margin-top: 20px;">
+                <strong>Взаимосвязь множеств:</strong><br>
+                ℕ ⊂ ℤ ⊂  ⊂ ℝ и 𝕀  ℝ, причём ℚ ∩ 𝕀 = ∅ (пересечение пустое)
+            </div>
+        </div>
+    </div>
+
+    <!-- Слайд 7: Свойства действий -->
+    <div class="slide" id="slide7">
+        <div class="content">
+            <h1>Свойства действий над действительными числами</h1>
+            <div class="properties">
+                <div class="property-box">
+                    <h4>1. Переместительный закон</h4>
+                    <div class="formula">a + b = b + a</div>
+                    <div class="formula">a · b = b · a</div>
+                </div>
+                <div class="property-box">
+                    <h4>2. Сочетательный закон</h4>
+                    <div class="formula">(a + b) + c = a + (b + c)</div>
+                    <div class="formula">(a · b) · c = a · (b · c)</div>
+                </div>
+                <div class="property-box">
+                    <h4>3. Распределительный закон</h4>
+                    <div class="formula">a · (b + c) = a·b + a·c</div>
+                </div>
+                <div class="property-box">
+                    <h4>4. Существование нуля и единицы</h4>
+                    <div class="formula">a + 0 = a</div>
+                    <div class="formula">a · 1 = a</div>
+                </div>
+            </div>
+            <div class="example">
+                <div class="example-title">Важно:</div>
+                <p>Эти свойства выполняются для <strong>любых</strong> действительных чисел (как рациональных, так и иррациональных).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Слайд 8: Примеры действий -->
+    <div class="slide" id="slide8">
+        <div class="content">
+            <h1>Примеры действий над действительными числами</h1>
+            <div class="two-columns">
+                <div>
+                    <h3>Сложение и вычитание:</h3>
+                    <div class="example">
+                        <div class="example-title">Пример 1:</div>
+                        <p><span class="math-symbol">√2 + 3√2 = 4√2</span></p>
+                        <p style="font-size: 0.9em; color: #7f8c8d;">(складываем как подобные слагаемые)</p>
+                    </div>
+                    <div class="example">
+                        <div class="example-title">Пример 2:</div>
+                        <p><span class="math-symbol">π + 2 ≈ 3,14 + 2 = 5,14</span></p>
+                        <p style="font-size: 0.9em; color: #7f8c8d;">(приближённое значение)</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Умножение и деление:</h3>
+                    <div class="example">
+                        <div class="example-title">Пример 3:</div>
+                        <p><span class="math-symbol">√3 · √5 = √15</span></p>
+                    </div>
+                    <div class="example">
+                        <div class="example-title">Пример 4:</div>
+                        <p><span class="math-symbol">2√6 : √2 = 2√3</span></p>
+                        <p style="font-size: 0.9em; color: #7f8c8d;">(так как √6/√2 = 3)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="definition" style="margin-top: 20px;">
+                <strong>Важное свойство:</strong><br>
+                Сумма (разность) рационального и иррационального числа — всегда иррациональное число.<br>
+                Произведение (частное) ненулевого рационального и иррационального числа — всегда иррациональное число.
+            </div>
+        </div>
+    </div>
+
+    <!-- Слайд 9: Задания для закрепления -->
+    <div class="slide" id="slide9">
+        <div class="content">
+            <h1>Задания для закрепления</h1>
+            <div class="tasks">
+                <div class="task-item">
+                    <strong>Задание 1.</strong> Определите, какие из чисел являются рациональными, а какие — иррациональными:<br>
+                    <span class="math-symbol">√9; √10; 0,(7); π/2; -5; 2,343434...; √0,25</span>
+                </div>
+                <div class="task-item">
+                    <strong>Задание 2.</strong> Выполните действия:<br>
+                    а) <span class="math-symbol">3√5 + 2√5 - √5</span><br>
+                    б) <span class="math-symbol">√12 · √3</span><br>
+                    в) <span class="math-symbol">(√7)<sup>2</sup> + 3</span>
+                </div>
+                <div class="task-item">
+                    <strong>Задание 3.</strong> Докажите, что число <span class="math-symbol">√2 + √3</span> является иррациональным.
+                </div>
+                <div class="task-item">
+                    <strong>Задание 4.</strong> Представьте в виде десятичной дроби (конечной или периодической):<br>
+                    <span class="math-symbol">3/8; 5/6; 7/11</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Слайд 10: Ответы и итоги -->
+    <div class="slide" id="slide10">
+        <div class="content">
+            <h1>Ответы и итоги урока</h1>
+            <div class="two-columns">
+                <div>
+                    <h3>Ответы к заданиям:</h3>
+                    <div class="example">
+                        <strong>Задание 1:</strong><br>
+                        Рациональные: √9=3; 0,(7); -5; 0,25=0,5; 2,343434...<br>
+                        Иррациональные: √10; π/2
+                    </div>
+                    <div class="example">
+                        <strong>Задание 2:</strong><br>
+                        а) 4√5<br>
+                        б) √36 = 6<br>
+                        в) 7 + 3 = 10
+                    </div>
+                </div>
+                <div>
+                    <h3>Основные выводы:</h3>
+                    <ul>
+                        <li>ℝ = ℚ ∪ 𝕀</li>
+                        <li>ℚ ∩  = ∅</li>
+                        <li>Каждое действительное число — точка на числовой прямой</li>
+                        <li>Свойства арифметических действий выполняются для всех ℝ</li>
+                        <li>Иррациональные числа — бесконечные непериодические десятичные дроби</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="definition" style="margin-top: 20px; text-align: center; font-size: 1.2em;">
+                <strong>Домашнее задание:</strong><br>
+                № 1-5 из учебника, стр. 45-46
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="slide-number">
+    Слайд <span id="currentSlide">1</span> из 10
+</div>
+
+<div class="navigation">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Назад</button>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Вперёд →</button>
 </div>
 
 <script>
-    let currentSlide = 1;
-    const totalSlides = 7;
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
 
-    function showSlide(n) {
-        const slides = document.querySelectorAll('.slide');
-        if (n > totalSlides) currentSlide = 1;
-        if (n < 1) currentSlide = totalSlides;
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
         
-        slides.forEach(slide => slide.classList.remove('active'));
-        slides[currentSlide - 1].classList.add('active');
+        document.getElementById('currentSlide').textContent = index + 1;
         
-        document.getElementById('slide-counter').innerText = `${currentSlide} / ${totalSlides}`;
+        document.getElementById('prevBtn').disabled = index === 0;
+        document.getElementById('nextBtn').disabled = index === totalSlides - 1;
     }
 
-    function nextSlide() {
-        showSlide(currentSlide + 1);
-    }
-
-    function prevSlide() {
-        showSlide(currentSlide - 1);
+    function changeSlide(direction) {
+        const newIndex = currentSlideIndex + direction;
+        if (newIndex >= 0 && newIndex < totalSlides) {
+            currentSlideIndex = newIndex;
+            showSlide(currentSlideIndex);
+        }
     }
 
     // Управление с клавиатуры
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'ArrowRight' || event.key === ' ') {
-            nextSlide();
-        } else if (event.key === 'ArrowLeft') {
-            prevSlide();
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            changeSlide(1);
+        } else if (e.key === 'ArrowLeft') {
+            changeSlide(-1);
         }
     });
 
     // Инициализация
-    showSlide(currentSlide);
+    showSlide(0);
 </script>
 
 </body>
