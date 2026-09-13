@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Действительные числа - 9 класс</title>
+    <title>Проценты и Круговые Диаграммы - 6 класс</title>
     <style>
         * {
             margin: 0;
@@ -15,652 +15,628 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        .presentation {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            padding: 40px;
             display: none;
             background: white;
-            overflow-y: auto;
+            border-radius: 30px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease;
+            min-height: 600px;
         }
 
         .slide.active {
-            display: flex;
-            flex-direction: column;
-            animation: fadeIn 0.5s;
+            display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            color: #2c3e50;
+            color: #667eea;
+            text-align: center;
             font-size: 2.5em;
             margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         h2 {
-            color: #34495e;
-            font-size: 1.8em;
-            margin: 20px 0 15px 0;
-            color: #2980b9;
+            color: #764ba2;
+            margin: 30px 0 20px 0;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
         }
 
         h3 {
-            color: #16a085;
-            font-size: 1.4em;
-            margin: 15px 0 10px 0;
+            color: #5a67d8;
+            margin: 20px 0 15px 0;
+            font-size: 1.5em;
         }
 
-        .content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .definition {
-            background: #ecf0f1;
-            border-left: 5px solid #3498db;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 5px;
-            font-size: 1.1em;
-        }
-
-        .definition strong {
-            color: #2c3e50;
+        .subtitle {
+            text-align: center;
+            color: #888;
             font-size: 1.2em;
+            margin-bottom: 30px;
         }
 
-        .example {
-            background: #e8f6f3;
-            border-left: 5px solid #1abc9c;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-
-        .example-title {
-            color: #16a085;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .euler-circles {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 30px 0;
-            position: relative;
-            height: 400px;
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            transition: all 0.3s;
-        }
-
-        .circle-real {
-            width: 500px;
-            height: 500px;
-            background: rgba(52, 152, 219, 0.2);
-            border: 3px solid #3498db;
-            z-index: 1;
-        }
-
-        .circle-rational {
-            width: 350px;
-            height: 350px;
-            background: rgba(46, 204, 113, 0.3);
-            border: 3px solid #2ecc71;
-            z-index: 2;
-            left: 50px;
-        }
-
-        .circle-irrational {
-            width: 200px;
-            height: 200px;
-            background: rgba(231, 76, 60, 0.3);
-            border: 3px solid #e74c3c;
-            z-index: 2;
-            right: 80px;
-            top: 100px;
-        }
-
-        .circle-natural {
-            width: 120px;
-            height: 120px;
-            background: rgba(241, 196, 15, 0.4);
-            border: 3px solid #f1c40f;
-            z-index: 3;
-            left: 80px;
-            top: 150px;
-            font-size: 0.9em;
-        }
-
-        .circle-integer {
-            width: 200px;
-            height: 200px;
-            background: rgba(155, 89, 182, 0.3);
-            border: 3px solid #9b59b6;
-            z-index: 3;
-            left: 60px;
-            top: 80px;
-            font-size: 0.9em;
-        }
-
-        .label {
-            position: absolute;
-            background: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .properties {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .theory-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 5px solid #667eea;
+            padding: 25px;
             margin: 20px 0;
-        }
-
-        .property-box {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid #dee2e6;
-        }
-
-        .property-box h4 {
-            color: #495057;
-            margin-bottom: 10px;
-            font-size: 1.1em;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .formula {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            margin: 10px 0;
-            font-size: 1.1em;
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 15px 0;
             text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #764ba2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 2px dashed #667eea;
         }
 
-        .tasks {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 10px;
+        .example {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
             padding: 20px;
+            border-radius: 15px;
             margin: 20px 0;
         }
 
-        .task-item {
-            background: white;
+        .example-title {
+            color: #d97706;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .problem {
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            border: 3px solid #667eea;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .problem:hover {
+            transform: scale(1.02);
+        }
+
+        .problem-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .answer {
+            background: #d1fae5;
+            border: 2px solid #10b981;
             padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border-left: 4px solid #ffc107;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .answer.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 200px; }
+        }
+
+        .show-answer-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .show-answer-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
         }
 
         .navigation {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
             display: flex;
-            gap: 10px;
-            z-index: 1000;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .nav-btn {
-            background: #3498db;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 15px 25px;
-            border-radius: 50px;
+            padding: 15px 40px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1.1em;
             transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .nav-btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
         }
 
         .nav-btn:disabled {
-            background: #95a5a6;
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
-        .slide-number {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
+        .slide-counter {
+            text-align: center;
             color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-
-        .highlight {
-            background: #fff3cd;
-            padding: 2px 5px;
-            border-radius: 3px;
+            font-size: 1.2em;
+            margin: 20px 0;
             font-weight: bold;
         }
 
-        .two-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 20px 0;
+        .game-section {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border: 3px solid #fdcb6e;
+            padding: 30px;
+            border-radius: 25px;
+            margin: 30px 0;
+            text-align: center;
         }
 
-        ul {
-            margin-left: 30px;
-            line-height: 1.8;
+        .game-title {
+            font-size: 2em;
+            color: #d63031;
+            margin-bottom: 20px;
         }
 
-        li {
-            margin: 8px 0;
+        .pie-chart-demo {
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
+            position: relative;
         }
 
-        .math-symbol {
-            font-family: 'Times New Roman', serif;
+        .pie-chart-demo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1em;
+        }
+
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+        }
+
+        .tip {
+            background: #fce7f3;
+            border-left: 5px solid #ec4899;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 10px;
             font-style: italic;
+        }
+
+        .highlight {
+            background: #fef08a;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .emoji {
             font-size: 1.2em;
         }
 
         @media (max-width: 768px) {
-            .properties, .two-columns {
-                grid-template-columns: 1fr;
+            .slide {
+                padding: 25px;
             }
-            .euler-circles {
-                height: 500px;
+            h1 {
+                font-size: 1.8em;
             }
-            .circle-real { width: 350px; height: 350px; }
-            .circle-rational { width: 250px; height: 250px; left: 30px; }
-            .circle-irrational { width: 150px; height: 150px; right: 30px; }
+            h2 {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="slide-counter">
+            Слайд <span id="currentSlide">1</span> из <span id="totalSlides">8</span>
+        </div>
 
-<div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active" id="slide1">
+            <h1> Проценты и Круговые Диаграммы</h1>
+            <p class="subtitle">Интерактивный урок математики для 6 класса</p>
+            
+            <div style="text-align: center; margin: 50px 0;">
+                <div style="font-size: 5em; margin-bottom: 20px;">📊 📈 </div>
+                <p style="font-size: 1.3em; color: #666; line-height: 1.8;">
+                    Узнаем, что такое проценты<br>
+                    Научимся строить круговые диаграммы<br>
+                    Решим интересные задачи!
+                </p>
+            </div>
 
-    <!-- Слайд 1: Титульный -->
-    <div class="slide active" id="slide1">
-        <div class="content" style="text-align: center;">
-            <h1 style="font-size: 3em; color: #2c3e50;">Действительные числа</h1>
-            <h2 style="color: #7f8c8d; font-size: 1.5em;">Действия над действительными числами</h2>
-            <div style="margin-top: 50px; padding: 30px; background: #ecf0f1; border-radius: 15px;">
-                <p style="font-size: 1.3em; color: #34495e;"><strong>9 класс</strong></p>
-                <p style="font-size: 1.1em; color: #7f8c8d; margin-top: 10px;">Алгебра</p>
-                <p style="font-size: 0.9em; color: #95a5a6; margin-top: 20px;">ФГОС 2026</p>
+            <div class="theory-box">
+                <strong>🎮 Формат урока:</strong><br>
+                Теория + Практика + Игра = Отличные знания!
             </div>
         </div>
-    </div>
 
-    <!-- Слайд 2: Цели урока -->
-    <div class="slide" id="slide2">
-        <div class="content">
-            <h1>Цели урока</h1>
-            <div class="two-columns">
-                <div class="definition">
-                    <strong>Предметные результаты:</strong>
-                    <ul>
-                        <li>Понимать понятие действительного числа</li>
-                        <li>Различать рациональные и иррациональные числа</li>
-                        <li>Выполнять действия над действительными числами</li>
-                        <li>Применять свойства арифметических действий</li>
-                    </ul>
-                </div>
-                <div class="definition">
-                    <strong>Метапредметные результаты:</strong>
-                    <ul>
-                        <li>Развивать логическое мышление</li>
-                        <li>Формировать умения классифицировать</li>
-                        <li>Развивать математическую речь</li>
-                        <li>Умение работать с математическими моделями</li>
-                    </ul>
-                </div>
+        <!-- Slide 2: What are Percentages -->
+        <div class="slide" id="slide2">
+            <h1> Что такое проценты?</h1>
+            
+            <div class="theory-box">
+                <h3>💡 Определение</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    <span class="highlight">Процент</span> — это сотая часть числа или величины.<br>
+                    Слово "процент" происходит от латинского <em>pro centum</em>, что означает <strong>"на сто"</strong>.
+                </p>
             </div>
-        </div>
-    </div>
 
-    <!-- Слайд 3: Определение действительных чисел -->
-    <div class="slide" id="slide3">
-        <div class="content">
-            <h1>Действительные числа</h1>
-            <div class="definition">
-                <strong>Определение:</strong><br>
-                <span class="math-symbol">ℝ</span> — множество всех <strong>действительных чисел</strong> (вещественных чисел) — это объединение множества рациональных чисел <span class="math-symbol">ℚ</span> и множества иррациональных чисел <span class="math-symbol">𝕀</span>.
-            </div>
             <div class="formula">
-                ℝ =  ∪ 𝕀
+                1% = 1/100 = 0,01
             </div>
+
             <div class="example">
-                <div class="example-title">Важно помнить:</div>
-                <p>Каждое действительное число можно изобразить точкой на координатной прямой, и каждой точке координатной прямой соответствует единственное действительное число.</p>
+                <div class="example-title">📝 Примеры:</div>
+                <ul style="line-height: 2; margin-left: 20px;">
+                    <li>1% от 100 рублей = 1 рубль</li>
+                    <li>10% от 200 = 20</li>
+                    <li>50% от 60 = 30 (половина)</li>
+                    <li>100% — это всё число целиком</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                 <strong>Совет:</strong> Чтобы перевести проценты в десятичную дробь, разделите число процентов на 100!
             </div>
         </div>
-    </div>
 
-    <!-- Слайд 4: Рациональные числа -->
-    <div class="slide" id="slide4">
-        <div class="content">
-            <h1>Рациональные числа (ℚ)</h1>
-            <div class="definition">
-                <strong>Определение:</strong><br>
-                <span class="math-symbol">ℚ</span> — множество чисел, которые можно представить в виде дроби <span class="math-symbol">m/n</span>, где <span class="math-symbol">m</span> — целое число, <span class="math-symbol">n</span> — натуральное число.
-            </div>
+        <!-- Slide 3: How to Calculate Percentages -->
+        <div class="slide" id="slide3">
+            <h1> Как находить проценты?</h1>
+            
+            <h3> Основные правила:</h3>
+            
             <div class="formula">
-                 = { m/n | m ∈ ℤ, n ∈ ℕ }
+                Чтобы найти p% от числа a:<br>
+                a × p : 100
             </div>
-            <div class="two-columns">
-                <div class="example">
-                    <div class="example-title">Примеры рациональных чисел:</div>
-                    <ul>
-                        <li>Целые числа: <span class="math-symbol">-3, 0, 5, 100</span></li>
-                        <li>Обыкновенные дроби: <span class="math-symbol">1/2, -3/4, 7/8</span></li>
-                        <li>Десятичные конечные: <span class="math-symbol">0,5; 2,75; -0,125</span></li>
-                        <li>Десятичные периодические: <span class="math-symbol">0,(3) = 1/3</span></li>
-                    </ul>
-                </div>
-                <div class="example">
-                    <div class="example-title">Свойства:</div>
-                    <ul>
-                        <li>Сумма рациональных чисел — рациональное число</li>
-                        <li>Разность рациональных чисел — рациональное число</li>
-                        <li>Произведение рациональных чисел — рациональное число</li>
-                        <li>Частное рациональных чисел (кроме деления на 0) — рациональное число</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Слайд 5: Иррациональные числа -->
-    <div class="slide" id="slide5">
-        <div class="content">
-            <h1>Иррациональные числа (𝕀)</h1>
-            <div class="definition">
-                <strong>Определение:</strong><br>
-                <span class="math-symbol">𝕀</span> — множество действительных чисел, которые <strong>нельзя</strong> представить в виде дроби <span class="math-symbol">m/n</span>, где <span class="math-symbol">m</span> — целое число, <span class="math-symbol">n</span> — натуральное число.
-            </div>
-            <div class="two-columns">
-                <div class="example">
-                    <div class="example-title">Примеры иррациональных чисел:</div>
-                    <ul>
-                        <li><span class="math-symbol">√2 ≈ 1,41421356...</span> (непериодическая десятичная дробь)</li>
-                        <li><span class="math-symbol">√3, √5, √7</span> (корни из простых чисел)</li>
-                        <li><span class="math-symbol">π ≈ 3,14159265...</span> (число Пи)</li>
-                        <li><span class="math-symbol">e ≈ 2,71828182...</span> (число Эйлера)</li>
-                        <li><span class="math-symbol">0,101001000100001...</span> (непериодическая дробь)</li>
-                    </ul>
-                </div>
-                <div class="example">
-                    <div class="example-title">Характеристики:</div>
-                    <ul>
-                        <li>Представляются бесконечными непериодическими десятичными дробями</li>
-                        <li>Не могут быть точно выражены обыкновенной дробью</li>
-                        <li>На координатной прямой занимают «промежутки» между рациональными числами</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Слайд 6: Круги Эйлера -->
-    <div class="slide" id="slide6">
-        <div class="content">
-            <h1>Множества чисел (круги Эйлера)</h1>
-            <div class="euler-circles">
-                <div class="circle circle-real">
-                    <span style="position: absolute; top: 20px; right: 20px; font-size: 1.5em;">ℝ</span>
-                    <span style="position: absolute; bottom: 30px; right: 100px; color: #3498db;">Действительные</span>
-                </div>
-                <div class="circle circle-rational">
-                    <span style="position: absolute; top: 10px; left: 10px; font-size: 1.3em;">ℚ</span>
-                    <span style="position: absolute; bottom: 20px; left: 40px; color: #2ecc71;">Рациональные</span>
-                </div>
-                <div class="circle circle-irrational">
-                    <span style="position: absolute; top: 10px; right: 10px; font-size: 1.2em;"></span>
-                    <span style="position: absolute; bottom: 20px; right: 20px; color: #e74c3c; font-size: 0.8em;">Иррациональные</span>
-                </div>
-                <div class="circle circle-integer">
-                    <span style="position: absolute; top: 5px; left: 5px; font-size: 1em;"></span>
-                    <span style="position: absolute; bottom: 15px; left: 20px; color: #9b59b6; font-size: 0.7em;">Целые</span>
-                </div>
-                <div class="circle circle-natural">
-                    <span style="position: absolute; top: 5px; left: 5px; font-size: 0.9em;">ℕ</span>
-                    <span style="position: absolute; bottom: 15px; left: 15px; color: #f1c40f; font-size: 0.65em;">Натуральные</span>
-                </div>
-            </div>
-            <div class="definition" style="margin-top: 20px;">
-                <strong>Взаимосвязь множеств:</strong><br>
-                ℕ ⊂ ℤ ⊂  ⊂ ℝ и 𝕀  ℝ, причём ℚ ∩ 𝕀 = ∅ (пересечение пустое)
-            </div>
-        </div>
-    </div>
-
-    <!-- Слайд 7: Свойства действий -->
-    <div class="slide" id="slide7">
-        <div class="content">
-            <h1>Свойства действий над действительными числами</h1>
-            <div class="properties">
-                <div class="property-box">
-                    <h4>1. Переместительный закон</h4>
-                    <div class="formula">a + b = b + a</div>
-                    <div class="formula">a · b = b · a</div>
-                </div>
-                <div class="property-box">
-                    <h4>2. Сочетательный закон</h4>
-                    <div class="formula">(a + b) + c = a + (b + c)</div>
-                    <div class="formula">(a · b) · c = a · (b · c)</div>
-                </div>
-                <div class="property-box">
-                    <h4>3. Распределительный закон</h4>
-                    <div class="formula">a · (b + c) = a·b + a·c</div>
-                </div>
-                <div class="property-box">
-                    <h4>4. Существование нуля и единицы</h4>
-                    <div class="formula">a + 0 = a</div>
-                    <div class="formula">a · 1 = a</div>
-                </div>
-            </div>
             <div class="example">
-                <div class="example-title">Важно:</div>
-                <p>Эти свойства выполняются для <strong>любых</strong> действительных чисел (как рациональных, так и иррациональных).</p>
+                <div class="example-title">🎲 Пример 1: Найти 20% от 150</div>
+                <p>150 × 20 : 100 = 3000 : 100 = <strong>30</strong></p>
             </div>
+
+            <div class="example">
+                <div class="example-title">🎲 Пример 2: Найти 15% от 80</div>
+                <p>80 × 15 : 100 = 1200 : 100 = <strong>12</strong></p>
+            </div>
+
+            <div class="theory-box">
+                <h3> Быстрый способ:</h3>
+                <p>Можно сначала умножить число на процент, а потом разделить на 100,<br>
+                или сначала разделить процент на 100, а потом умножить на число!</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Pie Charts Theory -->
+        <div class="slide" id="slide4">
+            <h1>🥧 Круговые диаграммы</h1>
+            
+            <div class="theory-box">
+                <h3>💡 Что это такое?</h3>
+                <p style="line-height: 1.8;">
+                    <span class="highlight">Круговая диаграмма</span> — это схема в виде круга, разделённого на секторы.<br>
+                    Каждый сектор показывает часть от целого.
+                </p>
+            </div>
+
+            <div class="formula">
+                Весь круг = 360° = 100%<br>
+                1% = 3,6°
+            </div>
+
+            <div class="tip">
+                🎯 <strong>Запомни:</strong> Круговые диаграммы наглядно показывают соотношение целого и его частей!
+            </div>
+
+            <div class="pie-chart-demo">
+                <svg viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="80" fill="#667eea" stroke="#333" stroke-width="2"/>
+                    <path d="M 100 100 L 100 20 A 80 80 0 0 1 169.28 60 Z" fill="#764ba2" stroke="#333" stroke-width="2"/>
+                    <path d="M 100 100 L 169.28 60 A 80 80 0 0 1 140 173.92 Z" fill="#f093fb" stroke="#333" stroke-width="2"/>
+                    <path d="M 100 100 L 140 173.92 A 80 80 0 0 1 60 173.92 Z" fill="#4facfe" stroke="#333" stroke-width="2"/>
+                    <path d="M 100 100 L 60 173.92 A 80 80 0 0 1 30.72 60 Z" fill="#43e97b" stroke="#333" stroke-width="2"/>
+                    <path d="M 100 100 L 30.72 60 A 80 80 0 0 1 100 20 Z" fill="#fa709a" stroke="#333" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 5: How to Build Pie Charts -->
+        <div class="slide" id="slide5">
+            <h1>📐 Как строить круговые диаграммы?</h1>
+            
+            <h3>📋 Пошаговая инструкция:</h3>
+            
+            <div class="theory-box">
+                <ol style="line-height: 2.2; font-size: 1.1em;">
+                    <li>Найдите сумму всех величин (это будет 100%)</li>
+                    <li>Для каждой величины найдите её долю в процентах</li>
+                    <li>Переведите проценты в градусы: <span class="highlight">градусы = проценты × 3,6</span></li>
+                    <li>Постройте круг и отложите углы транспортиром</li>
+                    <li>Подпишите каждый сектор и раскрасьте</li>
+                </ol>
+            </div>
+
+            <div class="example">
+                <div class="example-title">📊 Пример: Распределение времени школьника</div>
+                <p>Сон: 9 часов, Учеба: 6 часов, Отдых: 6 часов, Другое: 3 часа<br>
+                Всего: 24 часа = 360°</p>
+                <p>Сон: 9/24 × 360° = 135°<br>
+                Учеба: 6/24 × 360° = 90°<br>
+                Отдых: 6/24 × 360° = 90°<br>
+                Другое: 3/24 × 360° = 45°</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Practice Problems -->
+        <div class="slide" id="slide6">
+            <h1>🎮 Практика: Задачи на проценты</h1>
+
+            <div class="problem">
+                <span class="problem-number">1</span>
+                <strong>Задача:</strong> В классе 30 учеников. 40% из них — отличники. Сколько отличников в классе?
+                <br>
+                <button class="show-answer-btn" onclick="toggleAnswer('answer1')">Показать ответ</button>
+                <div class="answer" id="answer1">
+                    <strong>Решение:</strong><br>
+                    30 × 40 : 100 = 1200 : 100 = <strong>12 отличников</strong>
+                </div>
+            </div>
+
+            <div class="problem">
+                <span class="problem-number">2</span>
+                <strong>Задача:</strong> Книга стоила 500 рублей. Цену снизили на 15%. Сколько теперь стоит книга?
+                <br>
+                <button class="show-answer-btn" onclick="toggleAnswer('answer2')">Показать ответ</button>
+                <div class="answer" id="answer2">
+                    <strong>Решение:</strong><br>
+                    Скидка: 500 × 15 : 100 = 75 рублей<br>
+                    Новая цена: 500 - 75 = <strong>425 рублей</strong>
+                </div>
+            </div>
+
+            <div class="problem">
+                <span class="problem-number">3</span>
+                <strong>Задача:</strong> Найдите 25% от числа 80.
+                <br>
+                <button class="show-answer-btn" onclick="toggleAnswer('answer3')">Показать ответ</button>
+                <div class="answer" id="answer3">
+                    <strong>Решение:</strong><br>
+                    80 × 25 : 100 = 2000 : 100 = <strong>20</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Pie Chart Problems -->
+        <div class="slide" id="slide7">
+            <h1> Практика: Круговые диаграммы</h1>
+
+            <div class="problem">
+                <span class="problem-number">4</span>
+                <strong>Задача:</strong> В саду растут 60 деревьев: 30 яблонь, 18 груш и 12 вишен. Постройте круговую диаграмму. Сколько градусов занимает каждый сектор?
+                <br>
+                <button class="show-answer-btn" onclick="toggleAnswer('answer4')">Показать ответ</button>
+                <div class="answer" id="answer4">
+                    <strong>Решение:</strong><br>
+                    Всего деревьев: 60 = 100% = 360°<br>
+                    Яблони: 30/60 × 360° = <strong>180°</strong><br>
+                    Груши: 18/60 × 360° = <strong>108°</strong><br>
+                    Вишни: 12/60 × 360° = <strong>72°</strong><br>
+                    Проверка: 180° + 108° + 72° = 360° ✓
+                </div>
+            </div>
+
+            <div class="problem">
+                <span class="problem-number">5</span>
+                <strong>Задача:</strong> На круговой диаграмме сектор составляет 90°. Сколько процентов от целого он занимает?
+                <br>
+                <button class="show-answer-btn" onclick="toggleAnswer('answer5')">Показать ответ</button>
+                <div class="answer" id="answer5">
+                    <strong>Решение:</strong><br>
+                    90° : 360° × 100% = 0,25 × 100% = <strong>25%</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Game -->
+        <div class="slide" id="slide8">
+            <h1> Игра: "Процентный Мастер"</h1>
+            
+            <div class="game-section">
+                <div class="game-title"> Проверь свои знания!</div>
+                
+                <div style="text-align: left; margin: 30px 0;">
+                    <h3>Вопрос 1:</h3>
+                    <p style="font-size: 1.2em; margin: 15px 0;">Сколько будет 50% от 200?</p>
+                    <button onclick="checkAnswer(this, 100)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) 50</button>
+                    <button onclick="checkAnswer(this, 100)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) 100</button>
+                    <button onclick="checkAnswer(this, 150)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) 150</button>
+                </div>
+
+                <div style="text-align: left; margin: 30px 0;">
+                    <h3>Вопрос 2:</h3>
+                    <p style="font-size: 1.2em; margin: 15px 0;">Сколько градусов в 25% круга?</p>
+                    <button onclick="checkAnswer2(this, 45)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) 45°</button>
+                    <button onclick="checkAnswer2(this, 90)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) 90°</button>
+                    <button onclick="checkAnswer2(this, 180)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) 180°</button>
+                </div>
+
+                <div id="gameResult" style="margin-top: 30px; font-size: 1.5em; font-weight: bold;"></div>
+            </div>
+
+            <div class="theory-box" style="text-align: center; margin-top: 30px;">
+                <h3> Молодец! Ты прошёл урок!</h3>
+                <p style="font-size: 1.2em; margin-top: 10px;">Теперь ты умеешь:</p>
+                <ul style="text-align: left; display: inline-block; line-height: 2;">
+                    <li>✅ Находить проценты от числа</li>
+                    <li>✅ Строить круговые диаграммы</li>
+                    <li>✅ Решать задачи на проценты</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← Назад</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Вперёд →</button>
         </div>
     </div>
 
-    <!-- Слайд 8: Примеры действий -->
-    <div class="slide" id="slide8">
-        <div class="content">
-            <h1>Примеры действий над действительными числами</h1>
-            <div class="two-columns">
-                <div>
-                    <h3>Сложение и вычитание:</h3>
-                    <div class="example">
-                        <div class="example-title">Пример 1:</div>
-                        <p><span class="math-symbol">√2 + 3√2 = 4√2</span></p>
-                        <p style="font-size: 0.9em; color: #7f8c8d;">(складываем как подобные слагаемые)</p>
-                    </div>
-                    <div class="example">
-                        <div class="example-title">Пример 2:</div>
-                        <p><span class="math-symbol">π + 2 ≈ 3,14 + 2 = 5,14</span></p>
-                        <p style="font-size: 0.9em; color: #7f8c8d;">(приближённое значение)</p>
-                    </div>
-                </div>
-                <div>
-                    <h3>Умножение и деление:</h3>
-                    <div class="example">
-                        <div class="example-title">Пример 3:</div>
-                        <p><span class="math-symbol">√3 · √5 = √15</span></p>
-                    </div>
-                    <div class="example">
-                        <div class="example-title">Пример 4:</div>
-                        <p><span class="math-symbol">2√6 : √2 = 2√3</span></p>
-                        <p style="font-size: 0.9em; color: #7f8c8d;">(так как √6/√2 = 3)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="definition" style="margin-top: 20px;">
-                <strong>Важное свойство:</strong><br>
-                Сумма (разность) рационального и иррационального числа — всегда иррациональное число.<br>
-                Произведение (частное) ненулевого рационального и иррационального числа — всегда иррациональное число.
-            </div>
-        </div>
-    </div>
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 8;
 
-    <!-- Слайд 9: Задания для закрепления -->
-    <div class="slide" id="slide9">
-        <div class="content">
-            <h1>Задания для закрепления</h1>
-            <div class="tasks">
-                <div class="task-item">
-                    <strong>Задание 1.</strong> Определите, какие из чисел являются рациональными, а какие — иррациональными:<br>
-                    <span class="math-symbol">√9; √10; 0,(7); π/2; -5; 2,343434...; √0,25</span>
-                </div>
-                <div class="task-item">
-                    <strong>Задание 2.</strong> Выполните действия:<br>
-                    а) <span class="math-symbol">3√5 + 2√5 - √5</span><br>
-                    б) <span class="math-symbol">√12 · √3</span><br>
-                    в) <span class="math-symbol">(√7)<sup>2</sup> + 3</span>
-                </div>
-                <div class="task-item">
-                    <strong>Задание 3.</strong> Докажите, что число <span class="math-symbol">√2 + √3</span> является иррациональным.
-                </div>
-                <div class="task-item">
-                    <strong>Задание 4.</strong> Представьте в виде десятичной дроби (конечной или периодической):<br>
-                    <span class="math-symbol">3/8; 5/6; 7/11</span>
-                </div>
-            </div>
-        </div>
-    </div>
+        function changeSlide(direction) {
+            document.getElementById(`slide${currentSlide}`).classList.remove('active');
+            currentSlide += direction;
+            
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            window.scrollTo(0, 0);
+        }
 
-    <!-- Слайд 10: Ответы и итоги -->
-    <div class="slide" id="slide10">
-        <div class="content">
-            <h1>Ответы и итоги урока</h1>
-            <div class="two-columns">
-                <div>
-                    <h3>Ответы к заданиям:</h3>
-                    <div class="example">
-                        <strong>Задание 1:</strong><br>
-                        Рациональные: √9=3; 0,(7); -5; 0,25=0,5; 2,343434...<br>
-                        Иррациональные: √10; π/2
-                    </div>
-                    <div class="example">
-                        <strong>Задание 2:</strong><br>
-                        а) 4√5<br>
-                        б) √36 = 6<br>
-                        в) 7 + 3 = 10
-                    </div>
-                </div>
-                <div>
-                    <h3>Основные выводы:</h3>
-                    <ul>
-                        <li>ℝ = ℚ ∪ 𝕀</li>
-                        <li>ℚ ∩  = ∅</li>
-                        <li>Каждое действительное число — точка на числовой прямой</li>
-                        <li>Свойства арифметических действий выполняются для всех ℝ</li>
-                        <li>Иррациональные числа — бесконечные непериодические десятичные дроби</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="definition" style="margin-top: 20px; text-align: center; font-size: 1.2em;">
-                <strong>Домашнее задание:</strong><br>
-                № 1-5 из учебника, стр. 45-46
-            </div>
-        </div>
-    </div>
+        function toggleAnswer(id) {
+            document.getElementById(id).classList.toggle('show');
+        }
 
-</div>
+        let score = 0;
+        let answered1 = false;
+        let answered2 = false;
 
-<div class="slide-number">
-    Слайд <span id="currentSlide">1</span> из 10
-</div>
+        function checkAnswer(btn, value) {
+            if (answered1) return;
+            answered1 = true;
+            
+            if (value === 100) {
+                btn.style.background = '#d1fae5';
+                btn.style.borderColor = '#10b981';
+                score++;
+            } else {
+                btn.style.background = '#fee2e2';
+                btn.style.borderColor = '#ef4444';
+            }
+            
+            updateGameResult();
+        }
 
-<div class="navigation">
-    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Назад</button>
-    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Вперёд →</button>
-</div>
+        function checkAnswer2(btn, value) {
+            if (answered2) return;
+            answered2 = true;
+            
+            if (value === 90) {
+                btn.style.background = '#d1fae5';
+                btn.style.borderColor = '#10b981';
+                score++;
+            } else {
+                btn.style.background = '#fee2e2';
+                btn.style.borderColor = '#ef4444';
+            }
+            
+            updateGameResult();
+        }
 
-<script>
-    let currentSlideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
+        function updateGameResult() {
+            if (answered1 && answered2) {
+                const resultDiv = document.getElementById('gameResult');
+                if (score === 2) {
+                    resultDiv.innerHTML = '🎉 Отлично! Все ответы верные!';
+                    resultDiv.style.color = '#10b981';
+                } else if (score === 1) {
+                    resultDiv.innerHTML = '👍 Хорошо! Один правильный ответ!';
+                    resultDiv.style.color = '#f59e0b';
+                } else {
+                    resultDiv.innerHTML = '💪 Попробуй ещё раз!';
+                    resultDiv.style.color = '#ef4444';
+                }
+            }
+        }
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active');
-            if (i === index) {
-                slide.classList.add('active');
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 1) {
+                changeSlide(-1);
             }
         });
-        
-        document.getElementById('currentSlide').textContent = index + 1;
-        
-        document.getElementById('prevBtn').disabled = index === 0;
-        document.getElementById('nextBtn').disabled = index === totalSlides - 1;
-    }
-
-    function changeSlide(direction) {
-        const newIndex = currentSlideIndex + direction;
-        if (newIndex >= 0 && newIndex < totalSlides) {
-            currentSlideIndex = newIndex;
-            showSlide(currentSlideIndex);
-        }
-    }
-
-    // Управление с клавиатуры
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === ' ') {
-            changeSlide(1);
-        } else if (e.key === 'ArrowLeft') {
-            changeSlide(-1);
-        }
-    });
-
-    // Инициализация
-    showSlide(0);
-</script>
-
+    </script>
 </body>
 </html>
