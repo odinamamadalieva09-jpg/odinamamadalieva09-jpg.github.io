@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проценты и Круговые Диаграммы - 6 класс</title>
+    <title>Свойства Функции - 9 Класс (Макарычев)</title>
     <style>
         * {
             margin: 0;
@@ -153,7 +153,7 @@
 
         @keyframes slideDown {
             from { opacity: 0; max-height: 0; }
-            to { opacity: 1; max-height: 200px; }
+            to { opacity: 1; max-height: 500px; }
         }
 
         .show-answer-btn {
@@ -228,17 +228,20 @@
             margin-bottom: 20px;
         }
 
-        .pie-chart-demo {
-            width: 300px;
-            height: 300px;
+        .graph-container {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
             margin: 30px auto;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
             position: relative;
         }
 
-        .pie-chart-demo svg {
+        .graph-container svg {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
         }
 
         .legend {
@@ -282,6 +285,20 @@
             font-size: 1.2em;
         }
 
+        .property-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px solid #667eea;
+        }
+
+        .property-card h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
         @media (max-width: 768px) {
             .slide {
                 padding: 25px;
@@ -298,239 +315,386 @@
 <body>
     <div class="container">
         <div class="slide-counter">
-            Слайд <span id="currentSlide">1</span> из <span id="totalSlides">8</span>
+            Слайд <span id="currentSlide">1</span> из <span id="totalSlides">10</span>
         </div>
 
         <!-- Slide 1: Title -->
         <div class="slide active" id="slide1">
-            <h1> Проценты и Круговые Диаграммы</h1>
-            <p class="subtitle">Интерактивный урок математики для 6 класса</p>
+            <h1> Свойства Функции</h1>
+            <p class="subtitle">Алгебра 9 класс • Учебник Макарычева</p>
             
             <div style="text-align: center; margin: 50px 0;">
-                <div style="font-size: 5em; margin-bottom: 20px;">📊 📈 </div>
+                <div style="font-size: 5em; margin-bottom: 20px;">📈 📉 🎯</div>
                 <p style="font-size: 1.3em; color: #666; line-height: 1.8;">
-                    Узнаем, что такое проценты<br>
-                    Научимся строить круговые диаграммы<br>
-                    Решим интересные задачи!
+                    Изучим основные свойства функций<br>
+                    Научимся читать графики<br>
+                    Решим практические задачи!
                 </p>
             </div>
 
             <div class="theory-box">
-                <strong>🎮 Формат урока:</strong><br>
-                Теория + Практика + Игра = Отличные знания!
+                <strong>🎯 Что будем изучать:</strong><br>
+                • Область определения и область значений<br>
+                • Возрастание и убывание<br>
+                • Нули функции и промежутки знакопостоянства<br>
+                • Ограниченность и экстремумы
             </div>
         </div>
 
-        <!-- Slide 2: What are Percentages -->
+        <!-- Slide 2: Domain and Range -->
         <div class="slide" id="slide2">
-            <h1> Что такое проценты?</h1>
+            <h1> Область определения и область значений</h1>
             
-            <div class="theory-box">
-                <h3>💡 Определение</h3>
-                <p style="font-size: 1.1em; line-height: 1.8;">
-                    <span class="highlight">Процент</span> — это сотая часть числа или величины.<br>
-                    Слово "процент" происходит от латинского <em>pro centum</em>, что означает <strong>"на сто"</strong>.
-                </p>
+            <div class="property-card">
+                <h4> Область определения D(f)</h4>
+                <p>Множество <span class="highlight">всех значений аргумента x</span>, для которых функция имеет смысл.</p>
             </div>
 
-            <div class="formula">
-                1% = 1/100 = 0,01
+            <div class="property-card">
+                <h4>🟢 Область значений E(f)</h4>
+                <p>Множество <span class="highlight">всех значений функции y</span>, которые она может принимать.</p>
             </div>
 
             <div class="example">
-                <div class="example-title">📝 Примеры:</div>
-                <ul style="line-height: 2; margin-left: 20px;">
-                    <li>1% от 100 рублей = 1 рубль</li>
-                    <li>10% от 200 = 20</li>
-                    <li>50% от 60 = 30 (половина)</li>
-                    <li>100% — это всё число целиком</li>
-                </ul>
+                <div class="example-title">📝 Пример 1: y = x²</div>
+                <p><strong>D(f) = (-∞; +∞)</strong> — x может быть любым числом</p>
+                <p><strong>E(f) = [0; +∞)</strong> — квадрат всегда неотрицателен</p>
+            </div>
+
+            <div class="example">
+                <div class="example-title">📝 Пример 2: y = 1/x</div>
+                <p><strong>D(f) = (-∞; 0) ∪ (0; +∞)</strong> — x ≠ 0</p>
+                <p><strong>E(f) = (-∞; 0) ∪ (0; +∞)</strong> — y ≠ 0</p>
             </div>
 
             <div class="tip">
-                 <strong>Совет:</strong> Чтобы перевести проценты в десятичную дробь, разделите число процентов на 100!
+                💡 <strong>Запомни:</strong> Область определения — это «иксы», область значений — это «игреки»!
             </div>
         </div>
 
-        <!-- Slide 3: How to Calculate Percentages -->
+        <!-- Slide 3: Increasing and Decreasing -->
         <div class="slide" id="slide3">
-            <h1> Как находить проценты?</h1>
+            <h1>📈📉 Возрастание и убывание функции</h1>
             
-            <h3> Основные правила:</h3>
-            
-            <div class="formula">
-                Чтобы найти p% от числа a:<br>
-                a × p : 100
-            </div>
-
-            <div class="example">
-                <div class="example-title">🎲 Пример 1: Найти 20% от 150</div>
-                <p>150 × 20 : 100 = 3000 : 100 = <strong>30</strong></p>
-            </div>
-
-            <div class="example">
-                <div class="example-title">🎲 Пример 2: Найти 15% от 80</div>
-                <p>80 × 15 : 100 = 1200 : 100 = <strong>12</strong></p>
+            <div class="theory-box">
+                <h3>🔺 Возрастание</h3>
+                <p>Функция <span class="highlight">возрастает</span> на промежутке, если большему значению аргумента соответствует большее значение функции.</p>
+                <p style="margin-top: 10px;"><em>Если x₂ > x₁, то f(x₂) > f(x₁)</em></p>
             </div>
 
             <div class="theory-box">
-                <h3> Быстрый способ:</h3>
-                <p>Можно сначала умножить число на процент, а потом разделить на 100,<br>
-                или сначала разделить процент на 100, а потом умножить на число!</p>
+                <h3>🔻 Убывание</h3>
+                <p>Функция <span class="highlight">убывает</span> на промежутке, если большему значению аргумента соответствует меньшее значение функции.</p>
+                <p style="margin-top: 10px;"><em>Если x₂ > x₁, то f(x₂) < f(x₁)</em></p>
+            </div>
+
+            <div class="graph-container">
+                <svg viewBox="0 0 600 350">
+                    <!-- Axes -->
+                    <line x1="50" y1="300" x2="550" y2="300" stroke="#333" stroke-width="2"/>
+                    <line x1="300" y1="20" x2="300" y2="300" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Parabola y = x² -->
+                    <path d="M 100 260 Q 200 100 300 20 Q 400 100 500 260" 
+                          fill="none" stroke="#667eea" stroke-width="3"/>
+                    
+                    <!-- Labels -->
+                    <text x="540" y="310" font-size="16" fill="#333">x</text>
+                    <text x="310" y="30" font-size="16" fill="#333">y</text>
+                    <text x="300" y="330" font-size="14" fill="#666" text-anchor="middle">0</text>
+                    
+                    <!-- Arrows for increasing/decreasing -->
+                    <path d="M 150 200 L 120 180" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowRed)"/>
+                    <text x="100" y="170" font-size="14" fill="#e74c3c">убывает</text>
+                    
+                    <path d="M 450 200 L 480 180" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowGreen)"/>
+                    <text x="460" y="170" font-size="14" fill="#27ae60">возрастает</text>
+                    
+                    <text x="300" y="350" font-size="16" fill="#764ba2" text-anchor="middle" font-weight="bold">y = x²</text>
+                    
+                    <!-- Vertex point -->
+                    <circle cx="300" cy="20" r="5" fill="#764ba2"/>
+                </svg>
+            </div>
+
+            <div class="example">
+                <div class="example-title">📊 y = x²</div>
+                <p><strong>Убывает:</strong> на (-∞; 0]</p>
+                <p><strong>Возрастает:</strong> на [0; +∞)</p>
             </div>
         </div>
 
-        <!-- Slide 4: Pie Charts Theory -->
+        <!-- Slide 4: Zeros and Sign Constancy -->
         <div class="slide" id="slide4">
-            <h1>🥧 Круговые диаграммы</h1>
+            <h1>🎯 Нули функции и промежутки знакопостоянства</h1>
             
-            <div class="theory-box">
-                <h3>💡 Что это такое?</h3>
-                <p style="line-height: 1.8;">
-                    <span class="highlight">Круговая диаграмма</span> — это схема в виде круга, разделённого на секторы.<br>
-                    Каждый сектор показывает часть от целого.
-                </p>
+            <div class="property-card">
+                <h4>⚫ Нули функции</h4>
+                <p>Значения аргумента x, при которых <span class="highlight">y = 0</span>.</p>
+                <p>На графике — это <strong>точки пересечения с осью Ox</strong>.</p>
             </div>
 
-            <div class="formula">
-                Весь круг = 360° = 100%<br>
-                1% = 3,6°
+            <div class="property-card">
+                <h4>➕➖ Промежутки знакопостоянства</h4>
+                <p>Промежутки, на которых функция <span class="highlight">сохраняет знак</span> (положительна или отрицательна).</p>
             </div>
 
-            <div class="tip">
-                🎯 <strong>Запомни:</strong> Круговые диаграммы наглядно показывают соотношение целого и его частей!
+            <div class="example">
+                <div class="example-title">📝 Пример: y = x² - 4</div>
+                <p><strong>Нули функции:</strong> x² - 4 = 0 → x = -2 и x = 2</p>
+                <p><strong>y > 0 (положительна):</strong> на (-∞; -2) ∪ (2; +∞)</p>
+                <p><strong>y < 0 (отрицательна):</strong> на (-2; 2)</p>
             </div>
 
-            <div class="pie-chart-demo">
-                <svg viewBox="0 0 200 200">
-                    <circle cx="100" cy="100" r="80" fill="#667eea" stroke="#333" stroke-width="2"/>
-                    <path d="M 100 100 L 100 20 A 80 80 0 0 1 169.28 60 Z" fill="#764ba2" stroke="#333" stroke-width="2"/>
-                    <path d="M 100 100 L 169.28 60 A 80 80 0 0 1 140 173.92 Z" fill="#f093fb" stroke="#333" stroke-width="2"/>
-                    <path d="M 100 100 L 140 173.92 A 80 80 0 0 1 60 173.92 Z" fill="#4facfe" stroke="#333" stroke-width="2"/>
-                    <path d="M 100 100 L 60 173.92 A 80 80 0 0 1 30.72 60 Z" fill="#43e97b" stroke="#333" stroke-width="2"/>
-                    <path d="M 100 100 L 30.72 60 A 80 80 0 0 1 100 20 Z" fill="#fa709a" stroke="#333" stroke-width="2"/>
+            <div class="graph-container">
+                <svg viewBox="0 0 600 350">
+                    <!-- Axes -->
+                    <line x1="50" y1="200" x2="550" y2="200" stroke="#333" stroke-width="2"/>
+                    <line x1="300" y1="20" x2="300" y2="330" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Parabola y = x² - 4 -->
+                    <path d="M 100 160 Q 200 80 300 200 Q 400 320 500 160" 
+                          fill="none" stroke="#764ba2" stroke-width="3"/>
+                    
+                    <!-- Zero points -->
+                    <circle cx="200" cy="200" r="6" fill="#e74c3c"/>
+                    <circle cx="400" cy="200" r="6" fill="#e74c3c"/>
+                    
+                    <!-- Labels -->
+                    <text x="200" y="220" font-size="14" fill="#333" text-anchor="middle">-2</text>
+                    <text x="400" y="220" font-size="14" fill="#333" text-anchor="middle">2</text>
+                    <text x="540" y="210" font-size="16" fill="#333">x</text>
+                    <text x="310" y="30" font-size="16" fill="#333">y</text>
+                    
+                    <!-- Sign intervals -->
+                    <text x="100" y="100" font-size="16" fill="#27ae60" text-anchor="middle">y > 0</text>
+                    <text x="300" y="280" font-size="16" fill="#e74c3c" text-anchor="middle">y < 0</text>
+                    <text x="500" y="100" font-size="16" fill="#27ae60" text-anchor="middle">y > 0</text>
+                    
+                    <text x="300" y="350" font-size="16" fill="#764ba2" text-anchor="middle" font-weight="bold">y = x² - 4</text>
                 </svg>
             </div>
         </div>
 
-        <!-- Slide 5: How to Build Pie Charts -->
+        <!-- Slide 5: Boundedness -->
         <div class="slide" id="slide5">
-            <h1>📐 Как строить круговые диаграммы?</h1>
+            <h1>📏 Ограниченность функции</h1>
             
-            <h3>📋 Пошаговая инструкция:</h3>
-            
-            <div class="theory-box">
-                <ol style="line-height: 2.2; font-size: 1.1em;">
-                    <li>Найдите сумму всех величин (это будет 100%)</li>
-                    <li>Для каждой величины найдите её долю в процентах</li>
-                    <li>Переведите проценты в градусы: <span class="highlight">градусы = проценты × 3,6</span></li>
-                    <li>Постройте круг и отложите углы транспортиром</li>
-                    <li>Подпишите каждый сектор и раскрасьте</li>
-                </ol>
+            <div class="property-card">
+                <h4>🔽 Ограничена снизу</h4>
+                <p>Существует число m, такое что <span class="highlight">f(x) ≥ m</span> для всех x из области определения.</p>
+            </div>
+
+            <div class="property-card">
+                <h4>🔼 Ограничена сверху</h4>
+                <p>Существует число M, такое что <span class="highlight">f(x) ≤ M</span> для всех x из области определения.</p>
             </div>
 
             <div class="example">
-                <div class="example-title">📊 Пример: Распределение времени школьника</div>
-                <p>Сон: 9 часов, Учеба: 6 часов, Отдых: 6 часов, Другое: 3 часа<br>
-                Всего: 24 часа = 360°</p>
-                <p>Сон: 9/24 × 360° = 135°<br>
-                Учеба: 6/24 × 360° = 90°<br>
-                Отдых: 6/24 × 360° = 90°<br>
-                Другое: 3/24 × 360° = 45°</p>
+                <div class="example-title">📊 y = x²</div>
+                <p><strong>Ограничена снизу:</strong> y ≥ 0</p>
+                <p><strong>Не ограничена сверху</strong></p>
+                <p><strong>Наименьшее значение:</strong> yнаим = 0 (при x = 0)</p>
+            </div>
+
+            <div class="example">
+                <div class="example-title">📊 y = -x²</div>
+                <p><strong>Ограничена сверху:</strong> y ≤ 0</p>
+                <p><strong>Не ограничена снизу</strong></p>
+                <p><strong>Наибольшее значение:</strong> yнаиб = 0 (при x = 0)</p>
+            </div>
+
+            <div class="tip">
+                💡 <strong>Совет:</strong> Если функция ограничена и снизу, и сверху — она просто ограничена!
             </div>
         </div>
 
-        <!-- Slide 6: Practice Problems -->
+        <!-- Slide 6: Linear Function Properties -->
         <div class="slide" id="slide6">
-            <h1>🎮 Практика: Задачи на проценты</h1>
+            <h1>📐 Свойства линейной функции y = kx + m</h1>
+            
+            <div class="theory-box">
+                <h3>Основные свойства:</h3>
+                <ol style="line-height: 2; font-size: 1.1em; margin-left: 20px;">
+                    <li><strong>D(f) = (-∞; +∞)</strong> — определена для всех x</li>
+                    <li><strong>E(f) = (-∞; +∞)</strong> — принимает все значения</li>
+                    <li><strong>Возрастает</strong> при k > 0</li>
+                    <li><strong>Убывает</strong> при k < 0</li>
+                    <li><strong>Не ограничена</strong> ни снизу, ни сверху</li>
+                    <li><strong>Непрерывная</strong> на всей числовой прямой</li>
+                </ol>
+            </div>
+
+            <div class="graph-container">
+                <svg viewBox="0 0 600 350">
+                    <!-- Axes -->
+                    <line x1="50" y1="280" x2="550" y2="280" stroke="#333" stroke-width="2"/>
+                    <line x1="150" y1="20" x2="150" y2="330" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Line y = 2x + 1 -->
+                    <line x1="50" y1="320" x2="550" y2="40" stroke="#667eea" stroke-width="3"/>
+                    
+                    <!-- Labels -->
+                    <text x="540" y="290" font-size="16" fill="#333">x</text>
+                    <text x="160" y="30" font-size="16" fill="#333">y</text>
+                    <text x="150" y="300" font-size="14" fill="#666" text-anchor="middle">0</text>
+                    
+                    <!-- y-intercept -->
+                    <circle cx="150" cy="260" r="5" fill="#e74c3c"/>
+                    <text x="170" y="265" font-size="14" fill="#333">(0; 1)</text>
+                    
+                    <text x="300" y="350" font-size="16" fill="#764ba2" text-anchor="middle" font-weight="bold">y = 2x + 1 (k > 0, возрастает)</text>
+                    
+                    <!-- Arrow showing increase -->
+                    <path d="M 450 150 L 480 120" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowGreen)"/>
+                    <text x="420" y="140" font-size="14" fill="#27ae60">возрастает</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 7: Quadratic Function Properties -->
+        <div class="slide" id="slide7">
+            <h1> Свойства квадратичной функции y = ax² + bx + c</h1>
+            
+            <h3>Случай a > 0 (ветви вверх)</h3>
+            <div class="theory-box">
+                <ol style="line-height: 2; font-size: 1.1em; margin-left: 20px;">
+                    <li><strong>D(f) = (-∞; +∞)</strong></li>
+                    <li><strong>Убывает</strong> на (-∞; -b/(2a)], <strong>возрастает</strong> на [-b/(2a); +∞)</li>
+                    <li><strong>Ограничена снизу</strong>, не ограничена сверху</li>
+                    <li><strong>yнаим</strong> в вершине параболы</li>
+                    <li><strong>E(f) = [yнаим; +∞)</strong></li>
+                    <li><strong>Выпукла вниз</strong></li>
+                </ol>
+            </div>
+
+            <h3>Случай a < 0 (ветви вниз)</h3>
+            <div class="theory-box">
+                <ol style="line-height: 2; font-size: 1.1em; margin-left: 20px;">
+                    <li><strong>D(f) = (-∞; +∞)</strong></li>
+                    <li><strong>Возрастает</strong> на (-∞; -b/(2a)], <strong>убывает</strong> на [-b/(2a); +∞)</li>
+                    <li><strong>Ограничена сверху</strong>, не ограничена снизу</li>
+                    <li><strong>yнаиб</strong> в вершине параболы</li>
+                    <li><strong>E(f) = (-∞; yнаиб]</strong></li>
+                    <li><strong>Выпукла вверх</strong></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 8: Practice Problems -->
+        <div class="slide" id="slide8">
+            <h1>🎮 Практика: Найди свойства функции</h1>
 
             <div class="problem">
                 <span class="problem-number">1</span>
-                <strong>Задача:</strong> В классе 30 учеников. 40% из них — отличники. Сколько отличников в классе?
-                <br>
+                <strong>Задача:</strong> Дана функция y = x² - 6x + 5. Найдите:<br>
+                а) Область определения<br>
+                б) Нули функции<br>
+                в) Промежутки возрастания и убывания<br>
+                г) Наименьшее значение функции
+                
                 <button class="show-answer-btn" onclick="toggleAnswer('answer1')">Показать ответ</button>
                 <div class="answer" id="answer1">
                     <strong>Решение:</strong><br>
-                    30 × 40 : 100 = 1200 : 100 = <strong>12 отличников</strong>
+                    а) D(f) = (-∞; +∞)<br>
+                    б) x² - 6x + 5 = 0 → x₁ = 1, x₂ = 5 (нули функции)<br>
+                    в) Вершина: x₀ = -(-6)/(2·1) = 3<br>
+                    &nbsp;&nbsp;&nbsp;Убывает на (-∞; 3], возрастает на [3; +∞)<br>
+                    г) yнаим = y(3) = 9 - 18 + 5 = <strong>-4</strong>
                 </div>
             </div>
 
             <div class="problem">
                 <span class="problem-number">2</span>
-                <strong>Задача:</strong> Книга стоила 500 рублей. Цену снизили на 15%. Сколько теперь стоит книга?
-                <br>
+                <strong>Задача:</strong> По графику функции y = f(x) определите промежутки, на которых функция положительна.
+                
                 <button class="show-answer-btn" onclick="toggleAnswer('answer2')">Показать ответ</button>
                 <div class="answer" id="answer2">
                     <strong>Решение:</strong><br>
-                    Скидка: 500 × 15 : 100 = 75 рублей<br>
-                    Новая цена: 500 - 75 = <strong>425 рублей</strong>
-                </div>
-            </div>
-
-            <div class="problem">
-                <span class="problem-number">3</span>
-                <strong>Задача:</strong> Найдите 25% от числа 80.
-                <br>
-                <button class="show-answer-btn" onclick="toggleAnswer('answer3')">Показать ответ</button>
-                <div class="answer" id="answer3">
-                    <strong>Решение:</strong><br>
-                    80 × 25 : 100 = 2000 : 100 = <strong>20</strong>
+                    Функция положительна там, где график лежит <strong>выше оси Ox</strong>.<br>
+                    Нужно найти промежутки, где y > 0.
                 </div>
             </div>
         </div>
 
-        <!-- Slide 7: Pie Chart Problems -->
-        <div class="slide" id="slide7">
-            <h1> Практика: Круговые диаграммы</h1>
+        <!-- Slide 9: More Problems -->
+        <div class="slide" id="slide9">
+            <h1> Ещё задачи для практики</h1>
+
+            <div class="problem">
+                <span class="problem-number">3</span>
+                <strong>Задача:</strong> Функция задана формулой y = -2x + 8. Найдите:<br>
+                а) Область определения и область значений<br>
+                б) Нуль функции<br>
+                в) Промежутки знакопостоянства<br>
+                г) Возрастает или убывает?
+                
+                <button class="show-answer-btn" onclick="toggleAnswer('answer3')">Показать ответ</button>
+                <div class="answer" id="answer3">
+                    <strong>Решение:</strong><br>
+                    а) D(f) = (-∞; +∞), E(f) = (-∞; +∞)<br>
+                    б) -2x + 8 = 0 → x = 4 (нуль функции)<br>
+                    в) y > 0 при x < 4; y < 0 при x > 4<br>
+                    г) k = -2 < 0, значит функция <strong>убывает</strong>
+                </div>
+            </div>
 
             <div class="problem">
                 <span class="problem-number">4</span>
-                <strong>Задача:</strong> В саду растут 60 деревьев: 30 яблонь, 18 груш и 12 вишен. Постройте круговую диаграмму. Сколько градусов занимает каждый сектор?
-                <br>
+                <strong>Задача:</strong> y = x. Найдите область определения, область значений и промежутки монотонности.
+                
                 <button class="show-answer-btn" onclick="toggleAnswer('answer4')">Показать ответ</button>
                 <div class="answer" id="answer4">
                     <strong>Решение:</strong><br>
-                    Всего деревьев: 60 = 100% = 360°<br>
-                    Яблони: 30/60 × 360° = <strong>180°</strong><br>
-                    Груши: 18/60 × 360° = <strong>108°</strong><br>
-                    Вишни: 12/60 × 360° = <strong>72°</strong><br>
-                    Проверка: 180° + 108° + 72° = 360° ✓
+                    D(f) = [0; +) — корень определён только для x ≥ 0<br>
+                    E(f) = [0; +∞) — корень всегда неотрицателен<br>
+                    Функция <strong>возрастает</strong> на [0; +∞)
                 </div>
             </div>
 
             <div class="problem">
                 <span class="problem-number">5</span>
-                <strong>Задача:</strong> На круговой диаграмме сектор составляет 90°. Сколько процентов от целого он занимает?
-                <br>
+                <strong>Задача:</strong> y = 1/x. Найдите область определения, область значений и промежутки монотонности.
+                
                 <button class="show-answer-btn" onclick="toggleAnswer('answer5')">Показать ответ</button>
                 <div class="answer" id="answer5">
                     <strong>Решение:</strong><br>
-                    90° : 360° × 100% = 0,25 × 100% = <strong>25%</strong>
+                    D(f) = (-∞; 0) ∪ (0; +∞) — x ≠ 0<br>
+                    E(f) = (-∞; 0) ∪ (0; +∞) — y ≠ 0<br>
+                    Функция <strong>убывает</strong> на (-∞; 0) и на (0; +∞)
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: Game -->
-        <div class="slide" id="slide8">
-            <h1> Игра: "Процентный Мастер"</h1>
+        <!-- Slide 10: Game -->
+        <div class="slide" id="slide10">
+            <h1>🎮 Игра: "Мастер функций"</h1>
             
             <div class="game-section">
-                <div class="game-title"> Проверь свои знания!</div>
+                <div class="game-title">Проверь свои знания!</div>
                 
                 <div style="text-align: left; margin: 30px 0;">
                     <h3>Вопрос 1:</h3>
-                    <p style="font-size: 1.2em; margin: 15px 0;">Сколько будет 50% от 200?</p>
-                    <button onclick="checkAnswer(this, 100)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) 50</button>
-                    <button onclick="checkAnswer(this, 100)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) 100</button>
-                    <button onclick="checkAnswer(this, 150)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) 150</button>
+                    <p style="font-size: 1.2em; margin: 15px 0;">Чему равна область определения функции y = x²?</p>
+                    <button onclick="checkAnswer(this, '(-∞; +∞)')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) [0; +∞)</button>
+                    <button onclick="checkAnswer(this, '(-∞; +∞)')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) (-∞; +∞)</button>
+                    <button onclick="checkAnswer(this, 'другое')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) (-∞; 0]</button>
                 </div>
 
                 <div style="text-align: left; margin: 30px 0;">
                     <h3>Вопрос 2:</h3>
-                    <p style="font-size: 1.2em; margin: 15px 0;">Сколько градусов в 25% круга?</p>
-                    <button onclick="checkAnswer2(this, 45)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) 45°</button>
-                    <button onclick="checkAnswer2(this, 90)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) 90°</button>
-                    <button onclick="checkAnswer2(this, 180)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) 180°</button>
+                    <p style="font-size: 1.2em; margin: 15px 0;">На каком промежутке функция y = x² возрастает?</p>
+                    <button onclick="checkAnswer2(this, '[0; +∞)')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) [0; +∞)</button>
+                    <button onclick="checkAnswer2(this, '(-∞; 0]')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) (-; 0]</button>
+                    <button onclick="checkAnswer2(this, 'другое2')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) (-; +∞)</button>
+                </div>
+
+                <div style="text-align: left; margin: 30px 0;">
+                    <h3>Вопрос 3:</h3>
+                    <p style="font-size: 1.2em; margin: 15px 0;">Какое наименьшее значение у функции y = x²?</p>
+                    <button onclick="checkAnswer3(this, 1)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) 1</button>
+                    <button onclick="checkAnswer3(this, 0)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) 0</button>
+                    <button onclick="checkAnswer3(this, -1)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) -1</button>
                 </div>
 
                 <div id="gameResult" style="margin-top: 30px; font-size: 1.5em; font-weight: bold;"></div>
@@ -540,9 +704,10 @@
                 <h3> Молодец! Ты прошёл урок!</h3>
                 <p style="font-size: 1.2em; margin-top: 10px;">Теперь ты умеешь:</p>
                 <ul style="text-align: left; display: inline-block; line-height: 2;">
-                    <li>✅ Находить проценты от числа</li>
-                    <li>✅ Строить круговые диаграммы</li>
-                    <li>✅ Решать задачи на проценты</li>
+                    <li>✅ Находить область определения и область значений</li>
+                    <li>✅ Определять промежутки возрастания и убывания</li>
+                    <li>✅ Находить нули функции</li>
+                    <li>✅ Исследовать функцию на ограниченность</li>
                 </ul>
             </div>
         </div>
@@ -555,7 +720,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 8;
+        const totalSlides = 10;
 
         function changeSlide(direction) {
             document.getElementById(`slide${currentSlide}`).classList.remove('active');
@@ -580,12 +745,13 @@
         let score = 0;
         let answered1 = false;
         let answered2 = false;
+        let answered3 = false;
 
         function checkAnswer(btn, value) {
             if (answered1) return;
             answered1 = true;
             
-            if (value === 100) {
+            if (value === '(-∞; +∞)') {
                 btn.style.background = '#d1fae5';
                 btn.style.borderColor = '#10b981';
                 score++;
@@ -601,7 +767,23 @@
             if (answered2) return;
             answered2 = true;
             
-            if (value === 90) {
+            if (value === '[0; +∞)') {
+                btn.style.background = '#d1fae5';
+                btn.style.borderColor = '#10b981';
+                score++;
+            } else {
+                btn.style.background = '#fee2e2';
+                btn.style.borderColor = '#ef4444';
+            }
+            
+            updateGameResult();
+        }
+
+        function checkAnswer3(btn, value) {
+            if (answered3) return;
+            answered3 = true;
+            
+            if (value === 0) {
                 btn.style.background = '#d1fae5';
                 btn.style.borderColor = '#10b981';
                 score++;
@@ -614,13 +796,13 @@
         }
 
         function updateGameResult() {
-            if (answered1 && answered2) {
+            if (answered1 && answered2 && answered3) {
                 const resultDiv = document.getElementById('gameResult');
-                if (score === 2) {
+                if (score === 3) {
                     resultDiv.innerHTML = '🎉 Отлично! Все ответы верные!';
                     resultDiv.style.color = '#10b981';
-                } else if (score === 1) {
-                    resultDiv.innerHTML = '👍 Хорошо! Один правильный ответ!';
+                } else if (score >= 2) {
+                    resultDiv.innerHTML = '👍 Хорошо! ' + score + ' из 3 правильных!';
                     resultDiv.style.color = '#f59e0b';
                 } else {
                     resultDiv.innerHTML = '💪 Попробуй ещё раз!';
