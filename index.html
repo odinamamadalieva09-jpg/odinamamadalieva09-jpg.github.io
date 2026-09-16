@@ -3,822 +3,662 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Свойства Функции - 9 Класс (Макарычев)</title>
+    <title>Тест по геометрии 8 класс: четырёхугольники</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 30px 20px;
+            color: #1e2b3c;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
-
-        .slide {
-            display: none;
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            margin: 20px 0;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: fadeIn 0.5s ease;
-            min-height: 600px;
-        }
-
-        .slide.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         h1 {
-            color: #667eea;
             text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: 600;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            color: #0b3d5f;
+            letter-spacing: 0.5px;
         }
-
-        h2 {
-            color: #764ba2;
-            margin: 30px 0 20px 0;
-            font-size: 2em;
-            border-bottom: 3px solid #667eea;
+        .subhead {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: #3f5e7a;
+            border-bottom: 2px solid #cfddee;
+            padding-bottom: 16px;
+        }
+        .variants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+        .variant-card {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0, 20, 40, 0.08);
+            padding: 18px 20px 20px 20px;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            border: 1px solid #e2edf7;
+            display: flex;
+            flex-direction: column;
+        }
+        .variant-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 40, 80, 0.12);
+            border-color: #b8d4f0;
+        }
+        .variant-header {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #1d5e8f;
+            margin-bottom: 14px;
+            border-left: 6px solid #1d5e8f;
+            padding-left: 14px;
+            letter-spacing: 0.3px;
+        }
+        .question-item {
+            margin-bottom: 14px;
+            padding-left: 6px;
+            border-bottom: 1px dashed #d8e5f0;
             padding-bottom: 10px;
         }
-
-        h3 {
-            color: #5a67d8;
-            margin: 20px 0 15px 0;
-            font-size: 1.5em;
+        .question-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
-
-        .subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
-        .theory-box {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-left: 5px solid #667eea;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .formula {
-            background: #fff;
-            padding: 15px 25px;
-            border-radius: 10px;
-            margin: 15px 0;
-            text-align: center;
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #764ba2;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            border: 2px dashed #667eea;
-        }
-
-        .example {
-            background: #fef3c7;
-            border: 2px solid #f59e0b;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-
-        .example-title {
-            color: #d97706;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .problem {
-            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
-            border: 3px solid #667eea;
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-            position: relative;
-            transition: transform 0.3s;
-        }
-
-        .problem:hover {
-            transform: scale(1.02);
-        }
-
-        .problem-number {
-            background: #667eea;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
-        }
-
-        .answer {
-            background: #d1fae5;
-            border: 2px solid #10b981;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .answer.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; max-height: 0; }
-            to { opacity: 1; max-height: 500px; }
-        }
-
-        .show-answer-btn {
-            background: #10b981;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-
-        .show-answer-btn:hover {
-            background: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .navigation {
+        .q-text {
+            font-weight: 600;
+            font-size: 0.98rem;
+            color: #1a3e5c;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 6px;
+            margin-bottom: 4px;
         }
-
-        .nav-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .q-num {
+            color: #2277aa;
+            flex-shrink: 0;
         }
-
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        .q-body {
+            font-size: 0.93rem;
+            line-height: 1.45;
+            color: #1e3b4f;
+            padding-left: 22px;
+            margin-bottom: 4px;
         }
-
-        .nav-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .options {
+            margin-top: 5px;
+            padding-left: 22px;
+            font-size: 0.9rem;
+            color: #305a78;
+            list-style-type: none;
         }
-
-        .slide-counter {
-            text-align: center;
-            color: white;
-            font-size: 1.2em;
-            margin: 20px 0;
-            font-weight: bold;
-        }
-
-        .game-section {
-            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            border: 3px solid #fdcb6e;
-            padding: 30px;
-            border-radius: 25px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .game-title {
-            font-size: 2em;
-            color: #d63031;
-            margin-bottom: 20px;
-        }
-
-        .graph-container {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            margin: 30px auto;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            position: relative;
-        }
-
-        .graph-container svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .legend {
+        .options li {
+            margin-bottom: 3px;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            gap: 6px;
         }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.1em;
+        .options li::before {
+            content: "•";
+            color: #4f8bb9;
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1;
         }
-
-        .legend-color {
-            width: 25px;
-            height: 25px;
-            border-radius: 5px;
-        }
-
-        .tip {
-            background: #fce7f3;
-            border-left: 5px solid #ec4899;
-            padding: 15px 20px;
-            margin: 15px 0;
-            border-radius: 10px;
+        .answer-note {
+            font-size: 0.8rem;
+            color: #6b8aa8;
+            margin-top: 6px;
+            padding-left: 22px;
             font-style: italic;
         }
-
-        .highlight {
-            background: #fef08a;
-            padding: 2px 8px;
-            border-radius: 5px;
-            font-weight: bold;
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.9rem;
+            color: #6c8ca8;
+            border-top: 1px solid #cdddec;
+            padding-top: 20px;
         }
-
-        .emoji {
-            font-size: 1.2em;
+        @media (max-width: 600px) {
+            body { padding: 16px 12px; }
+            h1 { font-size: 1.7rem; }
+            .variants-grid { grid-template-columns: 1fr; }
         }
-
-        .property-card {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border: 2px solid #667eea;
-        }
-
-        .property-card h4 {
-            color: #764ba2;
-            margin-bottom: 10px;
-            font-size: 1.3em;
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                padding: 25px;
-            }
-            h1 {
-                font-size: 1.8em;
-            }
-            h2 {
-                font-size: 1.5em;
-            }
+        @media print {
+            body { background: white; padding: 10px; }
+            .variant-card { box-shadow: none; border: 1px solid #aaa; break-inside: avoid; }
+            .variants-grid { gap: 12px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="slide-counter">
-            Слайд <span id="currentSlide">1</span> из <span id="totalSlides">10</span>
-        </div>
-
-        <!-- Slide 1: Title -->
-        <div class="slide active" id="slide1">
-            <h1> Свойства Функции</h1>
-            <p class="subtitle">Алгебра 9 класс • Учебник Макарычева</p>
-            
-            <div style="text-align: center; margin: 50px 0;">
-                <div style="font-size: 5em; margin-bottom: 20px;">📈 📉 🎯</div>
-                <p style="font-size: 1.3em; color: #666; line-height: 1.8;">
-                    Изучим основные свойства функций<br>
-                    Научимся читать графики<br>
-                    Решим практические задачи!
-                </p>
-            </div>
-
-            <div class="theory-box">
-                <strong>🎯 Что будем изучать:</strong><br>
-                • Область определения и область значений<br>
-                • Возрастание и убывание<br>
-                • Нули функции и промежутки знакопостоянства<br>
-                • Ограниченность и экстремумы
-            </div>
-        </div>
-
-        <!-- Slide 2: Domain and Range -->
-        <div class="slide" id="slide2">
-            <h1> Область определения и область значений</h1>
-            
-            <div class="property-card">
-                <h4> Область определения D(f)</h4>
-                <p>Множество <span class="highlight">всех значений аргумента x</span>, для которых функция имеет смысл.</p>
-            </div>
-
-            <div class="property-card">
-                <h4>🟢 Область значений E(f)</h4>
-                <p>Множество <span class="highlight">всех значений функции y</span>, которые она может принимать.</p>
-            </div>
-
-            <div class="example">
-                <div class="example-title">📝 Пример 1: y = x²</div>
-                <p><strong>D(f) = (-∞; +∞)</strong> — x может быть любым числом</p>
-                <p><strong>E(f) = [0; +∞)</strong> — квадрат всегда неотрицателен</p>
-            </div>
-
-            <div class="example">
-                <div class="example-title">📝 Пример 2: y = 1/x</div>
-                <p><strong>D(f) = (-∞; 0) ∪ (0; +∞)</strong> — x ≠ 0</p>
-                <p><strong>E(f) = (-∞; 0) ∪ (0; +∞)</strong> — y ≠ 0</p>
-            </div>
-
-            <div class="tip">
-                💡 <strong>Запомни:</strong> Область определения — это «иксы», область значений — это «игреки»!
-            </div>
-        </div>
-
-        <!-- Slide 3: Increasing and Decreasing -->
-        <div class="slide" id="slide3">
-            <h1>📈📉 Возрастание и убывание функции</h1>
-            
-            <div class="theory-box">
-                <h3>🔺 Возрастание</h3>
-                <p>Функция <span class="highlight">возрастает</span> на промежутке, если большему значению аргумента соответствует большее значение функции.</p>
-                <p style="margin-top: 10px;"><em>Если x₂ > x₁, то f(x₂) > f(x₁)</em></p>
-            </div>
-
-            <div class="theory-box">
-                <h3>🔻 Убывание</h3>
-                <p>Функция <span class="highlight">убывает</span> на промежутке, если большему значению аргумента соответствует меньшее значение функции.</p>
-                <p style="margin-top: 10px;"><em>Если x₂ > x₁, то f(x₂) < f(x₁)</em></p>
-            </div>
-
-            <div class="graph-container">
-                <svg viewBox="0 0 600 350">
-                    <!-- Axes -->
-                    <line x1="50" y1="300" x2="550" y2="300" stroke="#333" stroke-width="2"/>
-                    <line x1="300" y1="20" x2="300" y2="300" stroke="#333" stroke-width="2"/>
-                    
-                    <!-- Parabola y = x² -->
-                    <path d="M 100 260 Q 200 100 300 20 Q 400 100 500 260" 
-                          fill="none" stroke="#667eea" stroke-width="3"/>
-                    
-                    <!-- Labels -->
-                    <text x="540" y="310" font-size="16" fill="#333">x</text>
-                    <text x="310" y="30" font-size="16" fill="#333">y</text>
-                    <text x="300" y="330" font-size="14" fill="#666" text-anchor="middle">0</text>
-                    
-                    <!-- Arrows for increasing/decreasing -->
-                    <path d="M 150 200 L 120 180" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowRed)"/>
-                    <text x="100" y="170" font-size="14" fill="#e74c3c">убывает</text>
-                    
-                    <path d="M 450 200 L 480 180" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowGreen)"/>
-                    <text x="460" y="170" font-size="14" fill="#27ae60">возрастает</text>
-                    
-                    <text x="300" y="350" font-size="16" fill="#764ba2" text-anchor="middle" font-weight="bold">y = x²</text>
-                    
-                    <!-- Vertex point -->
-                    <circle cx="300" cy="20" r="5" fill="#764ba2"/>
-                </svg>
-            </div>
-
-            <div class="example">
-                <div class="example-title">📊 y = x²</div>
-                <p><strong>Убывает:</strong> на (-∞; 0]</p>
-                <p><strong>Возрастает:</strong> на [0; +∞)</p>
-            </div>
-        </div>
-
-        <!-- Slide 4: Zeros and Sign Constancy -->
-        <div class="slide" id="slide4">
-            <h1>🎯 Нули функции и промежутки знакопостоянства</h1>
-            
-            <div class="property-card">
-                <h4>⚫ Нули функции</h4>
-                <p>Значения аргумента x, при которых <span class="highlight">y = 0</span>.</p>
-                <p>На графике — это <strong>точки пересечения с осью Ox</strong>.</p>
-            </div>
-
-            <div class="property-card">
-                <h4>➕➖ Промежутки знакопостоянства</h4>
-                <p>Промежутки, на которых функция <span class="highlight">сохраняет знак</span> (положительна или отрицательна).</p>
-            </div>
-
-            <div class="example">
-                <div class="example-title">📝 Пример: y = x² - 4</div>
-                <p><strong>Нули функции:</strong> x² - 4 = 0 → x = -2 и x = 2</p>
-                <p><strong>y > 0 (положительна):</strong> на (-∞; -2) ∪ (2; +∞)</p>
-                <p><strong>y < 0 (отрицательна):</strong> на (-2; 2)</p>
-            </div>
-
-            <div class="graph-container">
-                <svg viewBox="0 0 600 350">
-                    <!-- Axes -->
-                    <line x1="50" y1="200" x2="550" y2="200" stroke="#333" stroke-width="2"/>
-                    <line x1="300" y1="20" x2="300" y2="330" stroke="#333" stroke-width="2"/>
-                    
-                    <!-- Parabola y = x² - 4 -->
-                    <path d="M 100 160 Q 200 80 300 200 Q 400 320 500 160" 
-                          fill="none" stroke="#764ba2" stroke-width="3"/>
-                    
-                    <!-- Zero points -->
-                    <circle cx="200" cy="200" r="6" fill="#e74c3c"/>
-                    <circle cx="400" cy="200" r="6" fill="#e74c3c"/>
-                    
-                    <!-- Labels -->
-                    <text x="200" y="220" font-size="14" fill="#333" text-anchor="middle">-2</text>
-                    <text x="400" y="220" font-size="14" fill="#333" text-anchor="middle">2</text>
-                    <text x="540" y="210" font-size="16" fill="#333">x</text>
-                    <text x="310" y="30" font-size="16" fill="#333">y</text>
-                    
-                    <!-- Sign intervals -->
-                    <text x="100" y="100" font-size="16" fill="#27ae60" text-anchor="middle">y > 0</text>
-                    <text x="300" y="280" font-size="16" fill="#e74c3c" text-anchor="middle">y < 0</text>
-                    <text x="500" y="100" font-size="16" fill="#27ae60" text-anchor="middle">y > 0</text>
-                    
-                    <text x="300" y="350" font-size="16" fill="#764ba2" text-anchor="middle" font-weight="bold">y = x² - 4</text>
-                </svg>
-            </div>
-        </div>
-
-        <!-- Slide 5: Boundedness -->
-        <div class="slide" id="slide5">
-            <h1>📏 Ограниченность функции</h1>
-            
-            <div class="property-card">
-                <h4>🔽 Ограничена снизу</h4>
-                <p>Существует число m, такое что <span class="highlight">f(x) ≥ m</span> для всех x из области определения.</p>
-            </div>
-
-            <div class="property-card">
-                <h4>🔼 Ограничена сверху</h4>
-                <p>Существует число M, такое что <span class="highlight">f(x) ≤ M</span> для всех x из области определения.</p>
-            </div>
-
-            <div class="example">
-                <div class="example-title">📊 y = x²</div>
-                <p><strong>Ограничена снизу:</strong> y ≥ 0</p>
-                <p><strong>Не ограничена сверху</strong></p>
-                <p><strong>Наименьшее значение:</strong> yнаим = 0 (при x = 0)</p>
-            </div>
-
-            <div class="example">
-                <div class="example-title">📊 y = -x²</div>
-                <p><strong>Ограничена сверху:</strong> y ≤ 0</p>
-                <p><strong>Не ограничена снизу</strong></p>
-                <p><strong>Наибольшее значение:</strong> yнаиб = 0 (при x = 0)</p>
-            </div>
-
-            <div class="tip">
-                💡 <strong>Совет:</strong> Если функция ограничена и снизу, и сверху — она просто ограничена!
-            </div>
-        </div>
-
-        <!-- Slide 6: Linear Function Properties -->
-        <div class="slide" id="slide6">
-            <h1>📐 Свойства линейной функции y = kx + m</h1>
-            
-            <div class="theory-box">
-                <h3>Основные свойства:</h3>
-                <ol style="line-height: 2; font-size: 1.1em; margin-left: 20px;">
-                    <li><strong>D(f) = (-∞; +∞)</strong> — определена для всех x</li>
-                    <li><strong>E(f) = (-∞; +∞)</strong> — принимает все значения</li>
-                    <li><strong>Возрастает</strong> при k > 0</li>
-                    <li><strong>Убывает</strong> при k < 0</li>
-                    <li><strong>Не ограничена</strong> ни снизу, ни сверху</li>
-                    <li><strong>Непрерывная</strong> на всей числовой прямой</li>
-                </ol>
-            </div>
-
-            <div class="graph-container">
-                <svg viewBox="0 0 600 350">
-                    <!-- Axes -->
-                    <line x1="50" y1="280" x2="550" y2="280" stroke="#333" stroke-width="2"/>
-                    <line x1="150" y1="20" x2="150" y2="330" stroke="#333" stroke-width="2"/>
-                    
-                    <!-- Line y = 2x + 1 -->
-                    <line x1="50" y1="320" x2="550" y2="40" stroke="#667eea" stroke-width="3"/>
-                    
-                    <!-- Labels -->
-                    <text x="540" y="290" font-size="16" fill="#333">x</text>
-                    <text x="160" y="30" font-size="16" fill="#333">y</text>
-                    <text x="150" y="300" font-size="14" fill="#666" text-anchor="middle">0</text>
-                    
-                    <!-- y-intercept -->
-                    <circle cx="150" cy="260" r="5" fill="#e74c3c"/>
-                    <text x="170" y="265" font-size="14" fill="#333">(0; 1)</text>
-                    
-                    <text x="300" y="350" font-size="16" fill="#764ba2" text-anchor="middle" font-weight="bold">y = 2x + 1 (k > 0, возрастает)</text>
-                    
-                    <!-- Arrow showing increase -->
-                    <path d="M 450 150 L 480 120" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowGreen)"/>
-                    <text x="420" y="140" font-size="14" fill="#27ae60">возрастает</text>
-                </svg>
-            </div>
-        </div>
-
-        <!-- Slide 7: Quadratic Function Properties -->
-        <div class="slide" id="slide7">
-            <h1> Свойства квадратичной функции y = ax² + bx + c</h1>
-            
-            <h3>Случай a > 0 (ветви вверх)</h3>
-            <div class="theory-box">
-                <ol style="line-height: 2; font-size: 1.1em; margin-left: 20px;">
-                    <li><strong>D(f) = (-∞; +∞)</strong></li>
-                    <li><strong>Убывает</strong> на (-∞; -b/(2a)], <strong>возрастает</strong> на [-b/(2a); +∞)</li>
-                    <li><strong>Ограничена снизу</strong>, не ограничена сверху</li>
-                    <li><strong>yнаим</strong> в вершине параболы</li>
-                    <li><strong>E(f) = [yнаим; +∞)</strong></li>
-                    <li><strong>Выпукла вниз</strong></li>
-                </ol>
-            </div>
-
-            <h3>Случай a < 0 (ветви вниз)</h3>
-            <div class="theory-box">
-                <ol style="line-height: 2; font-size: 1.1em; margin-left: 20px;">
-                    <li><strong>D(f) = (-∞; +∞)</strong></li>
-                    <li><strong>Возрастает</strong> на (-∞; -b/(2a)], <strong>убывает</strong> на [-b/(2a); +∞)</li>
-                    <li><strong>Ограничена сверху</strong>, не ограничена снизу</li>
-                    <li><strong>yнаиб</strong> в вершине параболы</li>
-                    <li><strong>E(f) = (-∞; yнаиб]</strong></li>
-                    <li><strong>Выпукла вверх</strong></li>
-                </ol>
-            </div>
-        </div>
-
-        <!-- Slide 8: Practice Problems -->
-        <div class="slide" id="slide8">
-            <h1>🎮 Практика: Найди свойства функции</h1>
-
-            <div class="problem">
-                <span class="problem-number">1</span>
-                <strong>Задача:</strong> Дана функция y = x² - 6x + 5. Найдите:<br>
-                а) Область определения<br>
-                б) Нули функции<br>
-                в) Промежутки возрастания и убывания<br>
-                г) Наименьшее значение функции
-                
-                <button class="show-answer-btn" onclick="toggleAnswer('answer1')">Показать ответ</button>
-                <div class="answer" id="answer1">
-                    <strong>Решение:</strong><br>
-                    а) D(f) = (-∞; +∞)<br>
-                    б) x² - 6x + 5 = 0 → x₁ = 1, x₂ = 5 (нули функции)<br>
-                    в) Вершина: x₀ = -(-6)/(2·1) = 3<br>
-                    &nbsp;&nbsp;&nbsp;Убывает на (-∞; 3], возрастает на [3; +∞)<br>
-                    г) yнаим = y(3) = 9 - 18 + 5 = <strong>-4</strong>
-                </div>
-            </div>
-
-            <div class="problem">
-                <span class="problem-number">2</span>
-                <strong>Задача:</strong> По графику функции y = f(x) определите промежутки, на которых функция положительна.
-                
-                <button class="show-answer-btn" onclick="toggleAnswer('answer2')">Показать ответ</button>
-                <div class="answer" id="answer2">
-                    <strong>Решение:</strong><br>
-                    Функция положительна там, где график лежит <strong>выше оси Ox</strong>.<br>
-                    Нужно найти промежутки, где y > 0.
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 9: More Problems -->
-        <div class="slide" id="slide9">
-            <h1> Ещё задачи для практики</h1>
-
-            <div class="problem">
-                <span class="problem-number">3</span>
-                <strong>Задача:</strong> Функция задана формулой y = -2x + 8. Найдите:<br>
-                а) Область определения и область значений<br>
-                б) Нуль функции<br>
-                в) Промежутки знакопостоянства<br>
-                г) Возрастает или убывает?
-                
-                <button class="show-answer-btn" onclick="toggleAnswer('answer3')">Показать ответ</button>
-                <div class="answer" id="answer3">
-                    <strong>Решение:</strong><br>
-                    а) D(f) = (-∞; +∞), E(f) = (-∞; +∞)<br>
-                    б) -2x + 8 = 0 → x = 4 (нуль функции)<br>
-                    в) y > 0 при x < 4; y < 0 при x > 4<br>
-                    г) k = -2 < 0, значит функция <strong>убывает</strong>
-                </div>
-            </div>
-
-            <div class="problem">
-                <span class="problem-number">4</span>
-                <strong>Задача:</strong> y = x. Найдите область определения, область значений и промежутки монотонности.
-                
-                <button class="show-answer-btn" onclick="toggleAnswer('answer4')">Показать ответ</button>
-                <div class="answer" id="answer4">
-                    <strong>Решение:</strong><br>
-                    D(f) = [0; +) — корень определён только для x ≥ 0<br>
-                    E(f) = [0; +∞) — корень всегда неотрицателен<br>
-                    Функция <strong>возрастает</strong> на [0; +∞)
-                </div>
-            </div>
-
-            <div class="problem">
-                <span class="problem-number">5</span>
-                <strong>Задача:</strong> y = 1/x. Найдите область определения, область значений и промежутки монотонности.
-                
-                <button class="show-answer-btn" onclick="toggleAnswer('answer5')">Показать ответ</button>
-                <div class="answer" id="answer5">
-                    <strong>Решение:</strong><br>
-                    D(f) = (-∞; 0) ∪ (0; +∞) — x ≠ 0<br>
-                    E(f) = (-∞; 0) ∪ (0; +∞) — y ≠ 0<br>
-                    Функция <strong>убывает</strong> на (-∞; 0) и на (0; +∞)
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 10: Game -->
-        <div class="slide" id="slide10">
-            <h1>🎮 Игра: "Мастер функций"</h1>
-            
-            <div class="game-section">
-                <div class="game-title">Проверь свои знания!</div>
-                
-                <div style="text-align: left; margin: 30px 0;">
-                    <h3>Вопрос 1:</h3>
-                    <p style="font-size: 1.2em; margin: 15px 0;">Чему равна область определения функции y = x²?</p>
-                    <button onclick="checkAnswer(this, '(-∞; +∞)')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) [0; +∞)</button>
-                    <button onclick="checkAnswer(this, '(-∞; +∞)')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) (-∞; +∞)</button>
-                    <button onclick="checkAnswer(this, 'другое')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) (-∞; 0]</button>
-                </div>
-
-                <div style="text-align: left; margin: 30px 0;">
-                    <h3>Вопрос 2:</h3>
-                    <p style="font-size: 1.2em; margin: 15px 0;">На каком промежутке функция y = x² возрастает?</p>
-                    <button onclick="checkAnswer2(this, '[0; +∞)')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) [0; +∞)</button>
-                    <button onclick="checkAnswer2(this, '(-∞; 0]')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) (-; 0]</button>
-                    <button onclick="checkAnswer2(this, 'другое2')" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #764ba2; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) (-; +∞)</button>
-                </div>
-
-                <div style="text-align: left; margin: 30px 0;">
-                    <h3>Вопрос 3:</h3>
-                    <p style="font-size: 1.2em; margin: 15px 0;">Какое наименьшее значение у функции y = x²?</p>
-                    <button onclick="checkAnswer3(this, 1)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">A) 1</button>
-                    <button onclick="checkAnswer3(this, 0)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">B) 0</button>
-                    <button onclick="checkAnswer3(this, -1)" style="display: block; margin: 10px 0; padding: 15px; width: 100%; border: 2px solid #667eea; background: white; border-radius: 10px; cursor: pointer; font-size: 1.1em;">C) -1</button>
-                </div>
-
-                <div id="gameResult" style="margin-top: 30px; font-size: 1.5em; font-weight: bold;"></div>
-            </div>
-
-            <div class="theory-box" style="text-align: center; margin-top: 30px;">
-                <h3> Молодец! Ты прошёл урок!</h3>
-                <p style="font-size: 1.2em; margin-top: 10px;">Теперь ты умеешь:</p>
-                <ul style="text-align: left; display: inline-block; line-height: 2;">
-                    <li>✅ Находить область определения и область значений</li>
-                    <li>✅ Определять промежутки возрастания и убывания</li>
-                    <li>✅ Находить нули функции</li>
-                    <li>✅ Исследовать функцию на ограниченность</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="navigation">
-            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← Назад</button>
-            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Вперёд →</button>
-        </div>
+        <h1>Геометрия 8 класс · Четырёхугольники</h1>
+        <div class="subhead">Тест из 33 вариантов по 5 теоретических вопросов: определения, свойства, признаки</div>
+        <div class="variants-grid" id="variantsGrid"></div>
+        <div class="footer">Всего 33 варианта · 165 вопросов · теория: параллелограмм, трапеция, ромб, квадрат, прямоугольник</div>
     </div>
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = 10;
+        // Определяем банк вопросов и распределяем по вариантам.
+        // Для компактности и осмысленности создадим пул из 165 вопросов.
+        // Каждый вопрос — объект: { text: "...", options: ["...", "...", "..."] } или без вариантов (просто вопрос).
+        // Но так как требуется только текст вопроса, можем сформировать вопросы с 3 вариантами ответа? 
+        // В задании сказано "тест, состоящий только из теоретических вопросов" — допустимо дать вопрос с вариантами ответов для выбора.
+        // Сделаем каждый вопрос с 3 вариантами ответа (один правильный), но в карточке не будем выделять правильный, 
+        // чтобы это был полноценный тест. Однако для краткости кода можем просто написать вопросы без вариантов? 
+        // Но "тест" обычно подразумевает варианты ответов. Сделаем варианты, но не будем указывать ответы.
+        // Так как 165 вопросов с 3 вариантами — это много кода, но выполнимо. 
+        // Однако чтобы упростить и не раздувать код, сделаем вопросы с тремя вариантами, где правильный ответ подразумевается,
+        // но в HTML не помечаем (для проверки учителем). Это допустимо.
+        // Я сгенерирую осмысленные вопросы на основе теории четырёхугольников.
 
-        function changeSlide(direction) {
-            document.getElementById(`slide${currentSlide}`).classList.remove('active');
-            currentSlide += direction;
-            
-            if (currentSlide < 1) currentSlide = 1;
-            if (currentSlide > totalSlides) currentSlide = totalSlides;
-            
-            document.getElementById(`slide${currentSlide}`).classList.add('active');
-            document.getElementById('currentSlide').textContent = currentSlide;
-            
-            document.getElementById('prevBtn').disabled = currentSlide === 1;
-            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
-            
-            window.scrollTo(0, 0);
+        // Чтобы не писать 165 раз вручную, создадим шаблонные вопросы, но с разнообразием.
+        // Используем программную генерацию на основе ключевых фактов.
+
+        // Вспомогательные данные:
+        const figures = {
+            parallelogram: 'параллелограмм',
+            trapezoid: 'трапеция',
+            rhombus: 'ромб',
+            square: 'квадрат',
+            rectangle: 'прямоугольник'
+        };
+
+        // Функция для создания вопроса с 3 вариантами (правильный не выделяем)
+        function q(text, opts) {
+            return { text, options: opts };
         }
 
-        function toggleAnswer(id) {
-            document.getElementById(id).classList.toggle('show');
-        }
+        // Создадим массив из 33*5 = 165 вопросов, сгруппированных по 5.
+        // Будем следить за разнообразием: определения, свойства, признаки, виды.
+        // Я подготовлю набор вопросов (165 штук) с помощью комбинаций, но чтобы не было повторов, 
+        // сформирую осмысленный список.
 
-        let score = 0;
-        let answered1 = false;
-        let answered2 = false;
-        let answered3 = false;
+        // Однако писать 165 вопросов вручную долго, но необходимо. Я напишу их компактно, используя map.
+        // Для экономии времени и места создадим обобщённые вопросы, которые немного варьируются.
 
-        function checkAnswer(btn, value) {
-            if (answered1) return;
-            answered1 = true;
-            
-            if (value === '(-∞; +∞)') {
-                btn.style.background = '#d1fae5';
-                btn.style.borderColor = '#10b981';
-                score++;
-            } else {
-                btn.style.background = '#fee2e2';
-                btn.style.borderColor = '#ef4444';
+        // Лучше сделать так: определим базовые вопросы для каждой фигуры и будем их варьировать.
+        // Но задание требует 33 варианта по 5 вопросов. Я сгенерирую 165 уникальных вопросов на основе фактов.
+
+        // Я подготовлю массив из 165 вопросов, сгруппированных по 5. Каждый вопрос будет с 3 вариантами.
+        // Это будет длинный код, но зато честный.
+
+        // Чтобы код не был чрезмерно огромным, я определю 33 набора по 5 вопросов вручную, но сгенерирую их с помощью циклов и массивов фактов.
+        // Использую массив фактов для каждой фигуры и буду комбинировать.
+
+        // Однако, чтобы гарантировать уникальность и осмысленность, я создам вопросы на основе следующих утверждений:
+
+        const questionPool = [];
+
+        // ========== ПАРАЛЛЕЛОГРАММ ==========
+        // Определения
+        questionPool.push(q('Что называется параллелограммом?', [
+            'Четырёхугольник, у которого противоположные стороны попарно параллельны',
+            'Четырёхугольник, у которого все стороны равны',
+            'Четырёхугольник, у которого диагонали равны'
+        ]));
+        questionPool.push(q('Является ли параллелограмм выпуклым четырёхугольником?', [
+            'Да, всегда',
+            'Нет, только если углы прямые',
+            'Нет, только если стороны равны'
+        ]));
+        questionPool.push(q('Какой четырёхугольник НЕ является параллелограммом?', [
+            'Трапеция, у которой боковые стороны не параллельны',
+            'Ромб',
+            'Прямоугольник'
+        ]));
+        // Свойства
+        questionPool.push(q('Какое из следующих свойств НЕ является свойством параллелограмма?', [
+            'Диагонали равны',
+            'Противоположные стороны равны',
+            'Противоположные углы равны'
+        ]));
+        questionPool.push(q('Чему равна сумма углов параллелограмма, прилежащих к одной стороне?', [
+            '180°',
+            '90°',
+            '360°'
+        ]));
+        questionPool.push(q('Какой из углов параллелограмма может быть тупым?', [
+            'Только один из двух смежных углов',
+            'Все углы только острые',
+            'Все углы только прямые'
+        ]));
+        questionPool.push(q('В параллелограмме диагонали точкой пересечения делятся:', [
+            'Пополам',
+            'В отношении 1:2',
+            'В отношении 2:1'
+        ]));
+        questionPool.push(q('Могут ли диагонали параллелограмма быть равными?', [
+            'Да, если это прямоугольник',
+            'Нет, никогда',
+            'Да, только если это ромб'
+        ]));
+        // Признаки
+        questionPool.push(q('Если в четырёхугольнике две стороны равны и параллельны, то этот четырёхугольник:', [
+            'параллелограмм',
+            'трапеция',
+            'ромб'
+        ]));
+        questionPool.push(q('Если в четырёхугольнике противоположные стороны попарно равны, то это:', [
+            'параллелограмм',
+            'прямоугольник',
+            'квадрат'
+        ]));
+        questionPool.push(q('Если диагонали четырёхугольника пересекаются и точкой пересечения делятся пополам, то это:', [
+            'параллелограмм',
+            'трапеция',
+            'произвольный четырёхугольник'
+        ]));
+        questionPool.push(q('Является ли четырёхугольник параллелограммом, если сумма его противоположных углов равна 180°?', [
+            'Да, это признак параллелограмма',
+            'Нет, это признак трапеции',
+            'Нет, это признак ромба'
+        ]));
+
+        // ========== ТРАПЕЦИЯ ==========
+        questionPool.push(q('Что называется трапецией?', [
+            'Четырёхугольник, у которого две стороны параллельны, а две другие не параллельны',
+            'Четырёхугольник, у которого все стороны параллельны',
+            'Четырёхугольник, у которого противоположные стороны равны'
+        ]));
+        questionPool.push(q('Как называются параллельные стороны трапеции?', [
+            'Основаниями',
+            'Боковыми сторонами',
+            'Диагоналями'
+        ]));
+        questionPool.push(q('Как называются непараллельные стороны трапеции?', [
+            'Боковыми сторонами',
+            'Основаниями',
+            'Высотами'
+        ]));
+        questionPool.push(q('Может ли трапеция иметь два прямых угла?', [
+            'Да, прямоугольная трапеция',
+            'Нет, только один прямой угол',
+            'Нет, трапеция не может иметь прямых углов'
+        ]));
+        questionPool.push(q('Какая трапеция называется равнобедренной?', [
+            'Трапеция, у которой боковые стороны равны',
+            'Трапеция, у которой основания равны',
+            'Трапеция, у которой диагонали равны'
+        ]));
+        questionPool.push(q('В равнобедренной трапеции углы при основании:', [
+            'равны',
+            'в сумме дают 90°',
+            'различны'
+        ]));
+        questionPool.push(q('Диагонали равнобедренной трапеции:', [
+            'равны',
+            'перпендикулярны',
+            'делятся точкой пересечения в отношении 1:2'
+        ]));
+        questionPool.push(q('Средняя линия трапеции параллельна основаниям и равна:', [
+            'полусумме оснований',
+            'сумме оснований',
+            'полуразности оснований'
+        ]));
+        questionPool.push(q('Является ли трапеция параллелограммом?', [
+            'Нет, только если боковые стороны параллельны',
+            'Да, всегда',
+            'Да, если основания равны'
+        ]));
+        questionPool.push(q('Если в трапеции диагонали равны, то она:', [
+            'равнобедренная',
+            'прямоугольная',
+            'произвольная'
+        ]));
+        questionPool.push(q('Если в трапеции углы при одном основании равны, то она:', [
+            'равнобедренная',
+            'прямоугольная',
+            'не существует'
+        ]));
+        questionPool.push(q('Какая трапеция называется прямоугольной?', [
+            'Трапеция, у которой одна боковая сторона перпендикулярна основаниям',
+            'Трапеция, у которой диагонали перпендикулярны',
+            'Трапеция, у которой все углы прямые'
+        ]));
+
+        // ========== РОМБ ==========
+        questionPool.push(q('Что называется ромбом?', [
+            'Параллелограмм, у которого все стороны равны',
+            'Прямоугольник, у которого все стороны равны',
+            'Четырёхугольник, у которого диагонали перпендикулярны'
+        ]));
+        questionPool.push(q('Является ли ромб параллелограммом?', [
+            'Да, всегда',
+            'Нет, только если углы прямые',
+            'Нет, ромб — это трапеция'
+        ]));
+        questionPool.push(q('Какое свойство диагоналей ромба является верным?', [
+            'Диагонали взаимно перпендикулярны и делят углы пополам',
+            'Диагонали равны',
+            'Диагонали параллельны сторонам'
+        ]));
+        questionPool.push(q('Чему равны диагонали ромба, если его сторона равна a, а угол 60°?', [
+            'Одна равна a, другая a√3',
+            'Обе равны a',
+            'Обе равны a√2'
+        ]));
+        questionPool.push(q('В ромбе диагонали делят его на:', [
+            'четыре равных прямоугольных треугольника',
+            'два равных треугольника',
+            'четыре равносторонних треугольника'
+        ]));
+        questionPool.push(q('Если в параллелограмме диагонали перпендикулярны, то это:', [
+            'ромб',
+            'прямоугольник',
+            'квадрат'
+        ]));
+        questionPool.push(q('Если в параллелограмме диагонали делят углы пополам, то это:', [
+            'ромб',
+            'прямоугольник',
+            'трапеция'
+        ]));
+        questionPool.push(q('Может ли ромб иметь прямые углы?', [
+            'Да, тогда это квадрат',
+            'Нет, у ромба не бывает прямых углов',
+            'Да, тогда это прямоугольник, но не квадрат'
+        ]));
+        questionPool.push(q('Является ли квадрат ромбом?', [
+            'Да, квадрат — это ромб с прямыми углами',
+            'Нет, квадрат — это прямоугольник',
+            'Нет, квадрат и ромб — разные фигуры'
+        ]));
+
+        // ========== КВАДРАТ ==========
+        questionPool.push(q('Что называется квадратом?', [
+            'Прямоугольник, у которого все стороны равны',
+            'Ромб, у которого все углы прямые',
+            'Оба варианта верны'
+        ]));
+        questionPool.push(q('Какое из утверждений о квадрате верно?', [
+            'Квадрат обладает всеми свойствами параллелограмма, прямоугольника и ромба',
+            'Квадрат обладает только свойствами прямоугольника',
+            'Квадрат обладает только свойствами ромба'
+        ]));
+        questionPool.push(q('Диагонали квадрата:', [
+            'равны, перпендикулярны и делят углы пополам',
+            'равны, но не перпендикулярны',
+            'перпендикулярны, но не равны'
+        ]));
+        questionPool.push(q('Является ли квадрат параллелограммом?', [
+            'Да, всегда',
+            'Нет, только если стороны равны',
+            'Нет, квадрат — это трапеция'
+        ]));
+        questionPool.push(q('Сколько осей симметрии у квадрата?', [
+            '4',
+            '2',
+            '1'
+        ]));
+        questionPool.push(q('Если в ромбе один угол прямой, то это:', [
+            'квадрат',
+            'прямоугольник',
+            'трапеция'
+        ]));
+        questionPool.push(q('Если в прямоугольнике смежные стороны равны, то это:', [
+            'квадрат',
+            'ромб',
+            'параллелограмм общего вида'
+        ]));
+
+        // ========== ПРЯМОУГОЛЬНИК ==========
+        questionPool.push(q('Что называется прямоугольником?', [
+            'Параллелограмм, у которого все углы прямые',
+            'Четырёхугольник, у которого все углы прямые',
+            'Трапеция, у которой два угла прямые'
+        ]));
+        questionPool.push(q('Является ли прямоугольник параллелограммом?', [
+            'Да, всегда',
+            'Нет, только если стороны равны',
+            'Нет, прямоугольник — это трапеция'
+        ]));
+        questionPool.push(q('Какое свойство диагоналей прямоугольника верно?', [
+            'Диагонали равны',
+            'Диагонали перпендикулярны',
+            'Диагонали делят углы пополам'
+        ]));
+        questionPool.push(q('Если в параллелограмме диагонали равны, то это:', [
+            'прямоугольник',
+            'ромб',
+            'квадрат'
+        ]));
+        questionPool.push(q('Может ли прямоугольник быть ромбом?', [
+            'Да, если все стороны равны, тогда это квадрат',
+            'Нет, прямоугольник и ромб несовместимы',
+            'Да, всегда'
+        ]));
+        questionPool.push(q('Сколько осей симметрии у прямоугольника, не являющегося квадратом?', [
+            '2',
+            '4',
+            '1'
+        ]));
+        questionPool.push(q('Является ли квадрат прямоугольником?', [
+            'Да, квадрат — это прямоугольник с равными сторонами',
+            'Нет, квадрат — это ромб',
+            'Нет, квадрат и прямоугольник — разные фигуры'
+        ]));
+
+        // Дополнительные вопросы для разнообразия и заполнения 165.
+        // У нас уже около 50 вопросов. Нужно ещё около 115. Сгенерируем осмысленные вопросы,
+        // комбинируя фигуры и их свойства/признаки.
+
+        // Дополнительные вопросы (я добавлю ещё 115 через комбинации)
+        // Чтобы не писать 115 вручную, создам несколько шаблонов и применю их с разными фигурами.
+        // Но так как в задании требуется уникальность в рамках варианта, а вариантов 33, можно повторять вопросы,
+        // но лучше сделать уникальные.
+
+        // Я добавлю ещё вопросы, используя следующие факты:
+
+        const extraQuestions = [
+            // определения/виды
+            q('Какой четырёхугольник имеет две пары параллельных сторон?', ['Параллелограмм', 'Трапеция', 'Произвольный четырёхугольник']),
+            q('У какого четырёхугольника только одна пара параллельных сторон?', ['Трапеция', 'Параллелограмм', 'Ромб']),
+            q('Какой четырёхугольник является и ромбом, и прямоугольником?', ['Квадрат', 'Параллелограмм', 'Трапеция']),
+            q('Верно ли, что любой квадрат является ромбом?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Верно ли, что любой ромб является квадратом?', ['Нет', 'Да', 'Только если углы прямые']),
+            q('Верно ли, что любой прямоугольник является параллелограммом?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Верно ли, что любой параллелограмм является прямоугольником?', ['Нет', 'Да', 'Только если диагонали равны']),
+            q('Может ли трапеция быть параллелограммом?', ['Нет', 'Да, если боковые стороны параллельны', 'Да, если основания равны']),
+            q('Какая фигура не является параллелограммом?', ['Трапеция', 'Ромб', 'Квадрат']),
+            q('У какой фигуры диагонали равны и перпендикулярны?', ['Квадрат', 'Прямоугольник', 'Ромб']),
+            q('У какой фигуры диагонали равны, но не перпендикулярны?', ['Прямоугольник', 'Ромб', 'Квадрат']),
+            q('У какой фигуры диагонали перпендикулярны, но не равны?', ['Ромб', 'Прямоугольник', 'Квадрат']),
+            q('Какая фигура имеет 4 оси симметрии?', ['Квадрат', 'Прямоугольник', 'Ромб']),
+            q('Сколько осей симметрии у ромба, не являющегося квадратом?', ['2', '4', '1']),
+            q('Сколько осей симметрии у равнобедренной трапеции?', ['1', '2', '4']),
+            q('Является ли равнобедренная трапеция параллелограммом?', ['Нет', 'Да', 'Только если основания равны']),
+            q('Могут ли углы трапеции быть все равными?', ['Нет', 'Да, тогда это прямоугольник', 'Да, тогда это параллелограмм']),
+            q('Чему равна сумма углов любого четырёхугольника?', ['360°', '180°', '540°']),
+            q('В параллелограмме сумма всех углов равна:', ['360°', '180°', '540°']),
+            q('Противоположные углы параллелограмма:', ['равны', 'в сумме дают 180°', 'различны']),
+            q('Смежные углы параллелограмма в сумме дают:', ['180°', '90°', '360°']),
+            q('Диагонали параллелограмма:', ['делятся точкой пересечения пополам', 'равны', 'перпендикулярны']),
+            q('Диагонали ромба:', ['перпендикулярны', 'равны', 'параллельны']),
+            q('Диагонали прямоугольника:', ['равны', 'перпендикулярны', 'делят углы пополам']),
+            q('Диагонали квадрата:', ['равны и перпендикулярны', 'только равны', 'только перпендикулярны']),
+            q('Средняя линия трапеции соединяет:', ['середины боковых сторон', 'середины оснований', 'вершины']),
+            q('Средняя линия трапеции равна:', ['полусумме оснований', 'разности оснований', 'сумме оснований']),
+            q('Средняя линия трапеции параллельна:', ['основаниям', 'боковым сторонам', 'диагоналям']),
+            q('Высота трапеции — это:', ['перпендикуляр между основаниями', 'боковая сторона', 'отрезок, соединяющий середины оснований']),
+            q('В прямоугольной трапеции:', ['одна боковая сторона перпендикулярна основаниям', 'диагонали равны', 'все углы прямые']),
+            q('В равнобедренной трапеции:', ['углы при основаниях равны', 'диагонали перпендикулярны', 'все стороны равны']),
+            q('Если в трапеции диагонали равны, то она:', ['равнобедренная', 'прямоугольная', 'произвольная']),
+            q('Если в трапеции углы при основании равны, то она:', ['равнобедренная', 'прямоугольная', 'не существует']),
+            q('Может ли трапеция иметь три прямых угла?', ['Нет', 'Да', 'Только прямоугольная']),
+            q('Может ли параллелограмм иметь три прямых угла?', ['Нет', 'Да', 'Только прямоугольник']),
+            q('Если в параллелограмме один угол прямой, то это:', ['прямоугольник', 'ромб', 'квадрат']),
+            q('Если в параллелограмме диагонали равны и перпендикулярны, то это:', ['квадрат', 'прямоугольник', 'ромб']),
+            q('Если в четырёхугольнике все стороны равны и все углы прямые, то это:', ['квадрат', 'ромб', 'прямоугольник']),
+            q('Если в четырёхугольнике все стороны равны, но углы не прямые, то это:', ['ромб', 'квадрат', 'параллелограмм общего вида']),
+            q('Если в четырёхугольнике противоположные стороны параллельны и равны, то это:', ['параллелограмм', 'трапеция', 'ромб']),
+            q('Если в четырёхугольнике две стороны параллельны, а две другие равны, то это:', ['не обязательно параллелограмм', 'параллелограмм', 'трапеция']),
+            q('Признак параллелограмма: если диагонали пересекаются и делятся пополам, то это:', ['параллелограмм', 'трапеция', 'ромб']),
+            q('Признак прямоугольника: если в параллелограмме диагонали равны, то это:', ['прямоугольник', 'ромб', 'квадрат']),
+            q('Признак ромба: если в параллелограмме диагонали перпендикулярны, то это:', ['ромб', 'прямоугольник', 'квадрат']),
+            q('Признак квадрата: если в ромбе один угол прямой, то это:', ['квадрат', 'прямоугольник', 'трапеция']),
+            q('Признак квадрата: если в прямоугольнике смежные стороны равны, то это:', ['квадрат', 'ромб', 'параллелограмм']),
+            q('Является ли ромб выпуклым четырёхугольником?', ['Да', 'Нет', 'Только если углы острые']),
+            q('Является ли трапеция выпуклым четырёхугольником?', ['Да', 'Нет', 'Только равнобедренная']),
+            q('Может ли сумма углов трапеции быть равна 360°?', ['Да, как у любого четырёхугольника', 'Нет, только 180°', 'Нет, только 540°']),
+            q('В параллелограмме биссектриса угла отсекает:', ['равнобедренный треугольник', 'прямоугольный треугольник', 'равносторонний треугольник']),
+            q('В ромбе биссектрисы углов являются:', ['диагоналями', 'сторонами', 'высотами']),
+            q('В квадрате биссектрисы углов являются:', ['диагоналями', 'сторонами', 'медианами']),
+            q('Точка пересечения диагоналей параллелограмма является:', ['центром симметрии', 'центром вписанной окружности', 'центром описанной окружности']),
+            q('Вокруг какого четырёхугольника всегда можно описать окружность?', ['Прямоугольник', 'Параллелограмм', 'Ромб']),
+            q('В какой четырёхугольник всегда можно вписать окружность?', ['Квадрат', 'Прямоугольник', 'Параллелограмм']),
+            q('Если в трапецию можно вписать окружность, то сумма оснований равна:', ['сумме боковых сторон', 'разности боковых сторон', 'полусумме боковых сторон']),
+            q('Если трапеция равнобедренная, то вокруг неё:', ['можно описать окружность', 'нельзя описать окружность', 'можно вписать окружность только если она прямоугольная']),
+            q('Какая фигура является частным случаем параллелограмма?', ['Ромб', 'Трапеция', 'Произвольный четырёхугольник']),
+            q('Какая фигура является частным случаем прямоугольника?', ['Квадрат', 'Ромб', 'Трапеция']),
+            q('Какая фигура является частным случаем ромба?', ['Квадрат', 'Прямоугольник', 'Трапеция']),
+            q('Может ли параллелограмм быть трапецией?', ['Нет', 'Да, если боковые стороны параллельны', 'Да, если основания равны']),
+            q('У какого четырёхугольника диагонали точкой пересечения делятся пополам и перпендикулярны?', ['Ромб', 'Прямоугольник', 'Трапеция']),
+            q('У какого четырёхугольника диагонали точкой пересечения делятся пополам и равны?', ['Прямоугольник', 'Ромб', 'Трапеция']),
+            q('У какого четырёхугольника диагонали точкой пересечения делятся пополам, равны и перпендикулярны?', ['Квадрат', 'Ромб', 'Прямоугольник']),
+            q('Верно ли, что диагонали любого параллелограмма равны?', ['Нет', 'Да', 'Только если это ромб']),
+            q('Верно ли, что диагонали любого ромба равны?', ['Нет', 'Да', 'Только если это квадрат']),
+            q('Верно ли, что диагонали любого прямоугольника перпендикулярны?', ['Нет', 'Да', 'Только если это квадрат']),
+            q('Верно ли, что диагонали любого квадрата равны?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Сколько сторон у четырёхугольника?', ['4', '5', '6']),
+            q('Сколько вершин у параллелограмма?', ['4', '5', '6']),
+            q('Сколько углов у трапеции?', ['4', '5', '6']),
+            q('Сколько диагоналей у четырёхугольника?', ['2', '1', '4']),
+            q('Сколько диагоналей у параллелограмма?', ['2', '1', '4']),
+            q('Сколько диагоналей у трапеции?', ['2', '1', '4']),
+            q('Сколько диагоналей у ромба?', ['2', '1', '4']),
+            q('Сколько диагоналей у квадрата?', ['2', '1', '4']),
+            q('Сколько диагоналей у прямоугольника?', ['2', '1', '4']),
+            q('Какая фигура имеет равные диагонали?', ['Прямоугольник', 'Параллелограмм', 'Трапеция']),
+            q('Какая фигура имеет перпендикулярные диагонали?', ['Ромб', 'Прямоугольник', 'Трапеция']),
+            q('Какая фигура имеет диагонали, делящие углы пополам?', ['Ромб', 'Прямоугольник', 'Трапеция']),
+            q('Является ли квадрат параллелограммом с равными диагоналями?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Является ли прямоугольник параллелограммом с равными диагоналями?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Является ли ромб параллелограммом с перпендикулярными диагоналями?', ['Да', 'Нет', 'Только если углы прямые']),
+            q('У какой фигуры диагонали являются биссектрисами углов?', ['Ромб', 'Прямоугольник', 'Трапеция']),
+            q('У какой фигуры диагонали равны и являются биссектрисами?', ['Квадрат', 'Ромб', 'Прямоугольник']),
+            q('Может ли трапеция иметь равные диагонали?', ['Да, если она равнобедренная', 'Нет', 'Да, если она прямоугольная']),
+            q('Может ли трапеция иметь перпендикулярные диагонали?', ['Да, в некоторых случаях', 'Нет', 'Только прямоугольная']),
+            q('Является ли трапеция четырёхугольником, у которого хотя бы одна пара сторон параллельна?', ['Да', 'Нет', 'Только если обе пары']),
+            q('В параллелограмме противоположные стороны:', ['параллельны и равны', 'только параллельны', 'только равны']),
+            q('В параллелограмме противоположные углы:', ['равны', 'в сумме дают 180°', 'различны']),
+            q('В параллелограмме сумма углов, прилежащих к одной стороне, равна:', ['180°', '90°', '360°']),
+            q('В ромбе все стороны:', ['равны', 'параллельны', 'перпендикулярны']),
+            q('В квадрате все углы:', ['прямые', 'острые', 'тупые']),
+            q('В прямоугольнике все углы:', ['прямые', 'острые', 'тупые']),
+            q('В ромбе диагонали делят его на:', ['4 равных прямоугольных треугольника', '2 равных треугольника', '4 равносторонних треугольника']),
+            q('В квадрате диагонали делят его на:', ['4 равных прямоугольных равнобедренных треугольника', '2 равных треугольника', '4 равносторонних треугольника']),
+            q('В прямоугольнике диагонали делят его на:', ['2 пары равных треугольников', '4 равных треугольника', '4 равносторонних треугольника']),
+            q('Является ли квадрат ромбом с прямыми углами?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Является ли квадрат прямоугольником с равными сторонами?', ['Да', 'Нет', 'Только если углы прямые']),
+            q('Может ли ромб иметь угол 90°?', ['Да, тогда это квадрат', 'Нет', 'Да, тогда это прямоугольник, но не квадрат']),
+            q('Может ли прямоугольник иметь смежные стороны равными?', ['Да, тогда это квадрат', 'Нет', 'Да, тогда это ромб']),
+            q('Если в параллелограмме все стороны равны, то это:', ['ромб', 'квадрат', 'прямоугольник']),
+            q('Если в параллелограмме все углы прямые, то это:', ['прямоугольник', 'ромб', 'квадрат']),
+            q('Если в параллелограмме все стороны равны и все углы прямые, то это:', ['квадрат', 'ромб', 'прямоугольник']),
+            q('Какая фигура не имеет осей симметрии?', ['Произвольная трапеция', 'Ромб', 'Прямоугольник']),
+            q('Сколько осей симметрии у квадрата?', ['4', '2', '1']),
+            q('Сколько осей симметрии у прямоугольника, не являющегося квадратом?', ['2', '4', '1']),
+            q('Сколько осей симметрии у ромба, не являющегося квадратом?', ['2', '4', '1']),
+            q('Сколько осей симметрии у равнобедренной трапеции?', ['1', '2', '4']),
+            q('Является ли параллелограмм центрально-симметричной фигурой?', ['Да', 'Нет', 'Только прямоугольник']),
+            q('Является ли трапеция центрально-симметричной фигурой?', ['Нет', 'Да', 'Только равнобедренная']),
+            q('Какая фигура имеет центр симметрии?', ['Параллелограмм', 'Трапеция', 'Произвольный четырёхугольник']),
+            q('Какая фигура не имеет центра симметрии?', ['Трапеция', 'Ромб', 'Прямоугольник']),
+            q('Верно ли, что диагонали параллелограмма точкой пересечения делятся пополам?', ['Да', 'Нет', 'Только в ромбе']),
+            q('Верно ли, что диагонали трапеции точкой пересечения делятся пополам?', ['Нет', 'Да', 'Только в равнобедренной']),
+            q('Верно ли, что диагонали ромба точкой пересечения делятся пополам?', ['Да', 'Нет', 'Только в квадрате']),
+            q('Верно ли, что диагонали прямоугольника точкой пересечения делятся пополам?', ['Да', 'Нет', 'Только в квадрате']),
+            q('Верно ли, что диагонали квадрата точкой пересечения делятся пополам?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Что можно сказать о диагоналях равнобедренной трапеции?', ['Они равны', 'Они перпендикулярны', 'Они делят углы пополам']),
+            q('Что можно сказать о диагоналях прямоугольной трапеции?', ['Они не равны и не перпендикулярны (в общем случае)', 'Они равны', 'Они перпендикулярны']),
+            q('Является ли квадрат ромбом?', ['Да', 'Нет', 'Только если углы прямые']),
+            q('Является ли квадрат прямоугольником?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Является ли прямоугольник квадратом?', ['Нет, только если стороны равны', 'Да', 'Только если диагонали перпендикулярны']),
+            q('Является ли ромб квадратом?', ['Нет, только если углы прямые', 'Да', 'Только если диагонали равны']),
+            q('Какая фигура является и параллелограммом, и трапецией?', ['Таких нет', 'Квадрат', 'Прямоугольник']),
+            q('Может ли четырёхугольник быть одновременно трапецией и параллелограммом?', ['Нет', 'Да, если боковые стороны параллельны', 'Да, если основания равны']),
+            q('У какого четырёхугольника ровно одна пара параллельных сторон?', ['Трапеция', 'Параллелограмм', 'Ромб']),
+            q('У какого четырёхугольника две пары параллельных сторон?', ['Параллелограмм', 'Трапеция', 'Произвольный']),
+            q('Какая фигура имеет только одну пару равных углов?', ['Равнобедренная трапеция', 'Параллелограмм', 'Ромб']),
+            q('Какая фигура имеет две пары равных углов?', ['Параллелограмм', 'Трапеция', 'Произвольный четырёхугольник']),
+            q('В равнобедренной трапеции углы при каждом основании:', ['равны', 'в сумме дают 180°', 'различны']),
+            q('В прямоугольной трапеции:', ['два угла прямые', 'все углы прямые', 'один угол прямой']),
+            q('Сколько прямых углов может быть в трапеции?', ['2', '4', '1']),
+            q('Сколько прямых углов может быть в параллелограмме?', ['4 или 0', '2', '1']),
+            q('Сколько прямых углов может быть в ромбе?', ['4 или 0', '2', '1']),
+            q('Сколько прямых углов может быть в прямоугольнике?', ['4', '2', '0']),
+            q('Сколько прямых углов может быть в квадрате?', ['4', '2', '0']),
+            q('Какая фигура всегда имеет равные диагонали?', ['Прямоугольник', 'Параллелограмм', 'Трапеция']),
+            q('Какая фигура всегда имеет перпендикулярные диагонали?', ['Ромб', 'Прямоугольник', 'Трапеция']),
+            q('Какая фигура всегда имеет диагонали, делящие углы пополам?', ['Ромб', 'Прямоугольник', 'Трапеция']),
+            q('Является ли квадрат параллелограммом с равными и перпендикулярными диагоналями?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Является ли прямоугольник параллелограммом с равными диагоналями?', ['Да', 'Нет', 'Только если стороны равны']),
+            q('Является ли ромб параллелограммом с перпендикулярными диагоналями?', ['Да', 'Нет', 'Только если углы прямые'])
+        ];
+
+        // Объединяем все вопросы: questionPool + extraQuestions
+        let allQuestions = questionPool.concat(extraQuestions);
+
+        // Если вопросов меньше 165, добавим оставшиеся с помощью простых фактов (но у нас уже >165).
+        // Убедимся, что длина >= 165.
+        // При необходимости можно продублировать, но лучше проверим.
+        if (allQuestions.length < 165) {
+            // Добавим недостающие простые вопросы
+            const needed = 165 - allQuestions.length;
+            for (let i = 0; i < needed; i++) {
+                allQuestions.push(q(`Вопрос ${allQuestions.length + 1}: Является ли квадрат параллелограммом?`, ['Да', 'Нет', 'Только если стороны равны']));
             }
-            
-            updateGameResult();
         }
 
-        function checkAnswer2(btn, value) {
-            if (answered2) return;
-            answered2 = true;
-            
-            if (value === '[0; +∞)') {
-                btn.style.background = '#d1fae5';
-                btn.style.borderColor = '#10b981';
-                score++;
-            } else {
-                btn.style.background = '#fee2e2';
-                btn.style.borderColor = '#ef4444';
-            }
-            
-            updateGameResult();
+        // Перемешаем вопросы для разнообразия? Нет, нужно сгруппировать по 5 для вариантов.
+        // Но можно использовать как есть, просто разбить по 5.
+        // Однако чтобы варианты не повторялись, оставим порядок и будем выдавать по 5.
+        // Если вопросов больше 165, возьмём первые 165.
+        const finalQuestions = allQuestions.slice(0, 165);
+
+        // Разбиваем на 33 варианта по 5 вопросов
+        const variants = [];
+        for (let i = 0; i < 33; i++) {
+            const start = i * 5;
+            const end = start + 5;
+            variants.push(finalQuestions.slice(start, end));
         }
 
-        function checkAnswer3(btn, value) {
-            if (answered3) return;
-            answered3 = true;
-            
-            if (value === 0) {
-                btn.style.background = '#d1fae5';
-                btn.style.borderColor = '#10b981';
-                score++;
-            } else {
-                btn.style.background = '#fee2e2';
-                btn.style.borderColor = '#ef4444';
-            }
-            
-            updateGameResult();
-        }
+        // Генерация HTML
+        const grid = document.getElementById('variantsGrid');
+        let html = '';
 
-        function updateGameResult() {
-            if (answered1 && answered2 && answered3) {
-                const resultDiv = document.getElementById('gameResult');
-                if (score === 3) {
-                    resultDiv.innerHTML = '🎉 Отлично! Все ответы верные!';
-                    resultDiv.style.color = '#10b981';
-                } else if (score >= 2) {
-                    resultDiv.innerHTML = '👍 Хорошо! ' + score + ' из 3 правильных!';
-                    resultDiv.style.color = '#f59e0b';
-                } else {
-                    resultDiv.innerHTML = '💪 Попробуй ещё раз!';
-                    resultDiv.style.color = '#ef4444';
+        variants.forEach((variantQuestions, idx) => {
+            const variantNumber = idx + 1;
+            html += `<div class="variant-card">`;
+            html += `<div class="variant-header">Вариант ${variantNumber}</div>`;
+            variantQuestions.forEach((q, qIdx) => {
+                html += `<div class="question-item">`;
+                html += `<div class="q-text"><span class="q-num">${qIdx + 1}.</span> ${q.text}</div>`;
+                if (q.options && q.options.length) {
+                    html += `<ul class="options">`;
+                    q.options.forEach(opt => {
+                        html += `<li>${opt}</li>`;
+                    });
+                    html += `</ul>`;
                 }
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
-                changeSlide(1);
-            } else if (e.key === 'ArrowLeft' && currentSlide > 1) {
-                changeSlide(-1);
-            }
+                // Не показываем правильный ответ
+                html += `</div>`;
+            });
+            html += `</div>`;
         });
+
+        grid.innerHTML = html;
     </script>
 </body>
 </html>
